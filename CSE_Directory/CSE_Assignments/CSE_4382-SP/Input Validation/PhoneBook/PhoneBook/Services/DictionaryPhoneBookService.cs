@@ -40,7 +40,7 @@ namespace PhoneBook.Services
             _db.Add(phoneBookEntry);
             try {
                 _db.SaveChanges();
-            } catch(DbUpdateException ex) {
+            } catch(DbUpdateException) {
                 throw new ArgumentException($"An entry with the name \"{phoneBookEntry.Name}\" already exists.");}
         }
         public void DeleteByName(string name)
@@ -69,9 +69,11 @@ namespace PhoneBook.Services
                 throw new ArgumentException(ValidationService._numberErr);}
             
             // locate entry
-            PhoneBookEntry entry = null;
+            PhoneBookEntry? entry = null;
             foreach( PhoneBookEntry pbe in _db.Set<PhoneBookEntry>())
             {
+                if (pbe.PhoneNumber == null)
+                    throw new ArgumentNullException("No Phone number");
                 if(pbe.PhoneNumber.Equals(number))
                 {
                     entry = pbe;
