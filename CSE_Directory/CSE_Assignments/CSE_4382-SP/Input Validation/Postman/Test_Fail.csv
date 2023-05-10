@@ -1,0 +1,10 @@
+name,number,valid
+"Ron O''Henry","123","false"
+"Ron O'Henry-Smith-Barnes","1/703/123/1234","false"
+"L33t Hacker","Nr 102-123-1234","false"
+"<Script>alert(“XSS”)</Script>","<script>alert(“XSS”)</script>","false"
+"Brad Everett Samuel Smith","7031111234","false"
+"select * from users;","+1234 (201) 123-1234","false"
+"Albus Percival Wolfric Brian Dumbledore","(001) 123-1234","false"
+"Bob","+01 (703) 123-1234","false"
+"John","(703) 123-1234 ext 204","false"

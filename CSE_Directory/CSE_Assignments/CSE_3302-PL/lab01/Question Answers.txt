@@ -1,0 +1,30 @@
+1) Was one language easier or faster to write the code for this?
+   If so, describe in detail why, as in what about the language made
+   that the case.
+
+A: Personally Java was easiest because I've used it for 6 years. From
+   an agnostic standpoint, Python is the easiest. Python didn't need any
+   extra handling for weird cases. No need for excluding . or .., and no 
+   need to reset a string buffer for the current path. Java was also easy,
+   but needed the verbose OOP overhead that it has. C was the worst by
+   far; it needed buffers, memory copies, manual directory traversal, and
+   manual file stat retrieval. Java and Python did this all for you so you
+   just need to deal with the core logic of the problem.
+
+
+2) Even though a language may not (e.g. FORTRAN) support recursion, describe
+   how you could write a program to produce the same results without using
+   recursion. Would that approach have any limitations and if so, what would
+   they be?
+
+A: In every language (that i know) you can manually build your own stack
+   and use it in a for loop. Anytime a new 'function' would be called, its data is put
+   on your own stack and the for loop goes to the 'function' that was just put
+   'called'. When a 'function' is complete, the for loop goes to the previous 'function'
+   on the stack. This is a very complicated way to implement recursion in a for
+   loop. This implementation is equivelent to recursion, just you manually control
+   your stack. If you are unable to make a stack data-structure, then this manual
+   form of recursion can't be used. There should not be any limitations to
+   manually implementing recursion with a stack and loop. Implementing the stack
+   with all the information needed for each future loop of the for loop is
+   very difficult though.

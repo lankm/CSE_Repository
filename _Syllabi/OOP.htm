@@ -1,0 +1,507 @@
+
+<!-- saved from url=(0014)about:internet -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> <title>CSE 1325</title>
+
+        <style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+
+    <script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script></head> <body>
+
+<h1>
+
+<!--
+<mark>DEPARTMENTAL FINAL: MONDAY, 12/9 | 5:30-8:00 PM.  LET ME KNOW ASAP IF YOU HAVE A CONFLICT WITH THIS TIME</mark>
+-->
+<br>
+<br>
+
+
+CSE 1325 - Section 004 - Spring 2022 <br>
+Object-Oriented Programming
+</h1>
+
+
+        <p>
+
+
+<!--<a href=http://omega.uta.edu/~fiq8745/practice.html><h1>EXTRA PRACTICE</h1></a>
+-->
+    <b>Instructor:</b> Fadiah Qudah <br>
+    <b>Email:</b> fadiah.qudah@mavs.uta.edu <b> ***NOTE: DO NOT EMAIL FADIAH.QUDAH@UTA.EDU***</b><br>
+    <b>Class Times:</b> TuTh 3:30-4:50 | Room: NH 229<br>
+    <b>Office:</b> N/A<br>
+    <b>Office Hours:</b> By appointment on Microsoft Teams<b></b><br><br>
+
+
+
+    <!--<b> OPTIONAL Textbook</b>: TBA<br>     <br> -->
+
+
+
+<b><mark>Teaching Assistant:</mark></b> Check Canvas for TA Info<br>
+
+<br>
+
+</p><hr>
+<h1>Course Description</h1>
+
+<p>
+<b>Description of Course Content: </b>
+
+Object-oriented  concepts  and  application.  Object-oriented  program  design and  implementation  using  Java  with  basic  software  development  process  management  and  version  control.  Additional  topics  may  include  graphical  user  interfaces,  collection  classes,  templates,  reflection,  reusability,  and  concurrency.  Projects  involve  extensive  software  design  and  programming.
+</p><p>
+
+</p><p>
+
+
+<b> Student Learning Outcomes:</b>
+
+</p><ul>
+<li>Object-Oriented  Theory:  Encapsulation,  inheritance,  and  polymorphism
+</li><li>Object-Oriented  Design:  UML  and  patterns
+</li><li>Input  and  Output:  Files,  keyboards,  streams,  and  exception  handling
+</li><li>Using  Application  Programming  Interfaces  (API)  and  libraries
+</li><li>Command  Line  Interfaces  (CLI)  and  Graphical  User  Interfaces  (GUI)
+</li></ul>
+
+
+
+
+<hr>
+
+<h1>Assignments</h1>
+
+<p>
+
+
+    There will be several programming assignments in this course.  All assignments are completion grades and will have equal weight.
+  </p><ul>
+  
+  </li><li>
+  All assignments must be submitted via Canvas.
+   </li><li>
+  If you make multiple submissions to Canvas for the same assignment, only the latest submission will be graded.
+  </li><li>
+  After you submit your solutions, you should download them and make sure that you submitted the correct files. Every semester, several students ask for leniency, claiming that they did the assignment, but accidentally submitted the wrong files. These claims are often legitimate, but, unfortunately, no grade leniency will be accorded to such claims. It is each student's responsibility to doublecheck their submissions.
+  </li><li>
+  If, for whatever reason, you cannot submit on Canvas, e-mail your solution to the instructor and ALL teaching assistants, from your UTA account, BEFORE the submission deadline. This will serve as proof that you did the work. You still have to offer a very convincing explanation as to why you were not able to submit on Canvas.
+  </li></ul>
+  
+  Students are allowed to work with fellow CSE 1325 students on the assignments. At the same time, learning to solve problems on your own is the most important practice for the midterm and final exams.
+  
+  <hr>
+
+
+
+
+  <h1>
+    Quizzes
+    
+    </h1>
+    
+    There will be several quizzes in this course.  They will be given online on Canvas during class time-you MUST have a webcam to take them.  All quizzes will have equal weight.  No make-up quizzes will be offered without some sort of documentation.  If you miss a quiz for some documented reason, you must let me know within 3 days the retake plan-if you wait longer, no retake will be offered. <br><br>
+    
+  
+  
+  <hr>
+
+
+<h1>
+Project
+
+</h1>
+
+This will be discussed later in the semester.
+
+<hr>
+
+<h1>Attendance Policy</h1>
+
+At The University of Texas at Arlington, taking attendance is not required. Rather, each faculty member is free to develop his or her own methods of evaluating students' academic performance, which includes establishing course-specific policies on attendance. As the instructor of this section, I will follow the following attendance policy:
+
+Attendance is mandatory for exams (midterms and final), but NOT for lectures. Attendance in lectures will NOT be used in calculating the semester grade. However, students are responsible for the material covered in the lectures. The instructor and teaching assistants will NOT honor requests to fill students in on what they missed in class, unless the absence was justified by an emergency.
+
+<p>
+
+Attendance is required for exams and quizzes. Absences for exams and quizzes will only be excused for medical or other emergencies, in strict adherence with UTA policy. All emergencies must be reported as early as possible and <strong>documented in writing</strong>. No make-up exams or quizzes will be given.
+<strong>If a student has a religious holiday or event, they MUST let me know before the exam or quiz. No make-ups will be allowed after if I was not informed.</strong>
+
+</p><p>
+
+Transportation problems (e.g., flat tires) will NOT be considered a valid excuse for missing exams. To ensure attendance, plan to arrive to class well in advance, and have backup transportation plans available.
+
+</p><p>
+
+While UT Arlington does not require instructors to take attendance in their courses, the U.S. Department of Education requires that the University have a mechanism in place to mark when Federal Student Aid recipients "begin attendance in a course." UT Arlington instructors will report when students begin attendance in a course as part of the final grading process. Specifically, when assigning a student a grade of F, faculty report the last date a student attended their class based on evidence such as a test, participation in a class project or presentation, or an engagement online via Canvas. This date is reported to the Department of Education for federal financial aid recipients.
+
+
+
+</p><hr>
+
+
+<h1>
+Class Participation
+</h1>
+
+Class participation is optional, and will not be considered for the course grade. At the same time, students are highly encouraged to participate, by asking questions, as well as answering questions by the instructor. Class participation can be an important resource for students who have difficulty understanding any part of the course material.
+
+
+
+<hr>
+
+<h1>Grading</h1>
+
+<p>
+
+Assignment scores and exam scores are converted to letter grades based on the following scale:
+
+</p><ul>
+<li>
+A: 	90%
+</li><li>
+B: 	80%
+</li><li>
+C: 	70%
+</li><li>
+D: 	60%
+</li><li>
+F: 	below 60%.
+</li></ul>
+
+The instructor reserves the right to lower these thresholds, based on the distribution of scores and the degree of difficulty of the assignments and exams.
+
+<p>
+
+At the end of the semester, the course grade will be computed based on the following weights:<strong>(DO NOT ASK ME TO CURVE-IF EVEN ONE STUDENT ASKS ME TO DO THIS, THEN I 100% WILL NOT DO SO)</strong>
+
+</p><ol>
+
+  <li> Homework 5%
+  
+  </li><li> Quizzes  75%  (15% each)
+  
+  </li><li> Project 20%  
+  
+  </li></ol>
+
+<p>
+
+
+
+</p><p>
+
+Any request for re-grading (for an assignment or midterm exam) must be made within 5 days of receipt of that grade. Any request for re-grading the final exam must be made within 3 days of receipt of that grade. Re-grading can lead to a higher or lower grade, depending on grading errors that are discovered.
+
+</p><p>
+
+IMPORTANT: It should be clear to every student that course grades will depend EXCLUSIVELY on the above grading criteria. Students should not request nor expect any other factor to be considered in computing the course grade. For example, factors that will NOT be considered are: need of a better grade to keep financial aid, to stay in the program, or to graduate. Students are expected to carefully monitor their own performance throughout the semester and seek guidance from available sources (including the instructor) if they are concerned about their performance and the course grade that they will earn.
+
+</p><p>
+
+
+
+</p><hr>
+
+<h1>
+Withdrawals
+</h1>
+
+The university withdrawal policy will be strictly adhered to. Up to the initial withdrawal date, all students will receive a W. After that date, the grade will be determined by the student's current average, and a WF or WP assigned as appropriate.
+
+<p>
+
+</p><hr>
+
+<h1>
+Expectations for Out-of-Class Study
+</h1>
+
+
+Beyond the time required to attend each class meeting, students enrolled in this course should expect to spend an additional minimum of 10 hours per week of their own time in course-related activities, including reading required materials, completing assignments, solving practice questions, and preparing for exams. More time may be needed for people having difficulties understanding the material. People with relatively weak mathematical background are expected to have more difficulties understanding the material, and to need more out-of-class study time.
+
+<p>
+
+</p><hr>
+
+<h1>Emergency Exit Procedures</h1>
+
+Should we experience an emergency event that requires us to vacate the building, students should exit the room and move toward the nearest exit:
+<ul>
+<li> Safely and calmly exit the classroom.
+
+</li><li> After exiting the door turn right, and walk to the nearest exit.
+</li></ul>
+
+When exiting the building during an emergency, one should never take an elevator but should use the stairwells. Faculty members and instructional staff will assist students in selecting the safest route for evacuation and will make arrangements to assist handicapped individuals.
+
+<br>
+
+<p>
+
+</p><hr>
+
+<h1>University Policies and Services</h1>
+
+
+<dl>
+<dt><strong>
+
+Grade Grievances:
+</strong><p><strong></strong></p></dt>
+
+<dd>
+ Any appeal of a grade in this course must follow the procedures and deadlines for grade-related grievances as published in the current University catalog.
+<p>
+</p></dd>
+
+<p>
+
+</p><dt><strong>Drop Policy: </strong>
+</dt><dd>&nbsp;
+<br>
+
+The standard UTA drop policy applies to this course. Students may drop or swap (adding and dropping a class concurrently) classes through self-service in MyMav from the beginning of the registration period through the late registration period. After the late registration period, students must see their academic advisor to drop a class or withdraw. Undeclared students must see an advisor in the University Advising Center. Drops can continue through a point two-thirds of the way through the term or session. It is the student's responsibility to officially withdraw if they do not plan to attend after registering. Students will not be automatically dropped for non-attendance. Repayment of certain types of financial aid administered through the University may be required as the result of dropping classes or withdrawing. For more information, contact the Office of Financial Aid and Scholarships (<a href="http://wweb.uta.edu/ses/fao">http://wweb.uta.edu/ses/fao</a>).
+
+
+
+<br>
+
+<p>
+
+</p></dd><dt><strong>Disability Accommodations: </strong>
+</dt><dd>&nbsp;
+<br>
+UT Arlington is on record as being committed to both the spirit and letter of all federal equal opportunity legislation, including The Americans with Disabilities Act (ADA), The Americans with Disabilities Amendments Act (ADAAA), and Section 504 of the Rehabilitation Act. All instructors at UT Arlington are required by law to provide "reasonable accommodations" to students with disabilities, so as not to discriminate on the basis of disability. Students are responsible for providing the instructor with official notification in the form of a letter certified by the Office for Students with Disabilities (OSD).  Students experiencing a range of conditions (Physical, Learning, Chronic Health, Mental Health, and Sensory) that may cause diminished academic performance or other barriers to learning may seek services and/or accommodations by contacting:
+<ul>
+<li> The Office for Students with Disabilities, (OSD)  www.uta.edu/disability or calling 817-272-3364.
+</li><li>Counseling and Psychological Services, (CAPS)   www.uta.edu/caps/ or calling 817-272-3671 is also available to all students to help increase their understanding of personal issues, address mental and behavioral health problems and make positive changes in their lives.
+</li></ul>
+
+Only those students who have officially documented a need for an accommodation will have their request honored. Information regarding diagnostic criteria and policies for obtaining disability-based academic accommodations can be found at www.uta.edu/disability or by calling the Office for Students with Disabilities at (817) 272-3364.
+
+<br>
+
+
+
+<p>
+</p></dd>
+
+<dt>
+<strong>Non-Discrimination Policy:</strong>
+</dt>
+<dd>
+The University of Texas at Arlington does not discriminate on the basis of race, color, national origin, religion, age, gender, sexual orientation, disabilities, genetic information, and/or veteran status in its educational programs or activities it operates. For more information, visit <a href="http://omega.uta.edu/~fiq8745/uta.edu/eos">uta.edu/eos</a>.
+</dd>
+
+<br>
+
+<dt>
+<strong>Title IX Policy:</strong>
+</dt>
+<dd>
+The University of Texas at Arlington ("University") is committed to maintaining a learning and working environment that is free from discrimination based on sex in accordance with Title IX of the Higher Education Amendments of 1972 (Title IX), which prohibits discrimination on the basis of sex in educational programs or activities; Title VII of the Civil Rights Act of 1964 (Title VII), which prohibits sex discrimination in employment; and the Campus Sexual Violence Elimination Act (SaVE Act). Sexual misconduct is a form of sex discrimination and will not be tolerated. For information regarding Title IX, visit <a href="http://omega.uta.edu/~fiq8745/www.uta.edu/titleIX">www.uta.edu/titleIX</a> or contact Ms. Jean Hood, Vice President and Title IX Coordinator at (817) 272-7091 or jmhood@uta.edu.
+</dd>
+
+
+<br>
+
+
+<p>
+
+</p><dt>
+<strong>Academic Integrity:</strong>
+</dt>
+
+<dd>&nbsp;
+
+<br>
+All students enrolled in this course are expected to adhere to the UT Arlington Honor Code:
+<p>
+<i>
+I pledge, on my honor, to uphold UT Arlington's tradition of academic
+integrity, a tradition that values hard work and honest effort in the
+pursuit of academic excellence.
+I promise that I will submit only work that I personally create or
+contribute to group collaborations, and I will appropriately reference
+any work from other sources. I will follow the highest standards of
+integrity and uphold the spirit of the Honor Code.  </i>
+</p><p>
+Instructors may employ the Honor Code as they see fit in their courses,
+including (but not limited to) having students acknowledge the honor
+code as part of an examination or requiring students to incorporate the
+honor code into any work submitted. Per UT System Regents' Rule 50101,
+ paragraph 2.2, suspected violations of university's standards for academic
+integrity (including the Honor Code) will be referred to the Office of
+Student Conduct. Violators will be disciplined in accordance with
+University policy, which may result in the student's suspension or
+expulsion from the University.
+
+
+</p><p>
+
+</p></dd><dt><strong>Student Support Services:</strong>
+</dt><dd>&nbsp;
+<br>
+
+ UT Arlington provides a variety of resources and programs designed to
+help students develop academic skills, deal with personal situations,
+and better understand concepts and information related to their courses.
+ Resources include tutoring, major-based learning centers, developmental
+ education, advising and mentoring, personal counseling, and federally
+funded programs. For individualized referrals, students may visit the
+reception desk at University College (Ransom Hall), call the Maverick
+Resource Hotline at 817-272-6107, send a message to resources@uta.edu,
+or view the information at www.uta.edu/resources.
+
+
+<p>
+</p></dd>
+
+<dt><strong>Electronic Communication:</strong>
+</dt>
+
+<dd>&nbsp;
+<br>
+   UT Arlington has adopted MavMail as its official means to communicate
+ with students about important deadlines and events, as well as to
+transact university-related business regarding financial aid, tuition,
+grades, graduation, etc. All students are assigned a MavMail account and
+ are responsible for checking the inbox regularly. There is no
+additional charge to students for using this account, which remains
+active even after graduation. Information about activating and using
+MavMail is available at http://www.uta.edu/oit/cs/email/mavmail.php.
+
+<p>
+</p></dd>
+
+<dt>
+<strong>
+Campus Carry:
+</strong>
+</dt>
+<dd>
+ Effective August 1, 2016, the Campus Carry law  (Senate Bill 11) allows those licensed individuals to carry a concealed handgun in buildings on public university campuses, except in locations the University establishes as prohibited. Under the new law, openly carrying handguns is not allowed on college campuses. For more information, visit http://www.uta.edu/news/info/campus-carry/
+<p>
+</p></dd>
+
+<dt><strong>Student Feedback Survey: </strong>
+</dt><dd>&nbsp;
+
+<br>
+At the end of each term, students enrolled in classes categorized as
+lecture, seminar, or laboratory shall be directed to complete a Student
+Feedback Survey (SFS). Instructions on how to access the SFS for this
+course will be sent directly to each student through MavMail
+approximately 10 days before the end of the term. Each student's
+feedback enters the SFS database anonymously and is aggregated with that
+ of other students enrolled in the course. UT Arlington's effort to
+solicit, gather, tabulate, and publish student feedback is required by
+state law; students are strongly urged to participate. For more
+information, visit http://www.uta.edu/sfs.
+
+
+</dd>
+
+<p>
+
+
+</p><p>
+
+</p><dt><strong>Final Review Week:</strong> For semester-long courses, a period of five class days prior to the first day of final examinations in the long sessions shall be designated as Final Review Week. The purpose of this week is to allow students sufficient time to prepare for final examinations. During this week, there shall be no scheduled activities such as required field trips or performances; and no instructor shall assign any themes, research problems or exercises of similar scope that have a completion date during or following this week unless specified in the class syllabus. During Final Review Week, an instructor shall not give any examinations constituting 10% or more of the final grade, except makeup tests and laboratory examinations. In addition, no instructor shall give any portion of the final examination during Final Review Week. During this week, classes are held as scheduled. In addition, instructors are not required to limit content to topics that have been previously covered; they may introduce new concepts as appropriate.
+
+
+
+
+
+
+<p>
+
+</p></dt><dt><strong>Start Strong Freshman Tutoring Program:<br>
+University Tutorial and Supplemental Instruction (UTSI)/University College</strong>
+</dt>
+
+<br>
+
+<dd>
+
+All first time, first-year students can receive six FREE hours of tutoring for this course and other selected subjects for this semester.
+ Find out more at <a href="https://www.uta.edu/universitycollege/current/academic-support/learning-center/tutoring/start-strong.php">www.uta.edu/startstrong</a>.
+
+
+
+</dd>
+
+</dl>
+
+<p>
+
+</p><hr>
+
+<h1> Course Schedule </h1>
+
+As the instructor for this course, I reserve the right to adjust this schedule in any way that serves the educational needs of the students enrolled in this course. The following schedule is tentative, and will be regularly updated.
+
+<h3> Lectures Schedule--DO NOT ASK ME TO EXTEND THE DATES FOR HWs, QUIZZES OR EXAMS. IF EVEN ONE PERSON ASKS ME TO DO THIS, I WILL 100% NOT EXTEND IT </h3>
+
+
+
+<p>
+
+</p><hr>
+
+
+<strong>Emergency Phone Numbers:</strong> In case of an on-campus emergency, call the UT Arlington Police Department at 817-272-3003 (non-campus phone), 2-3003 (campus phone). You may also dial 911. The non-emergency number is 817-272-3381.
+
+
+<br>
+
+
+
+
+
+
+
+</body></html>
