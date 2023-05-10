@@ -1,0 +1,1 @@
+C:\Users\lankm\Documents\Github_Repositories\UTA_Repository\CSE_Directory\Sandbox\rust_test\target\debug\rust_test.exe: C:\Users\lankm\Documents\Github_Repositories\UTA_Repository\CSE_Directory\Sandbox\rust_test\src\main.rs
