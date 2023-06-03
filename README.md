@@ -1,4 +1,4 @@
-# CSE_Repository
+# UTA Repository
 CSE_Directory houses all information related to CS classes.
 MSC_Directory houses miscellanious information from other classes.
 
