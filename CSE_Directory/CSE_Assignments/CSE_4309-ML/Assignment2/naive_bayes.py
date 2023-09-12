@@ -1,3 +1,14 @@
+# README
+# The entire program works as expected.
+# 
+# The description for the program says to be able to "work with ANY OTHER training and test files",
+# but the provided code snipits for output expect a number for the class label. Additionally since the
+# output is printed in order, using string class names gives different orders than the example. The code
+# provided is set for integer class names but can be changed to use string class names by:
+#  - changing the expected data type for classes on line 27 and 70
+#  - changing the format identifiers for the classes on line 125 and 133
+
+
 import numpy as np
 
 def train(training_file):
@@ -45,7 +56,10 @@ def train(training_file):
   # raw_data should not be needed to be used
   return ( class_probs, dim_data )
 
-def classification(class_probs, dim_data, test_file):
+def gausian(x, mean, std):
+  return (1/(std*(2*np.pi)**(1/2))) * np.e**((-(x-mean)**2)/(2*std**2))
+
+def classification(pC, dim_data, test_file):
   results = []
 
   t_file = open(test_file, "rt")
@@ -53,23 +67,49 @@ def classification(class_probs, dim_data, test_file):
   for (i, line) in enumerate(t_file.readlines()):
     line = line.split()
 
-    line_class = int(line[-1]) # do not use
+    line_class = int(line[-1])
     line_dims = list(map(float, line[:-1]))
-    # TODO calculate bayesian probs
-    #P(x|C)... gaussians
-    #p(C) = class_probs(c)
-    #P(x)... sum rule
 
-    #P(C|x) = P(x|C) * p(C) / P(x)
+    # bayesian math
+    
+    PxC = {} #P(x|C)
+    for cl in dim_data:
+      PxC[cl] = 1
+      for (j, dim) in enumerate(dim_data[cl]):
+        mean = dim[0]
+        std = dim[1]
 
-    predicted = 1
-    probability = 1   # TODO replace dummy values
-    accuracy = 1
+        PxiC = gausian(line_dims[j], mean, std) #P(xi|C)
 
-    results.append([i+1, predicted, probability, line_class, accuracy])
+        PxC[cl] *= PxiC # product rule
+
+
+    Px = 0 # P(x)
+    for cl in PxC:
+      Px += PxC[cl] * pC[cl] # sum rule
+
+    # argmax bayes rule
+    probability = 0
+    predicted = []
+    for cl in PxC:
+      PCx = PxC[cl]*pC[cl]/Px # bayes rule
+
+      if PCx > probability:
+        probability = PCx
+        predicted = [cl]
+
+      elif PCx == probability:
+        predicted.append(cl)
+
+    accuracy = -1
+    if line_class in predicted:
+      accuracy = 1/len(predicted)
+    else:
+      accuracy = 0
+
+    results.append([i+1, predicted[0], probability, line_class, accuracy])
   
-  results = np.array(results)
-  avg_accuracy = np.mean(results, axis=0)[4]
+  avg_accuracy = np.mean(np.array(results, dtype=float)[:,4])
 
   return (results, avg_accuracy)
 
