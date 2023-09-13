@@ -109,7 +109,7 @@ def classification(pC, dim_data, test_file):
 
     results.append([i+1, predicted[0], probability, line_class, accuracy])
   
-  avg_accuracy = np.mean(np.array(results, dtype=float)[:,4])
+  avg_accuracy =   avg_accuracy = np.mean(np.array(np.array(results)[:,4]), dtype=float)
 
   return (results, avg_accuracy)
 

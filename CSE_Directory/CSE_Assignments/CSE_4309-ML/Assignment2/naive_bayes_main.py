@@ -10,7 +10,7 @@ dataset_directory = "."
 
 #dataset = "pendigits"
 #dataset = "satellite"
-dataset = "yeast"
+dataset = "pendigits_string"
 
 training_file = dataset_directory + "/" + dataset + "_training.txt"
 test_file = dataset_directory + "/" + dataset + "_test.txt"
