@@ -97,7 +97,5 @@ int inv_kin(double p[3], double t[6])
   t[4] = 0.0; // given
   t[5] = 0.0; // given
 
-  //printf("{ %4f, %4f, %4f, %4f, %4f, %4f }\n", t[0], t[1], t[2], t[3], t[4], t[5]);
-
   return 0;
 }
