@@ -27,7 +27,7 @@ def main():
       if argc > 4:
         dump_flag = sys.argv[4]
 
-  match dump_flag.lower():
+  match dump_flag.lower():  # dump flag matching
     case "true":
       dump_flag = True
     case "false":
@@ -36,7 +36,7 @@ def main():
       print('Invalid dump flag. Choose from:\ntrue, or false')
       return 1
         
-  match method.lower():
+  match method.lower(): # method matching
     case "bfs":
       graph_search(method, dump_flag) # change parameters as needed
     case "ucs":
