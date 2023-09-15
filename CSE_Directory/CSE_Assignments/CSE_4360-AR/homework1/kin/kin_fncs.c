@@ -61,8 +61,9 @@ int inv_kin(double p[3], double t[6])
 
   // figure out t0
   double lf = sqrt( x*x + y*y );
-  double tf = atan2( y, x );
-  double t0 = tf - asin(d[3]/lf);
+  double ta = atan2( y, x );
+  double tf = asin(d[3]/lf);
+  double t0 = ta - tf;
   t[0] = t0;
 
   // t0 = 0. aka everything is in a plane now.
