@@ -1,7 +1,12 @@
 import sys
 
 def graph_search(method, dump_flag): # change parameters as needed
-  print(method, dump_flag)
+  if dump_flag:
+    print(method, dump_flag)
+    
+  return 0
+
+def goal_test():
   return 0
 
 def main():
