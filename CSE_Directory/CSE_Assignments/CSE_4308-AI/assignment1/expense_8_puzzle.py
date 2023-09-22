@@ -3,6 +3,81 @@
 import sys
 import copy
 
+class Stats:
+  def __init__(self):
+    self.nodes_popped = 0
+    self.nodes_expanded = 0
+    self.nodes_generated = 0
+    self.max_fringe_size = 0
+  
+  def popped_node(self):
+    self.nodes_popped += 1
+  def expanded_node(self):
+    self.nodes_expanded += 1
+  def generated_nodes(self, num):
+    self.nodes_generated += num
+  def update_max_fringe_size(self, fringe_size):
+    self.max_fringe_size = max(self.max_fringe_size, fringe_size)
+
+class Logger:
+  def __init__(self, active, filename):
+    self.active = active
+    if active:
+      self.file = open(filename, 'wt')
+  
+  def log_args(self, args):
+    if not self.active:
+      return 0
+    
+    self.file.write(f'Command-Line Arguments : {args}\n')
+
+    return 0
+  def log_method(self, method):
+    if not self.active:
+      return 0
+    
+    self.file.write(f'Method Selected: {method}\n')
+    self.file.write(f'Running {method}\n')
+
+    return 0
+  def log_successors(self, cur_node, num_of_childeren):
+    if not self.active:
+      return 0
+    
+    self.file.write(f'Generating successors to {cur_node}\n')
+    self.file.write(f'        {num_of_childeren} successors generated\n')
+
+    return 0
+  def log_closed(self, closed):
+    if not self.active:
+      return 0
+
+    self.file.write(f'        Closed: {closed}\n')
+
+    return 0
+  def log_fringe(self, fringe):
+    if not self.active:
+      return 0
+    
+    self.file.write(f'        Fringe: [\n')
+
+    for node in fringe:
+      self.file.write(f'                {node}\n')
+    self.file.write(f']\n')
+
+    return 0
+  def log_success(self, cur_node, stats: Stats):
+    if not self.active:
+      return 0
+    
+    self.file.write(f'Goal Found: {cur_node}\n')
+    self.file.write(f'        Nodes Popped: {stats.nodes_popped}\n')
+    self.file.write(f'        Nodes Expanded: {stats.nodes_expanded}\n')
+    self.file.write(f'        Nodes Generated: {stats.nodes_generated}\n')
+    self.file.write(f'        Max Fringe Size: {stats.max_fringe_size}\n')
+
+    return 0
+
 class Action:
   def __init__(self, num: int, action: str):
     self.num = num
@@ -32,14 +107,14 @@ class Action:
       case _:
         return 'ERROR'
 
-  def __str__(self):
+  def __str__(self) -> str:
     return f'Move {self.num} {self.action}'
 
 class State:
   def __init__(self, data: list[list[int]]):
     self.data = data
   def from_file(filename: str):
-    file = open(filename)
+    file = open(filename, 'rt')
 
     state = []
     for row in file.readlines()[:-1]:
@@ -104,31 +179,25 @@ class State:
     data[pos2[0]][pos2[1]] = temp
 
     return State(data)
-  def goal_test(self, state) -> bool:
-    for (i, row) in enumerate(state.data):
+
+  def __eq__(self, other):
+    for (i, row) in enumerate(other.data):
       for (j, num) in enumerate(row):
         if num != self.data[i][j]:
           return False
     return True
-
   def __str__(self):
-    output = ""
-    for row in self.data:
-      output += '['
-
-      for num in row[:-1]:
-        output += f'{num}, '
-
-      output += f'{row[-1]}]\n'
-
-    return output
+    return str(self.data)
+  def __repr__(self):
+    return str(self)
 
 class Node:
-  def __init__(self, state: State, cost: float, parent, action: Action):
+  def __init__(self, state: State, depth: int, cost: int, parent, action: Action):
     self.state = state
     self.parent = parent
     self.action = action
     self.cost = cost
+    self.depth = depth
   
   def generate_childeren(self) -> list:
     childeren = []
@@ -136,54 +205,98 @@ class Node:
     for action in self.state.valid_actions():
       childeren.append(Node(
         self.state.apply_action(action),
-        self.cost + 1.0,
+        self.depth + 1,
+        self.cost + action.num,
         self,
         action))
     return childeren
   
   def __str__(self):
-    output = ''
+    return f'< state = {self.state}, action = {self.action}, parent = {self.parent}>'
 
-    if self.parent is not None:
-      output += f'{self.parent}'
-    
-    output += f'{self.action} - {self.cost}\n{self.state}'
+def print_result(node: Node, stats: Stats):
+  print('Nodes Popped: %d' % (stats.nodes_popped))
+  print('Nodes Expanded: %d' % (stats.nodes_expanded))
+  print('Nodes Generated: %d' % (stats.nodes_generated))
+  print('Max Fringe Size: %d' % (stats.max_fringe_size))
+  print('Solution Found at depth %d with cost of %d.' % (node.depth, node.cost))
+  print('Steps: ')
 
-    return output
+  actions = ''
+  cur_node = node
+  while cur_node.action is not None:
+    actions = f'    {cur_node.action}\n' + actions
+    cur_node = cur_node.parent
+  print(actions)
 
-def bfs_search(start_state: State, goal_state: State, dump_flag: bool):
-  fringe = [Node(start_state, 0.0, None, None)]
-  visited = []
+def bfs_search(start_state: State, goal_state: State, logger: Logger):
+  stats = Stats()
 
-  print(fringe[0].generate_childeren()[0])
+  fringe = []
+  closed = []
+
+  # add first node
+  fringe.append(Node(start_state, depth=0, cost=0, parent=None, action=None))
+  stats.generated_nodes(1)
+
+  while len(fringe) != 0:
+    stats.update_max_fringe_size(len(fringe))
+
+    # pop first node fifo style
+    cur_node = fringe.pop(0)
+    stats.popped_node()
+
+    # if already visited, skip
+    if cur_node.state in closed:
+      continue
+    
+    # if goal state, return
+    if cur_node.state.__eq__(goal_state):
+      print_result(cur_node, stats)
+      logger.log_success(cur_node, stats)
+
+      return 0
+    
+    # add to closed
+    closed.append(cur_node.state)
+
+    # generate childeren
+    childeren = cur_node.generate_childeren()
+    fringe += childeren
+    stats.expanded_node()
+    stats.generated_nodes(len(childeren))
+
+    logger.log_successors(cur_node, len(childeren))
+    logger.log_closed(closed)
+    logger.log_fringe(fringe)
+
+  print('No solution found.')
     
   return 0
-def ucs_search(start_state, goal_state, dump_flag):
+def ucs_search(start_state: State, goal_state: State, logger: Logger):
+      
+  return 0
+def dfs_search(start_state: State, goal_state: State, logger: Logger):
   if dump_flag:
     print(dump_flag)
     
   return 0
-def dfs_search(start_state, goal_state, dump_flag):
+def dls_search(start_state: State, goal_state: State, logger: Logger):
   if dump_flag:
     print(dump_flag)
     
   return 0
-def dls_search(start_state, goal_state, dump_flag):
+def ids_search(start_state: State, goal_state: State, logger: Logger):
   if dump_flag:
     print(dump_flag)
     
   return 0
-def ids_search(start_state, goal_state, dump_flag):
+def greedy_search(start_state: State, goal_state: State, logger: Logger):
   if dump_flag:
     print(dump_flag)
     
   return 0
-def greedy_search(start_state, goal_state, dump_flag):
-  if dump_flag:
-    print(dump_flag)
-    
-  return 0
-def a_search(start_state, goal_state, dump_flag):
+def a_search(start_state: State, goal_state: State, logger: Logger):
   if dump_flag:
     print(dump_flag)
     
@@ -212,7 +325,7 @@ def main():
       if argc > 4:
         dump_flag = sys.argv[4]
 
-  # dump flag matching
+  # logger setup
   match dump_flag.lower():  
     case "true":
       dump_flag = True
@@ -221,27 +334,37 @@ def main():
     case _:
       print('Invalid dump flag. Choose from:\ntrue, or false')
       return 1
+  logger = Logger(dump_flag, 'dump.log')
+  logger.log_args(sys.argv)
   
   # file io
   start_state = State.from_file(start_file)
   goal_state = State.from_file(goal_file)
 
   # method matching
-  match method.lower():
+  method = method.lower()
+  match method:
     case "bfs":
-      bfs_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      bfs_search(start_state, goal_state, logger)
     case "ucs":
-      ucs_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      ucs_search(start_state, goal_state, logger)
     case "dfs": # optional
-      dfs_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      dfs_search(start_state, goal_state, logger)
     case "dls": # optional
-      dls_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      dls_search(start_state, goal_state, logger)
     case "ids": # optional
-      ids_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      ids_search(start_state, goal_state, logger)
     case "greedy":
-      greedy_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      greedy_search(start_state, goal_state, logger)
     case "a*":
-      a_search(start_state, goal_state, dump_flag)
+      logger.log_method(method)
+      a_search(start_state, goal_state, logger)
     case _:
       print('Invalid method type. Choose from:\nbfs, ucs, dfs, dls, ids, greedy, or a*')
       return 1
