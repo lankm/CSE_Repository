@@ -1,5 +1,3 @@
-# the relationship between a state and an action can probably be coded better.
-
 import sys
 import copy
 
@@ -63,7 +61,7 @@ class Logger:
 
     for node in fringe:
       self.file.write(f'                {node}\n')
-    self.file.write(f']\n')
+    self.file.write(f'                ]\n')
 
     return 0
   def log_success(self, cur_node, stats: Stats):
@@ -179,6 +177,16 @@ class State:
     data[pos2[0]][pos2[1]] = temp
 
     return State(data)
+  def heuristic(self, goal_state):
+    total = 0
+    for i in range(9):
+      loc1 = self.find_num(i)
+      loc2 = goal_state.find_num(i)
+      dx = abs(loc1[0]-loc2[0])
+      dy = abs(loc1[1]-loc2[1])
+      total += (dx+dy) * i
+    
+    return total
 
   def __eq__(self, other):
     for (i, row) in enumerate(other.data):
@@ -212,7 +220,7 @@ class Node:
     return childeren
   
   def __str__(self):
-    return f'< state = {self.state}, action = {self.action}, parent = {self.parent}>'
+    return f'< state = {self.state}, action = {self.action}, g(n) = {self.cost}, d = {self.depth}, parent = {self.parent}>'
 
 def print_result(node: Node, stats: Stats):
   print('Nodes Popped: %d' % (stats.nodes_popped))
@@ -274,31 +282,154 @@ def bfs_search(start_state: State, goal_state: State, logger: Logger):
     
   return 0
 def ucs_search(start_state: State, goal_state: State, logger: Logger):
-      
-  return 0
-def dfs_search(start_state: State, goal_state: State, logger: Logger):
-  if dump_flag:
-    print(dump_flag)
+  stats = Stats()
+
+  fringe = []
+  closed = []
+
+  # add first node
+  fringe.append(Node(start_state, depth=0, cost=0, parent=None, action=None))
+  stats.generated_nodes(1)
+
+  while len(fringe) != 0:
+    stats.update_max_fringe_size(len(fringe))
+
+    # pop first node
+    cur_node = fringe.pop(0)
+    stats.popped_node()
+
+    # if already visited, skip
+    if cur_node.state in closed:
+      continue
     
-  return 0
-def dls_search(start_state: State, goal_state: State, logger: Logger):
-  if dump_flag:
-    print(dump_flag)
+    # if goal state, return
+    if cur_node.state.__eq__(goal_state):
+      print_result(cur_node, stats)
+      logger.log_success(cur_node, stats)
+
+      return 0
     
-  return 0
-def ids_search(start_state: State, goal_state: State, logger: Logger):
-  if dump_flag:
-    print(dump_flag)
+    # add to closed
+    closed.append(cur_node.state)
+
+    # generate childeren
+    childeren = cur_node.generate_childeren()
+    fringe += childeren
+    fringe.sort(key = lambda node: node.cost) # sort by cost
+
+    stats.expanded_node()
+    stats.generated_nodes(len(childeren))
+
+    logger.log_successors(cur_node, len(childeren))
+    logger.log_closed(closed)
+    logger.log_fringe(fringe)
+
+  print('No solution found.')
     
   return 0
 def greedy_search(start_state: State, goal_state: State, logger: Logger):
-  if dump_flag:
-    print(dump_flag)
+  stats = Stats()
+
+  fringe = []
+  closed = []
+
+  # add first node
+  fringe.append(Node(start_state, depth=0, cost=0, parent=None, action=None))
+  stats.generated_nodes(1)
+
+  while len(fringe) != 0:
+    stats.update_max_fringe_size(len(fringe))
+
+    # pop first node fifo style
+    cur_node = fringe.pop(0)
+    stats.popped_node()
+
+    # if already visited, skip
+    if cur_node.state in closed:
+      continue
+    
+    # if goal state, return
+    if cur_node.state.__eq__(goal_state):
+      print_result(cur_node, stats)
+      logger.log_success(cur_node, stats)
+
+      return 0
+    
+    # add to closed
+    closed.append(cur_node.state)
+
+    # generate childeren
+    childeren = cur_node.generate_childeren()
+    fringe += childeren
+    fringe.sort(key = lambda node: node.state.heuristic(goal_state)) # sort by cost
+
+    stats.expanded_node()
+    stats.generated_nodes(len(childeren))
+
+    logger.log_successors(cur_node, len(childeren))
+    logger.log_closed(closed)
+    logger.log_fringe(fringe)
+
+  print('No solution found.')
     
   return 0
 def a_search(start_state: State, goal_state: State, logger: Logger):
-  if dump_flag:
-    print(dump_flag)
+  stats = Stats()
+
+  fringe = []
+  closed = []
+
+  # add first node
+  fringe.append(Node(start_state, depth=0, cost=0, parent=None, action=None))
+  stats.generated_nodes(1)
+
+  while len(fringe) != 0:
+    stats.update_max_fringe_size(len(fringe))
+
+    # pop first node fifo style
+    cur_node = fringe.pop(0)
+    stats.popped_node()
+
+    # if already visited, skip
+    if cur_node.state in closed:
+      continue
+    
+    # if goal state, return
+    if cur_node.state.__eq__(goal_state):
+      print_result(cur_node, stats)
+      logger.log_success(cur_node, stats)
+
+      return 0
+    
+    # add to closed
+    closed.append(cur_node.state)
+
+    # generate childeren
+    childeren = cur_node.generate_childeren()
+    fringe += childeren
+    fringe.sort(key = lambda node: node.cost + node.state.heuristic(goal_state)) # sort by cost
+
+    stats.expanded_node()
+    stats.generated_nodes(len(childeren))
+
+    logger.log_successors(cur_node, len(childeren))
+    logger.log_closed(closed)
+    logger.log_fringe(fringe)
+
+  print('No solution found.')
+    
+  return 0
+
+def dfs_search(start_state: State, goal_state: State, logger: Logger):
+  print('Not implemented.')
+    
+  return 0
+def dls_search(start_state: State, goal_state: State, logger: Logger):
+  print('Not implemented.')
+    
+  return 0
+def ids_search(start_state: State, goal_state: State, logger: Logger):
+  print('Not implemented.')
     
   return 0
 
