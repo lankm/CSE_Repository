@@ -38,12 +38,12 @@ class Logger:
     self.file.write(f'Running {method}\n')
 
     return 0
-  def log_successors(self, cur_node, num_of_childeren):
+  def log_successors(self, cur_node, num_of_children):
     if not self.active:
       return 0
     
     self.file.write(f'Generating successors to {cur_node}\n')
-    self.file.write(f'        {num_of_childeren} successors generated\n')
+    self.file.write(f'        {num_of_children} successors generated\n')
 
     return 0
   def log_closed(self, closed):
@@ -207,17 +207,17 @@ class Node:
     self.cost = cost
     self.depth = depth
   
-  def generate_childeren(self) -> list:
-    childeren = []
+  def generate_children(self) -> list:
+    children = []
 
     for action in self.state.valid_actions():
-      childeren.append(Node(
+      children.append(Node(
         self.state.apply_action(action),
         self.depth + 1,
         self.cost + action.num,
         self,
         action))
-    return childeren
+    return children
   
   def __str__(self):
     return f'< state = {self.state}, action = {self.action}, g(n) = {self.cost}, d = {self.depth}, parent = {self.parent}>'
@@ -268,13 +268,13 @@ def bfs_search(start_state: State, goal_state: State, logger: Logger):
     # add to closed
     closed.append(cur_node.state)
 
-    # generate childeren
-    childeren = cur_node.generate_childeren()
-    fringe += childeren
+    # generate children
+    children = cur_node.generate_children()
+    fringe += children
     stats.expanded_node()
-    stats.generated_nodes(len(childeren))
+    stats.generated_nodes(len(children))
 
-    logger.log_successors(cur_node, len(childeren))
+    logger.log_successors(cur_node, len(children))
     logger.log_closed(closed)
     logger.log_fringe(fringe)
 
@@ -312,15 +312,15 @@ def ucs_search(start_state: State, goal_state: State, logger: Logger):
     # add to closed
     closed.append(cur_node.state)
 
-    # generate childeren
-    childeren = cur_node.generate_childeren()
-    fringe += childeren
+    # generate children
+    children = cur_node.generate_children()
+    fringe += children
     fringe.sort(key = lambda node: node.cost) # sort by cost
 
     stats.expanded_node()
-    stats.generated_nodes(len(childeren))
+    stats.generated_nodes(len(children))
 
-    logger.log_successors(cur_node, len(childeren))
+    logger.log_successors(cur_node, len(children))
     logger.log_closed(closed)
     logger.log_fringe(fringe)
 
@@ -358,15 +358,15 @@ def greedy_search(start_state: State, goal_state: State, logger: Logger):
     # add to closed
     closed.append(cur_node.state)
 
-    # generate childeren
-    childeren = cur_node.generate_childeren()
-    fringe += childeren
+    # generate children
+    children = cur_node.generate_children()
+    fringe += children
     fringe.sort(key = lambda node: node.state.heuristic(goal_state)) # sort by cost
 
     stats.expanded_node()
-    stats.generated_nodes(len(childeren))
+    stats.generated_nodes(len(children))
 
-    logger.log_successors(cur_node, len(childeren))
+    logger.log_successors(cur_node, len(children))
     logger.log_closed(closed)
     logger.log_fringe(fringe)
 
@@ -404,15 +404,15 @@ def a_search(start_state: State, goal_state: State, logger: Logger):
     # add to closed
     closed.append(cur_node.state)
 
-    # generate childeren
-    childeren = cur_node.generate_childeren()
-    fringe += childeren
+    # generate children
+    children = cur_node.generate_children()
+    fringe += children
     fringe.sort(key = lambda node: node.cost + node.state.heuristic(goal_state)) # sort by cost
 
     stats.expanded_node()
-    stats.generated_nodes(len(childeren))
+    stats.generated_nodes(len(children))
 
-    logger.log_successors(cur_node, len(childeren))
+    logger.log_successors(cur_node, len(children))
     logger.log_closed(closed)
     logger.log_fringe(fringe)
 
@@ -421,17 +421,105 @@ def a_search(start_state: State, goal_state: State, logger: Logger):
   return 0
 
 def dfs_search(start_state: State, goal_state: State, logger: Logger):
-  print('Not implemented.')
+  stats = Stats()
+
+  fringe = []
+  closed = []
+
+  # add first node
+  fringe.append(Node(start_state, depth=0, cost=0, parent=None, action=None))
+  stats.generated_nodes(1)
+
+  while len(fringe) != 0:
+    # pop last node lilo style
+    cur_node = fringe.pop()
+    stats.popped_node()
+
+    # if already visited, skip
+    if cur_node.state in closed:
+      continue
+    
+    # if goal state, return
+    if cur_node.state.__eq__(goal_state):
+      print_result(cur_node, stats)
+      logger.log_success(cur_node, stats)
+
+      return 0
+    
+    # add to closed
+    closed.append(cur_node.state)
+
+    # generate children
+    children = cur_node.generate_children()
+    fringe += children
+
+    stats.update_max_fringe_size(len(fringe))
+    stats.expanded_node()
+    stats.generated_nodes(len(children))
+
+    logger.log_successors(cur_node, len(children))
+    logger.log_closed(closed)
+    logger.log_fringe(fringe)
+
+  print('No solution found.')
     
   return 0
-def dls_search(start_state: State, goal_state: State, logger: Logger):
-  print('Not implemented.')
+def dls_search(cur_node: Node, goal_state: State, logger: Logger, depth: int, stats: Stats, closed: list, fringe_size):
+
+  # pop the cur_node
+  stats.popped_node()
+  fringe_size -= 1
+
+  # if already visited, skip
+  if cur_node.state in closed:
+    return 1
+  if cur_node.depth > depth:
+    return 1
     
-  return 0
+  # if goal state, return
+  if cur_node.state.__eq__(goal_state):
+    print_result(cur_node, stats)
+    logger.log_success(cur_node, stats)
+    return 0
+    
+  # add to closed
+  closed.append(cur_node.state)
+
+  # generate children
+  children = cur_node.generate_children()
+  fringe_size += len(children)
+  stats.expanded_node()
+  stats.generated_nodes(len(children))
+  stats.update_max_fringe_size(fringe_size)
+
+  logger.log_successors(cur_node, len(children))
+  logger.log_closed(closed)
+
+  # recursivly test each child
+  for child in children:
+    result = dls_search(child, goal_state, logger, depth, stats, closed, fringe_size)
+
+    if result == 0:
+      return 0
+    
+  # remove current node from closed when returning
+  closed.pop()
+    
+  return 1
 def ids_search(start_state: State, goal_state: State, logger: Logger):
-  print('Not implemented.')
-    
-  return 0
+  depth = 1
+  stats = Stats()
+
+  while True:
+    result = dls_search(Node(start_state, depth=0, cost=0, parent=None, action=None), goal_state, logger, depth, stats, [], 1)
+
+    if result == 0:
+      return 0
+    else:
+      depth += 1
+
+  print('No solution found.')
+  return 1
 
 def main():
   argc = len(sys.argv)
@@ -486,7 +574,11 @@ def main():
       dfs_search(start_state, goal_state, logger)
     case "dls": # optional
       logger.log_method(method)
-      dls_search(start_state, goal_state, logger)
+      print('Enter a depth: ', end='')
+      depth = int(input())
+      result = dls_search(Node(start_state, depth=0, cost=0, parent=None, action=None), goal_state, logger, depth, Stats(), [], 1)
+      if result == 1:
+        print('No solution found.')
     case "ids": # optional
       logger.log_method(method)
       ids_search(start_state, goal_state, logger)
