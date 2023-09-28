@@ -109,6 +109,8 @@ class Action:
     return f'Move {self.num} {self.action}'
 
 class State:
+  goal_state = None
+
   def __init__(self, data: list[list[int]]):
     self.data = data
   def from_file(filename: str):
@@ -220,7 +222,7 @@ class Node:
     return children
   
   def __str__(self):
-    return f'< state = {self.state}, action = {self.action}, g(n) = {self.cost}, d = {self.depth}, parent = {self.parent}>'
+    return f'< state = {self.state}, action = {self.action}, g(n) = {self.cost}, d = {self.depth}, h(n) = {self.state.heuristic(State.goal_state)}, parent = {self.parent}>'
 
 def print_result(node: Node, stats: Stats):
   print('Nodes Popped: %d' % (stats.nodes_popped))
@@ -471,10 +473,11 @@ def dls_search(cur_node: Node, goal_state: State, logger: Logger, depth: int, st
   fringe_size -= 1
 
   # if already visited, skip
-  if cur_node.state in closed:
-    return 1
   if cur_node.depth > depth:
     return 1
+  if cur_node.state in closed:
+    return 1
+  
     
   # if goal state, return
   if cur_node.state.__eq__(goal_state):
@@ -494,6 +497,7 @@ def dls_search(cur_node: Node, goal_state: State, logger: Logger, depth: int, st
 
   logger.log_successors(cur_node, len(children))
   logger.log_closed(closed)
+  logger.log_fringe(fringe_size)
 
   # recursivly test each child
   for child in children:
@@ -559,6 +563,7 @@ def main():
   # file io
   start_state = State.from_file(start_file)
   goal_state = State.from_file(goal_file)
+  State.goal_state = goal_state
 
   # method matching
   method = method.lower()
