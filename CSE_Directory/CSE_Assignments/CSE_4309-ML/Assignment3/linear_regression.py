@@ -1,112 +1,59 @@
 # README
-# 
-
+# Program works as expected
 
 import numpy as np
 
-def train(training_file):
-  raw_data = {}
-  dim_data = {}
+# gets phi as specified in the assignment description
+def get_phi(dims: np.ndarray, degrees: int):
+  phi = [1]
+  for dim in dims:
+    for degree in range(degrees):
+      phi.append(pow(dim, degree+1))
+  return np.array(phi)
+# gets PHI
+def get_PHI(inputs: np.ndarray, degrees: int):
+  PHI = []
+  for input in inputs:
+    PHI.append(get_phi(input, degrees))
+  return np.array(PHI)
+# gets weight based on the equation on slide 44
+def get_weights(PHI: np.ndarray, targets: np.ndarray, lambda1):
+  return np.dot(
+           np.dot(
+             np.linalg.pinv(
+               np.eye(len(PHI[0]))*lambda1 + np.dot(PHI.transpose(), PHI)
+             ), PHI.transpose()
+           ), targets
+         )
 
-  class_totals = {}
-  lines = 0
+# gets a file and puts it into memory
+def memorize_file(filename, type):
+  file = open(filename)
+  lines = []
+  for line in file.readlines():
+    lines.append(list(map( type, line.split() )))
+  return np.array(lines)
 
-  t_file = open(training_file, "rt")
-
-  # bucketing all data
-  for line in t_file.readlines():
-    line = line.split()
-
-    line_class = int(line[-1])
-    line_dims = list(map(float, line[:-1]))
-
-    if line_class not in raw_data:  #if doesn't exists
-      raw_data[line_class] = [line_dims]
-      class_totals[line_class] = 1
-    else:                             #if aleady exists
-      raw_data[line_class].append(line_dims)
-      class_totals[line_class] += 1
-    lines += 1
-
-  # converting to numpy arrays
-  for key in raw_data:
-    raw_data[key] = np.array(raw_data[key])
-
-  # calculating class probs
-  class_probs = {}
-  for key in class_totals:
-    class_probs[key] = class_totals[key]/lines
-
-  # raw_data should not be needed to be used
-  return ( class_probs, raw_data )
-
-def gausian(x, mean, std):
-  return (1/(std*(2*np.pi)**(1/2))) * np.e**((-(x-mean)**2)/(2*std**2))
-
-def classification(pC, dim_data, test_file):
-  results = []
-
-  t_file = open(test_file, "rt")
-
-  for (i, line) in enumerate(t_file.readlines()):
-    line = line.split()
-
-    line_class = int(line[-1])
-    line_dims = list(map(float, line[:-1]))
-
-    # bayesian math
-    
-    PxC = {} #P(x|C)
-    for cl in dim_data:
-      PxC[cl] = 1
-      for (j, dim) in enumerate(dim_data[cl]):
-        mean = dim[0]
-        std = dim[1]
-
-        PxiC = gausian(line_dims[j], mean, std) #P(xi|C)
-
-        PxC[cl] *= PxiC # product rule
-
-
-    Px = 0 # P(x)
-    for cl in PxC:
-      Px += PxC[cl] * pC[cl] # sum rule
-
-    # argmax bayes rule
-    probability = 0
-    predicted = []
-    for cl in PxC:
-      PCx = PxC[cl]*pC[cl]/Px # bayes rule
-
-      if PCx > probability:
-        probability = PCx
-        predicted = [cl]
-
-      elif PCx == probability:
-        predicted.append(cl)
-
-    accuracy = -1
-    if line_class in predicted:
-      accuracy = 1/len(predicted)
-    else:
-      accuracy = 0
-
-    results.append([i+1, predicted[0], probability, line_class, accuracy])
-  
-  avg_accuracy =   avg_accuracy = np.mean(np.array(np.array(results)[:,4]), dtype=float)
-
-  return (results, avg_accuracy)
+# calculates a value based on weights and basis functions
+def evaluate(weights :np.ndarray, dims: np.ndarray, degrees: int):
+  return np.dot( weights.transpose(), get_phi(dims, degrees) )
 
 
 
 def linear_regression(training_file, test_file, degree, lambda1):
 
-  # degree - number of weights
-  # lambda1 - value of lambda
+  # Training
+  data = memorize_file(training_file, float)
+  PHI = get_PHI(data[:, :-1], degree)
+  weights = get_weights(PHI, data[:, -1], lambda1)
 
-  train(training_file)
-
-
-
+  for (i, weight) in enumerate(weights):
+    print('w%d=%.4f' % (i, weight))
+  
+  # Testing
+  data = memorize_file(test_file, float)
+  for (i, line) in enumerate(data):
+    output = evaluate(weights, line[:-1], degree)
+    print('ID=%5d, output=%14.4f, target value = %10.4f, squared error = %.4f' % (i+1, output, line[-1], pow(line[-1]-output, 2)))
 
   return 0
