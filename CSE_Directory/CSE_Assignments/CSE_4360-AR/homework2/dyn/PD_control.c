@@ -48,7 +48,7 @@ double PD_control(double theta, double theta_dot, double theta_ref, double theta
   // return torque;
   
   double gravity = G*cos(theta);
-  double K = 100.0; // arbetrary. change as desired
+  double K = 50.0; // arbetrary. change as desired
   double B = 2*sqrt(K);
   //         spring force                  friction 
   return I*(K*(theta_ref - theta) + (B+b)*(theta_dot_ref - theta_dot)) + gravity;

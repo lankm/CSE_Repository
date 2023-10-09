@@ -16,11 +16,11 @@ def nn_keras(directory, dataset, layers, units_per_layer, epochs):
 
   # Creating the model
   input_shape = training_inputs[0].shape
-  number_of_classes = np.max([np.max(training_labels), np.max(test_labels)]) + 1
+  number_of_classes = np.max([np.max(training_labels), np.max(test_labels)]) + 1  # NOTE: make sure test labels are included to not cause errors
 
   model = tf.keras.Sequential([
       tf.keras.Input(shape = input_shape),
-  #    tf.keras.layers.Dense(50, activation='sigmoid'),
+  #    tf.keras.layers.Dense(50, activation='sigmoid'),     #NOTE: effectivly a for loop.
   #    tf.keras.layers.Dense(50, activation='sigmoid'),
       tf.keras.layers.Dense(number_of_classes, activation='sigmoid')])
 
@@ -34,8 +34,7 @@ def nn_keras(directory, dataset, layers, units_per_layer, epochs):
 
   # Testing the model
   test_loss, test_acc = model.evaluate(test_inputs,  test_labels, verbose=0)
-  
-
+  # NOTE: other model function gives everything to print. model.predict
   #TODO: print('ID=%5d, predicted=%10s, true=%10s, accuracy=%4.2f\n' % (object_id, predicted_class, true_class, accuracy))
 
   print('classification accuracy=%6.4f\n' % (test_acc))
