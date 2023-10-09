@@ -3,14 +3,18 @@ import numpy as np
 from uci_data import *
 
 def nn_keras(directory, dataset, layers, units_per_layer, epochs):
+  # input and formatting data
   (training_set, test_set) = read_uci1(directory, dataset)
+
   (training_inputs, training_labels) = training_set
   (test_inputs, test_labels) = test_set
 
-  #%%
+  max_value = np.max(np.abs(training_inputs))
+
+  training_inputs  = training_inputs / max_value
+  test_inputs = test_inputs/ max_value
 
   # Creating the model
-
   input_shape = training_inputs[0].shape
   number_of_classes = np.max([np.max(training_labels), np.max(test_labels)]) + 1
 
