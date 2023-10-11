@@ -72,5 +72,5 @@ def read_uci1(directory, dataset_name):
 
     (train_data, train_labels) = read_uci_file(training_file, labels_to_ints, ints_to_labels)
     (test_data, test_labels) = read_uci_file(test_file, labels_to_ints, ints_to_labels)
-    return ((train_data, train_labels), (test_data, test_labels))
+    return ((train_data, train_labels), (test_data, test_labels), (labels_to_ints, ints_to_labels))
 

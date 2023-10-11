@@ -8,13 +8,13 @@ from nn_keras import *
 # - which dataset to use for training and testing your model.
 
 directory = "./uci_datasets"
-dataset = "pendigits_string"
+dataset = "pendigits"
 
 
 # When you test your code, you can select the hyperparameters you want to use 
 # by modifying the next lines
 layers = 4
-units_per_layer = 50
+units_per_layer = 40
 epochs = 20
 
 # Here we call your function.
