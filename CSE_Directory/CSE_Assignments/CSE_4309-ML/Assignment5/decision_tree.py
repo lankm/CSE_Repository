@@ -1,6 +1,7 @@
 import numpy as np
 from uci_data import *
-import random
+import random # used in choose_random_attribute
+import os # used for log_files
 
 class Node:
   def __init__(self, attribute, threshold, gain, distribution):
@@ -108,6 +109,7 @@ def get_information_gain(examples, attribute, threshold):
   w2 = len(less_labels)/len(example_labels)
   w3 = len(greater_labels)/len(example_labels)
 
+
   # calculation
   e1 = get_entropy(example_labels)
   e2 = w2 * get_entropy(less_labels)
@@ -123,11 +125,20 @@ def get_entropy(labels):
   summation = sum(map(equation, counts))
   return summation
 
-def print_trees(trees):
+def print_trees(trees, log_file):
   for (tree_id, tree) in enumerate(trees):
     for (node_id, node) in sorted(tree.items()):
-      print('tree=%2d, node=%3d, feature=%2d, thr=%6.2f, gain=%f' % 
-            (tree_id+1, node_id, node.attribute, node.threshold, node.gain))
+      str_node = f'tree={(tree_id+1):2d}, node={node_id:3d}, feature={node.attribute:2d}, thr={node.threshold:6.2f}, gain={node.gain:f}\n'
+      print_and_log(str_node, log_file)
+def get_log_file(directory, training_file, test_file, option, pruning_thr):
+  training_file = os.path.basename(training_file)
+  test_file = os.path.basename(test_file)
+
+  if not os.path.exists(directory):
+    os.mkdir(directory)
+
+  file_name = f'{directory}/{training_file}-{test_file}-{option}-{pruning_thr}.log'
+  return open(file_name, 'w')
 
 # =============================================================================
 def classification(test_set, trees):
@@ -167,23 +178,53 @@ def classify(test_input, test_label, trees):
 
   return (predicted, test_label, accuracy)
 
-def print_results(results, ints_to_labels):
+def print_results(results, log_file, ints_to_labels):
   for (object_id, predicted_class, true_class, accuracy) in results:
-    print('ID=%5d, predicted=%6s, true=%6s, accuracy=%4.2f' %  
-          (object_id, ints_to_labels[predicted_class], ints_to_labels[true_class], accuracy))
+    predicted = ints_to_labels[predicted_class]
+    true =      ints_to_labels[true_class]
+
+    str_result = f'ID={int(object_id):5d}, predicted={predicted:6s}, true={true:6s}, accuracy={accuracy:4.2f}\n'
+    print_and_log(str_result, log_file)
 
   classification_accuracy = np.mean(results[:,3])
-  print('classification accuracy=%6.4f' % classification_accuracy)
+  str_accuracy = f'classification accuracy={classification_accuracy:6.4f}\n'
+  print_and_log(str_accuracy, log_file)
 
 # =============================================================================
+def print_and_log(str, log_file):
+  print(str, end='')
+  log_file.write(str)
+
 def decision_tree(training_file, test_file, option, pruning_thr):
   # read dataset
   (training_set, test_set, label_int_conversions) = read_uci_dataset(training_file, test_file)
   (labels_to_ints, ints_to_labels) = label_int_conversions
+  log_file = get_log_file('logs', training_file, test_file, option, pruning_thr)
 
   # program execution
-  trees = training(training_set, option, pruning_thr, 50)
-  print_trees(trees)
+  # trees = training(training_set, option, pruning_thr, 50)
+  # print_trees(trees, log_file)
 
-  results = classification(test_set, trees)
-  print_results(results, ints_to_labels)
+  # results = classification(test_set, trees)
+  # print_results(results, log_file, ints_to_labels)
+
+  # weights
+  w2 = 3/10
+  w3 = 4/10
+  w4 = 3/10
+
+
+  # calculation
+  e1 = entropy([5,5])
+  e2 = entropy([3])
+  e3 = entropy([1,3])
+  e4 = entropy([1,2])
+  result = e1 - w2*e2 - w3*e3 - w4*e4
+  print(f'{e1} - {w2}*{e2} - {w3}*{e3} - {w4}*{e4} = {result}')
+
+def entropy(counts):
+  total = sum(counts)
+  equation = lambda count: -(count/total)*np.log2(count/total)
+
+  summation = sum(map(equation, counts))
+  return summation
