@@ -36,7 +36,7 @@ double PD_control(double theta, double theta_dot, double theta_ref, double theta
   // return torque;
 
   // // testing for M
-  // double torque = B*theta_dot;
+  // double torque = b*theta_dot;
   // double accel = 500*(theta_dot - last);
   // last = theta_dot;
   // // getting calcualted acceleration only when torque is large
