@@ -202,29 +202,8 @@ def decision_tree(training_file, test_file, option, pruning_thr):
   log_file = get_log_file('logs', training_file, test_file, option, pruning_thr)
 
   # program execution
-  # trees = training(training_set, option, pruning_thr, 50)
-  # print_trees(trees, log_file)
+  trees = training(training_set, option, pruning_thr, 50)
+  print_trees(trees, log_file)
 
-  # results = classification(test_set, trees)
-  # print_results(results, log_file, ints_to_labels)
-
-  # weights
-  w2 = 3/10
-  w3 = 4/10
-  w4 = 3/10
-
-
-  # calculation
-  e1 = entropy([5,5])
-  e2 = entropy([3])
-  e3 = entropy([1,3])
-  e4 = entropy([1,2])
-  result = e1 - w2*e2 - w3*e3 - w4*e4
-  print(f'{e1} - {w2}*{e2} - {w3}*{e3} - {w4}*{e4} = {result}')
-
-def entropy(counts):
-  total = sum(counts)
-  equation = lambda count: -(count/total)*np.log2(count/total)
-
-  summation = sum(map(equation, counts))
-  return summation
+  results = classification(test_set, trees)
+  print_results(results, log_file, ints_to_labels)

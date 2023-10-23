@@ -77,7 +77,7 @@ class Nim_game:
       return False
   def score_game(self):
     base_value = 2*self.num_red + 3*self.num_blue
-    return base_value if self.is_misere() else -base_value
+    return (base_value if self.is_misere() else -base_value)
 
   def is_standard(self):
     return self.version == 'standard'
@@ -136,6 +136,9 @@ class Computer(Player):
     self.depth = depth
 
   def take_turn(self, num_red, num_blue, version) -> Choice:
+    print(f'There are {num_red} red marbles.')
+    print(f'There are {num_blue} blue marbles.')
+  
     # assume we are playing against an optimal opponent
     players = (self, Computer(self.depth, "other computer"))
     current_state = Nim_game(num_red, num_blue, version, players)
@@ -220,8 +223,9 @@ class Computer(Player):
   def __str__(self) -> str:
     return f'{self.name}'
 
+# =============================================================================
 
-def main():
+def get_args():
   argc = len(sys.argv)
 
   # NUMBER PARAMETERS
@@ -276,6 +280,10 @@ def main():
     print("Expected <depth> to be an integer")
     return 1
   depth = int(depth)
+
+  return (num_red, num_blue, version, first_player, depth)
+def main():
+  (num_red, num_blue, version, first_player, depth) = get_args()
 
   # GAME INITIALIZATION
   players = ( Human('human'), Computer(depth, 'computer') ) if first_player == 'human' else ( Computer(depth, 'computer'), Human('human') )

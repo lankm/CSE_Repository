@@ -1,5 +1,6 @@
 name: Landon Moon
 ID: 1001906270
+Python 3.10.2
 
 EXTRA CREDIT COMPLETED. look below.
 
