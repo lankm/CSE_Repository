@@ -283,7 +283,10 @@ def get_args():
 
   return (num_red, num_blue, version, first_player, depth)
 def main():
-  (num_red, num_blue, version, first_player, depth) = get_args()
+  try:
+    (num_red, num_blue, version, first_player, depth) = get_args()
+  except TypeError:
+    return 1
 
   # GAME INITIALIZATION
   players = ( Human('human'), Computer(depth, 'computer') ) if first_player == 'human' else ( Computer(depth, 'computer'), Human('human') )
