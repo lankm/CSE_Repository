@@ -11,31 +11,35 @@ class Node:
     self.distribution = distribution
 
 # =============================================================================
-def training(training_set, option, pruning_thr, num_threshold):
+def training(training_set, option, pruning_thr, entropy_thr, num_threshold):
   (training_inputs, training_labels) = training_set
 
   if type(option) == int: # decision forrest
     num_trees = option
-    choose_attribute = choose_random_attribute
-  else: # single tree
+  else:
     num_trees = 1
-    choose_attribute = choose_optimal_attribute
 
   trees = []
-  for i in range(num_trees):
-    tree = dtl(1, training_set, (choose_attribute, num_threshold, pruning_thr), get_distribution(training_labels))
+
+  # always have an optimal tree in the forest
+  tree = dtl(1, training_set, (choose_optimal_attribute, num_threshold, pruning_thr, entropy_thr), get_distribution(training_labels))
+  trees.append(tree)
+  
+  # random trees
+  for i in range(num_trees-1):
+    tree = dtl(1, training_set, (choose_random_attribute, num_threshold, pruning_thr, entropy_thr), get_distribution(training_labels))
     trees.append(tree)
 
   return trees
 
 def dtl(root_id, examples, CONSTANTS, distribution):
   # extracting variables
-  (choose_attribute, num_threshold, pruning_thr) = CONSTANTS
+  (choose_attribute, num_threshold, pruning_thr, entropy_thr) = CONSTANTS
   (example_inputs, example_labels) = examples
 
   if len(example_labels) < pruning_thr:
     return { root_id: Node(-1, -1, 0, distribution) }
-  elif get_entropy(example_labels) == 0:
+  elif get_entropy(example_labels) <= entropy_thr:
     return { root_id: Node(-1, -1, 0, get_distribution(example_labels)) }
   else:
     (best_gain, best_attribute, best_threshold) = choose_attribute(examples, num_threshold)
@@ -195,15 +199,22 @@ def print_and_log(str, log_file):
   print(str, end='')
   # log_file.write(str)
 
-def decision_tree(training_file, test_file, option, pruning_thr):
+def decision_tree(training_file, test_file, option, pruning_thr, entropy_thr = 0):
   # read dataset
   (training_set, test_set, label_int_conversions) = read_uci_dataset(training_file, test_file)
   (labels_to_ints, ints_to_labels) = label_int_conversions
   log_file = get_log_file('logs', training_file, test_file, option, pruning_thr)
 
   # program execution
-  trees = training(training_set, option, pruning_thr, 50)
-  print_trees(trees, log_file)
+  # trees = training(training_set, option, pruning_thr, entropy_thr, 100)
+  # print_trees(trees, log_file)
 
-  results = classification(test_set, trees)
-  print_results(results, log_file, ints_to_labels)
+  # results = classification(test_set, trees)
+  # print_results(results, log_file, ints_to_labels)
+
+  counts = [3,1]
+  total = sum(counts)
+  equation = lambda count: -(count/total)*np.log2(count/total)
+
+  summation = sum(map(equation, counts))
+  print(summation)
