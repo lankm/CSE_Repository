@@ -1,6 +1,10 @@
 import numpy as np
 from uci_data import *
 
+
+def L1(test_input, training_inputs):
+  delta = np.abs(np.subtract(test_input, training_inputs))
+  return np.sum(delta, axis = 1)
 def L2(test_input, training_inputs):
   delta = np.subtract(test_input, training_inputs)
   return np.sqrt(np.sum(np.square(delta), axis = 1))
@@ -19,7 +23,9 @@ def normalize(training_inputs, test_inputs):
 
   return (training_inputs, test_inputs)
 
-def knn_classify(training_file, test_file, k):
+def knn_classify(training_file, test_file, k, dist_opt=1):
+  dist = L1 if(dist_opt==1) else L2
+
   # input / unpacking
   (training_set, test_set, label_int_conversions) = read_uci_dataset(training_file, test_file)
   (training_inputs, training_labels) = training_set
@@ -32,19 +38,26 @@ def knn_classify(training_file, test_file, k):
   accuracies = []
   for (i, test_input) in enumerate(test_inputs):
     # calculating knn
-    distances = L2(test_input, training_inputs)
+    distances = dist(test_input, training_inputs)
     knn_idx = np.argsort(distances)[:k]
     knn_labels = training_labels[knn_idx]
 
-    # calculating counts of each
-    (unique, counts) = np.unique(knn_labels, return_counts=True)
-    largest_count_idx = np.argmax(counts)
-    largest_count = counts[largest_count_idx]
+    # calculating weight of each class
+    unique = np.unique(knn_labels)
+    weights = np.zeros(len(unique))
+    for (j, cla) in enumerate(unique): # weighing the classes by inverse distance
+      for (l, weight) in enumerate(np.divide(1, distances[knn_idx])):
+        if(training_labels[knn_idx][l] == cla):
+          weights[j] += weight
+
+    # predicting class
+    largest_count_idx = np.argmax(weights)
+    largest_count = weights[largest_count_idx]
     predicted_class = unique[largest_count_idx]
 
     # eliminating non-ties
-    unique = unique[counts == largest_count]
-    counts = counts[counts == largest_count]
+    unique = unique[weights == largest_count]
+    weights = weights[weights == largest_count]
 
     # accuracy calculation
     accuracy = 0
