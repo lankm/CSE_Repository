@@ -33,8 +33,13 @@ def knn_classify(training_file, test_file, k):
   for (i, test_input) in enumerate(test_inputs):
     # calculating knn
     distances = L2(test_input, training_inputs)
-    knn_idx = np.argsort(distances)[:k]
-    knn_labels = training_labels[knn_idx]
+    sorted_idx = np.argsort(distances)
+    knn_labels = list(training_labels[sorted_idx[:k]])
+    for j in range(k, len(distances)):  # handling ties in distance
+      if distances[sorted_idx[j]] != distances[sorted_idx[k-1]]:
+        break
+      else:
+        knn_labels.append(training_labels[sorted_idx[j]])
 
     # calculating counts of each
     (unique, counts) = np.unique(knn_labels, return_counts=True)

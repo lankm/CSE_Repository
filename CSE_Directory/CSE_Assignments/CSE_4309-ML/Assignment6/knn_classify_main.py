@@ -7,7 +7,7 @@ dataset_directory = "../uci_data"
 
 # When you test your code, you can select the dataset you want to use 
 # by modifying the next lines
-dataset = "satellite_string"
+dataset = "yeast"
 #dataset = "satellite"
 #dataset = "yeast"
 
@@ -17,6 +17,5 @@ test_file = dataset_directory + "/" + dataset + "_test.txt"
 
 # When you test your code, you can select the function arguments you want to use 
 # by modifying the next lines
-k = 7
-dist_opt = 1
-knn_classify(training_file, test_file, k, dist_opt)
+k = 5
+knn_classify(training_file, test_file, k)

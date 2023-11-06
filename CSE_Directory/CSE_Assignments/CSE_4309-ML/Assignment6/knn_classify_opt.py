@@ -38,16 +38,21 @@ def knn_classify(training_file, test_file, k, dist_opt=1):
   accuracies = []
   for (i, test_input) in enumerate(test_inputs):
     # calculating knn
-    distances = dist(test_input, training_inputs)
-    knn_idx = np.argsort(distances)[:k]
-    knn_labels = training_labels[knn_idx]
+    distances = L2(test_input, training_inputs)
+    sorted_idx = np.argsort(distances)
+    knn_labels = list(training_labels[sorted_idx[:k]])
+    for j in range(k, len(distances)):  # handling ties in distance
+      if distances[sorted_idx[j]] != distances[sorted_idx[k-1]]:
+        break
+      else:
+        knn_labels.append(training_labels[sorted_idx[j]])
 
     # calculating weight of each class
     unique = np.unique(knn_labels)
     weights = np.zeros(len(unique))
     for (j, cla) in enumerate(unique): # weighing the classes by inverse distance
-      for (l, weight) in enumerate(np.divide(1, distances[knn_idx])):
-        if(training_labels[knn_idx][l] == cla):
+      for (l, weight) in enumerate(np.divide(1, distances[sorted_idx])):
+        if(training_labels[sorted_idx][l] == cla):
           weights[j] += weight
 
     # predicting class
