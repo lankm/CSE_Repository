@@ -16,30 +16,21 @@ def training(training_set, option, pruning_thr, threshold_cnt):
   (training_inputs, training_labels) = training_set
 
   global choose_attribute
-  if type(option) == int: # decision forrest
-    num_trees = option
+  if option.isnumeric(): # decision forrest
+    num_trees = int(option)
     choose_attribute = choose_random_attribute
   else: # single tree
     num_trees = 1
     choose_attribute = choose_optimal_attribute
 
   trees = []
-  threads = []
   for i in range(num_trees):
-    tree = {}
+    tree = dtl(1, training_set, get_distribution(training_labels))
     trees.append(tree)
-
-    t = threading.Thread(target=dtl, args=(1, training_set, get_distribution(training_labels), tree))
-    threads.append(t)
-    t.start()
-
-  for t in threads:
-    t.join()
-
 
   return trees
 
-def dtl(root_id, examples, distribution, tree):
+def dtl(root_id, examples, distribution):
   # extracting variables
   global choose_attribute
   global THRESHOLD_CNT
@@ -47,9 +38,9 @@ def dtl(root_id, examples, distribution, tree):
   (example_inputs, example_labels) = examples
 
   if len(example_labels) < PRUNING_THR:
-    tree.update({ root_id: Node(-1, -1, 0, distribution) })
+    return { root_id: Node(-1, -1, 0, distribution) }
   elif get_entropy(example_labels) == 0:
-    tree.update({ root_id: Node(-1, -1, 0, get_distribution(example_labels)) })
+    return { root_id: Node(-1, -1, 0, get_distribution(example_labels)) }
   else:
     (best_gain, best_attribute, best_threshold) = choose_attribute(examples, THRESHOLD_CNT)
     
@@ -61,9 +52,10 @@ def dtl(root_id, examples, distribution, tree):
     examples_right = ( example_inputs[ right_indexes ], example_labels[right_indexes] )
 
     # adding subnodes
-    tree.update({ root_id: Node(best_attribute, best_threshold, best_gain, distribution) })
-    dtl(2*root_id,   examples_left, get_distribution(example_labels), tree)
-    dtl(2*root_id+1, examples_right,  get_distribution(example_labels), tree)
+    tree = { root_id: Node(best_attribute, best_threshold, best_gain, distribution) }
+    tree.update(dtl(2*root_id,   examples_left, get_distribution(example_labels)))
+    tree.update(dtl(2*root_id+1, examples_right,  get_distribution(example_labels)))
+    return tree
 def get_distribution(labels):
   (unique, counts) = np.unique(labels, return_counts=True)
   total = sum(counts)
