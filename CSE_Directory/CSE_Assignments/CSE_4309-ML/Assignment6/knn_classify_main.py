@@ -1,4 +1,4 @@
-from knn_classify_opt import *
+from knn_classify import *
 
 
 # When you test your code, you can change this line to reflect where the 
@@ -17,5 +17,5 @@ test_file = dataset_directory + "/" + dataset + "_test.txt"
 
 # When you test your code, you can select the function arguments you want to use 
 # by modifying the next lines
-k = 5
+k = 1
 knn_classify(training_file, test_file, k)
