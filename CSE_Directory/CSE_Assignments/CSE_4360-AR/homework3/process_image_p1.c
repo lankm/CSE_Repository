@@ -1,3 +1,8 @@
+/* README
+ * To switch between template, change the TEMPL_SEL value
+ * one line 103
+ */
+
 #include <stdio.h>
 #include <math.h>
 #include <X11/Xlib.h>
@@ -95,7 +100,7 @@ float selected_std(unsigned char image[DIM][DIM], float mean) {
   }
 }
 
-#define TEMPL_SEL 3
+#define TEMPL_SEL 0
 void part_1(unsigned char image[DIM][DIM], int size[2], unsigned char proc_img[DIM][DIM]) {
   int width = size[0];
   int height = size[1];
@@ -172,5 +177,5 @@ void part_2(unsigned char image[DIM][DIM], int size[2], unsigned char proc_img[D
 }
 
 void process_image(unsigned char image[DIM][DIM], int size[2], unsigned char proc_img[DIM][DIM]) {
-  part_2(image, size, proc_img);
+  part_1(image, size, proc_img);
 }
