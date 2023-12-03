@@ -238,6 +238,7 @@ class Simplex:
             mat[num_vec+i].append(0)
 
         rref, shape = sp.Matrix(mat).rref()
+        # TODO increment through shape and handle properly. happens if a higher dimention shape is flat. Ex: tetroid has planar like a triangle. or has 0 volume
 
         center = self.__vecs[base_vec] + [a for a in rref[:, -1]]
         radius = abs(Vec(center) - self.__vecs[base_vec]) # radius from all points is the same
@@ -420,11 +421,11 @@ class Polytope: # TODO
         
 
 def test():
-    v1 = Vec([5,-3,2])
-    v2 = Vec([4,5,-5])
-    v3 = Vec([-4,7,15])
-    v4 = Vec([2,-5,-4])
-    s = Simplex([v1,v2,v3])
+    v1 = Vec([5,-30,0])
+    v2 = Vec([4,5,0])
+    v3 = Vec([-4,7,0])
+    v4 = Vec([2,-5,0])
+    s = Simplex([v1,v2,v3,v4])
     print(s.spheroid().__repr__())
     print(s.spheroid())
 
