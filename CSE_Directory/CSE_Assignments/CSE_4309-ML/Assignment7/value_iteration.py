@@ -109,4 +109,3 @@ def value_iteration(data_file, ntr, gamma, K):
     for val in row:
       print('%6.3s ' % val,end='')
     print()
-  pass
