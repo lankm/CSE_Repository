@@ -1,5 +1,5 @@
 import numpy as np
-from random import random
+from random import random, shuffle
 
 class Action:
     arrows = ['^','<','v','>']
@@ -107,6 +107,27 @@ class Actor:
         return f'{self.cur_location}'
 
 # =============================================================================
+def Utility(Q, state):
+    return max([ 
+        Q.get((state,action), 0) for action in Action.Actions()+[None] 
+    ])
+def BestAction(Q, state):
+    return Action(Action.names[
+        np.argmax([ Q.get((state,action), 0) for action in Action.Actions()])
+    ])
+def NextAction(Q, N, Ne, state):
+    f_vals = {}
+    for action in Action.Actions():
+        f_vals[action] = f(Q.get((state,action), 0),N.get((state,action), 0), Ne)
+    
+    max_v = max(f_vals.values())
+    for key in list(f_vals.keys()):
+        if f_vals[key] != max_v:
+            del f_vals[key]
+
+    ties = list(f_vals.keys())
+    shuffle(ties)
+    return ties[0]
 
 def Q_Learning_Update(s_p, r_p, s, r, a, Q, N, gamma, env: Environment):
     if s_p in env.terminals:
@@ -116,7 +137,7 @@ def Q_Learning_Update(s_p, r_p, s, r, a, Q, N, gamma, env: Environment):
         c = 20/(19+N[(s,a)])
 
         prev_Q = (1-c)*Q.get((s,a), 0)
-        new_Q =    (c)*(r + gamma*max([Q.get((s_p,a_p), 0) for a_p in Action.Actions()+[None]]))
+        new_Q =    (c)*(r + gamma*Utility(Q, s_p))
         Q[(s,a)] = prev_Q + new_Q
 
 def f(u, n, ne):
@@ -133,18 +154,13 @@ def output(Q, env: Environment):
         for j in range(env.num_cols):
             state = (i+1,j+1)
 
-            act_idx = np.argmax([Q.get((state,a), float('-inf')) for a in Action.Actions() +[None]])
-            if act_idx==4:
-                best_action = None
-            else:
-                best_action = Action(Action.names[act_idx])
+            utility = Utility(Q, state)
+            best_action = BestAction(Q, state)
 
-            utility = Q.get((state,best_action), float('-inf'))
-
-            if best_action==None: # if terminal
+            if state in env.terminals: # if terminal. can also be extracted from Q but harder to read the code
                 policy[i,j] = 'o'
-                utilities[i,j] = utility
-            elif utility == float('-inf'):  # if obstacle
+                utilities[i,j] = env.terminals[state]
+            elif state in env.obstacles:  # if obstacle. can also be extracted from Q but harder to read the code
                 policy[i,j] = 'x'
                 utilities[i,j] = 0
             else:
@@ -181,10 +197,9 @@ def AgentModel_Q_Learning(environment_file, ntr, gamma, number_of_moves, Ne):
             s_p, r_p = actor.SenseStateAndReward()
             Q_Learning_Update(s_p, r_p, s, r, a, Q, N, gamma, env)
             if s_p in env.terminals: break
-            a = Action(Action.names[np.argmax([f(Q.get((s_p,a_p), 0),N.get((s_p,a_p), 0), Ne) for a_p in Action.Actions()])])
+            a = NextAction(Q, N, Ne, s_p)
             actor.ExecuteAction(a)
             s, r = s_p, r_p
-    
+
     output(Q, env)
-    
     
