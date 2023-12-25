@@ -13,8 +13,8 @@ moves_file = None
 ntr = -0.01 # non_terminal_reward
 gamma = 0.99
 
-number_of_moves = 10000
-Ne = 1000
+number_of_moves = 3000000
+Ne = 50000
 
 start_time = time.time()
 
