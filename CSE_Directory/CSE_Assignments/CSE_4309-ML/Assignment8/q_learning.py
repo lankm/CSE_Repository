@@ -109,7 +109,8 @@ class Actor:
 # =============================================================================
 def Utility(Q, state):
     return max([ 
-        Q.get((state,action), 0) for action in Action.Actions()+[None] 
+        # instructor said to have a default value of 0 but -1 works better because of ntr values
+        Q.get((state,action), -1) for action in Action.Actions()+[None] 
     ])
 def BestAction(Q, state):
     return Action(Action.names[
@@ -189,9 +190,7 @@ def AgentModel_Q_Learning(environment_file, ntr, gamma, number_of_moves, Ne):
     Q = {} # Q values for (s,a)
     N = {} # # of occurences of (s,a)
     while Actor.totalActionsExecuted < number_of_moves:
-        s = None # previous state
-        r = None # previous reward
-        a = None # next action
+        s, r, a = None, None, None # previous state, reward, action taken
         actor = Actor(env) # actor starts at start state of env
         while Actor.totalActionsExecuted < number_of_moves:
             s_p, r_p = actor.SenseStateAndReward()
@@ -200,6 +199,7 @@ def AgentModel_Q_Learning(environment_file, ntr, gamma, number_of_moves, Ne):
             a = NextAction(Q, N, Ne, s_p)
             actor.ExecuteAction(a)
             s, r = s_p, r_p
+        
 
     output(Q, env)
     
