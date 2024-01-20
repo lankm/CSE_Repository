@@ -1,3 +1,0 @@
-./assignment0.out 2>errors.txt
-
-ERROR: Nothing is really wrong.

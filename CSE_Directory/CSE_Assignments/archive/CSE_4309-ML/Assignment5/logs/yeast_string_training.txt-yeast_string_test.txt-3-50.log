@@ -1,0 +1,800 @@
+tree= 1, node=  1, feature= 3, thr=  0.39, gain=0.152711
+tree= 1, node=  2, feature= 6, thr=  0.52, gain=0.035294
+tree= 1, node=  3, feature= 5, thr=  0.01, gain=0.041438
+tree= 1, node=  4, feature= 4, thr=  0.51, gain=0.001712
+tree= 1, node=  5, feature= 1, thr=  0.62, gain=0.296575
+tree= 1, node=  6, feature= 6, thr=  0.35, gain=0.080976
+tree= 1, node=  7, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=  8, feature= 0, thr=  0.68, gain=0.255868
+tree= 1, node=  9, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 10, feature= 0, thr=  0.66, gain=0.144878
+tree= 1, node= 11, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 12, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 13, feature= 2, thr=  0.42, gain=0.194452
+tree= 1, node= 16, feature= 4, thr=  0.50, gain=0.000000
+tree= 1, node= 17, feature= 6, thr=  0.49, gain=0.257981
+tree= 1, node= 20, feature= 4, thr=  0.51, gain=0.011819
+tree= 1, node= 21, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 26, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 27, feature= 1, thr=  0.68, gain=0.235919
+tree= 1, node= 32, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 33, feature= 1, thr=  0.50, gain=0.036096
+tree= 1, node= 34, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 35, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 40, feature= 4, thr=  0.50, gain=0.000000
+tree= 1, node= 41, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 54, feature= 0, thr=  0.43, gain=0.109928
+tree= 1, node= 55, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 66, feature= 0, thr=  0.56, gain=0.038173
+tree= 1, node= 67, feature= 1, thr=  0.56, gain=0.051618
+tree= 1, node= 80, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node= 81, feature= 2, thr=  0.43, gain=0.422652
+tree= 1, node=108, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=109, feature= 1, thr=  0.52, gain=0.174614
+tree= 1, node=132, feature= 0, thr=  0.43, gain=0.027752
+tree= 1, node=133, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=134, feature= 3, thr=  0.30, gain=0.090053
+tree= 1, node=135, feature= 6, thr=  0.47, gain=0.088865
+tree= 1, node=162, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=163, feature= 7, thr=  0.27, gain=0.144889
+tree= 1, node=218, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=219, feature= 3, thr=  0.78, gain=0.133040
+tree= 1, node=264, feature= 7, thr=  0.29, gain=0.076469
+tree= 1, node=265, feature= 6, thr=  0.39, gain=0.027757
+tree= 1, node=268, feature= 1, thr=  0.53, gain=0.056839
+tree= 1, node=269, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=270, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=271, feature= 0, thr=  0.48, gain=0.248119
+tree= 1, node=326, feature= 3, thr=  0.33, gain=0.063783
+tree= 1, node=327, feature= 1, thr=  0.45, gain=0.118883
+tree= 1, node=438, feature= 4, thr=  0.50, gain=0.000000
+tree= 1, node=439, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=528, feature= 0, thr=  0.32, gain=0.058203
+tree= 1, node=529, feature= 2, thr=  0.38, gain=0.321827
+tree= 1, node=530, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=531, feature= 6, thr=  0.51, gain=0.040744
+tree= 1, node=536, feature= 3, thr=  0.14, gain=0.102522
+tree= 1, node=537, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=542, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=543, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=652, feature= 6, thr=  0.55, gain=0.102420
+tree= 1, node=653, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=654, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=655, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=876, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=877, feature= 0, thr=  0.46, gain=0.046546
+tree= 1, node=1056, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1057, feature= 3, thr=  0.22, gain=0.110518
+tree= 1, node=1058, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1059, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1062, feature= 0, thr=  0.54, gain=0.070955
+tree= 1, node=1063, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1072, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1073, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1304, feature= 1, thr=  0.48, gain=0.080010
+tree= 1, node=1305, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1754, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=1755, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=2114, feature= 4, thr=  0.50, gain=0.000000
+tree= 1, node=2115, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=2124, feature= 0, thr=  0.53, gain=0.036080
+tree= 1, node=2125, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=2608, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=2609, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=4228, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=4229, feature= 7, thr=  0.23, gain=0.098976
+tree= 1, node=4248, feature= 1, thr=  0.38, gain=0.069744
+tree= 1, node=4249, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=8458, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=8459, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=8496, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=8497, feature= 1, thr=  0.40, gain=0.114650
+tree= 1, node=16994, feature=-1, thr= -1.00, gain=0.000000
+tree= 1, node=16995, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=  1, feature= 5, thr=  0.02, gain=0.057880
+tree= 2, node=  2, feature= 3, thr=  0.39, gain=0.154114
+tree= 2, node=  3, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=  4, feature= 7, thr=  0.32, gain=0.105451
+tree= 2, node=  5, feature= 3, thr=  0.54, gain=0.072725
+tree= 2, node=  8, feature= 4, thr=  0.51, gain=0.035373
+tree= 2, node=  9, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node= 10, feature= 3, thr=  0.53, gain=0.053199
+tree= 2, node= 11, feature= 1, thr=  0.50, gain=0.274128
+tree= 2, node= 16, feature= 6, thr=  0.50, gain=0.036888
+tree= 2, node= 17, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 18, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 19, feature= 4, thr=  0.51, gain=0.003572
+tree= 2, node= 20, feature= 6, thr=  0.51, gain=0.100171
+tree= 2, node= 21, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 22, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 23, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 32, feature= 6, thr=  0.48, gain=0.050923
+tree= 2, node= 33, feature= 3, thr=  0.21, gain=0.067224
+tree= 2, node= 38, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node= 39, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 40, feature= 7, thr=  0.39, gain=0.355362
+tree= 2, node= 41, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 64, feature= 3, thr=  0.27, gain=0.157311
+tree= 2, node= 65, feature= 4, thr=  0.50, gain=0.000000
+tree= 2, node= 66, feature= 7, thr=  0.22, gain=0.067598
+tree= 2, node= 67, feature= 2, thr=  0.43, gain=0.517175
+tree= 2, node= 76, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node= 77, feature= 7, thr=  0.48, gain=0.057575
+tree= 2, node= 80, feature= 2, thr=  0.33, gain=0.113107
+tree= 2, node= 81, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=128, feature= 3, thr=  0.24, gain=0.073993
+tree= 2, node=129, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=130, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=131, feature= 3, thr=  0.18, gain=0.175474
+tree= 2, node=132, feature= 1, thr=  0.60, gain=0.157866
+tree= 2, node=133, feature= 6, thr=  0.50, gain=0.071016
+tree= 2, node=134, feature= 2, thr=  0.36, gain=0.198727
+tree= 2, node=135, feature= 4, thr=  0.50, gain=0.000000
+tree= 2, node=154, feature= 3, thr=  0.27, gain=0.082191
+tree= 2, node=155, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=160, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=161, feature= 6, thr=  0.36, gain=0.132738
+tree= 2, node=256, feature= 1, thr=  0.65, gain=0.084788
+tree= 2, node=257, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=262, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=263, feature= 4, thr=  0.50, gain=0.000000
+tree= 2, node=264, feature= 2, thr=  0.46, gain=0.498155
+tree= 2, node=265, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=266, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=267, feature= 0, thr=  0.57, gain=0.167245
+tree= 2, node=268, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=269, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=270, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=271, feature= 6, thr=  0.53, gain=0.100163
+tree= 2, node=308, feature= 6, thr=  0.52, gain=0.048064
+tree= 2, node=309, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=322, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=323, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=512, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=513, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=526, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=527, feature= 6, thr=  0.48, gain=0.138453
+tree= 2, node=528, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=529, feature= 3, thr=  0.20, gain=0.037427
+tree= 2, node=534, feature= 3, thr=  0.09, gain=0.129602
+tree= 2, node=535, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=542, feature= 4, thr=  0.50, gain=0.000000
+tree= 2, node=543, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=616, feature= 2, thr=  0.42, gain=0.468996
+tree= 2, node=617, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1024, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1025, feature= 2, thr=  0.39, gain=0.264288
+tree= 2, node=1054, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1055, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1058, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=1059, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1068, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1069, feature= 7, thr=  0.26, gain=0.087833
+tree= 2, node=1084, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1085, feature= 1, thr=  0.66, gain=0.346400
+tree= 2, node=1232, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=1233, feature= 2, thr=  0.54, gain=0.040856
+tree= 2, node=2050, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2051, feature= 7, thr=  0.30, gain=0.048674
+tree= 2, node=2116, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2117, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=2138, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2139, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2170, feature= 1, thr=  0.53, gain=0.073178
+tree= 2, node=2171, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2466, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=2467, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=4102, feature= 7, thr=  0.28, gain=0.042639
+tree= 2, node=4103, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=4234, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=4235, feature= 4, thr=  0.50, gain=0.000000
+tree= 2, node=4340, feature= 3, thr=  0.30, gain=0.078098
+tree= 2, node=4341, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=8204, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=8205, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=8470, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=8471, feature= 1, thr=  0.37, gain=0.138160
+tree= 2, node=8680, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=8681, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=16408, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=16409, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=16942, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=16943, feature= 1, thr=  0.46, gain=0.039275
+tree= 2, node=32818, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=32819, feature= 5, thr=  0.00, gain=0.000000
+tree= 2, node=33886, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=33887, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=65638, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=65639, feature= 7, thr=  0.23, gain=0.042344
+tree= 2, node=131278, feature= 3, thr=  0.15, gain=0.057045
+tree= 2, node=131279, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=262556, feature=-1, thr= -1.00, gain=0.000000
+tree= 2, node=262557, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=  1, feature= 3, thr=  0.39, gain=0.152711
+tree= 3, node=  2, feature= 4, thr=  0.51, gain=0.028364
+tree= 3, node=  3, feature= 0, thr=  0.62, gain=0.305180
+tree= 3, node=  4, feature= 2, thr=  0.44, gain=0.397176
+tree= 3, node=  5, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=  6, feature= 1, thr=  0.50, gain=0.191180
+tree= 3, node=  7, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=  8, feature= 6, thr=  0.54, gain=0.076165
+tree= 3, node=  9, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node= 12, feature= 3, thr=  0.62, gain=0.073470
+tree= 3, node= 13, feature= 6, thr=  0.53, gain=0.024392
+tree= 3, node= 16, feature= 7, thr=  0.27, gain=0.085846
+tree= 3, node= 17, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 18, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 19, feature= 3, thr=  0.24, gain=0.043927
+tree= 3, node= 24, feature= 0, thr=  0.45, gain=0.182692
+tree= 3, node= 25, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 26, feature= 6, thr=  0.52, gain=0.033218
+tree= 3, node= 27, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 32, feature= 7, thr=  0.22, gain=0.080024
+tree= 3, node= 33, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 38, feature= 6, thr=  0.54, gain=0.024590
+tree= 3, node= 39, feature= 7, thr=  0.30, gain=0.172193
+tree= 3, node= 48, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 49, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 52, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 53, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 64, feature= 1, thr=  0.69, gain=0.451116
+tree= 3, node= 65, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node= 76, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node= 77, feature= 2, thr=  0.49, gain=0.096310
+tree= 3, node= 78, feature= 1, thr=  0.68, gain=0.365457
+tree= 3, node= 79, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=128, feature= 0, thr=  0.55, gain=0.388680
+tree= 3, node=129, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=152, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=153, feature= 2, thr=  0.47, gain=0.057852
+tree= 3, node=154, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=155, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=156, feature= 2, thr=  0.51, gain=0.068154
+tree= 3, node=157, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=256, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=257, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=306, feature= 6, thr=  0.49, gain=0.119738
+tree= 3, node=307, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node=312, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=313, feature= 3, thr=  0.28, gain=0.062589
+tree= 3, node=612, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=613, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=614, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=615, feature= 3, thr=  0.21, gain=0.035875
+tree= 3, node=626, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=627, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=1230, feature= 3, thr=  0.09, gain=0.025637
+tree= 3, node=1231, feature= 3, thr=  0.23, gain=0.120717
+tree= 3, node=2460, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=2461, feature= 6, thr=  0.52, gain=0.029167
+tree= 3, node=2462, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=2463, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=4922, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node=4923, feature= 0, thr=  0.66, gain=0.231701
+tree= 3, node=9844, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=9845, feature= 3, thr=  0.19, gain=0.020559
+tree= 3, node=9846, feature= 6, thr=  0.53, gain=0.030789
+tree= 3, node=9847, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=19690, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node=19691, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=19692, feature= 0, thr=  0.56, gain=0.173652
+tree= 3, node=19693, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=39380, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=39381, feature= 5, thr=  0.01, gain=0.034477
+tree= 3, node=39384, feature= 7, thr=  0.23, gain=0.136877
+tree= 3, node=39385, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=78762, feature= 5, thr=  0.00, gain=0.000000
+tree= 3, node=78763, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=78768, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=78769, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=157524, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=157525, feature= 0, thr=  0.69, gain=0.026575
+tree= 3, node=315050, feature= 7, thr=  0.32, gain=0.125058
+tree= 3, node=315051, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=630100, feature= 3, thr=  0.16, gain=0.033187
+tree= 3, node=630101, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=1260200, feature= 0, thr=  0.34, gain=0.045460
+tree= 3, node=1260201, feature= 1, thr=  0.35, gain=0.139780
+tree= 3, node=2520400, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=2520401, feature= 0, thr=  0.38, gain=0.116879
+tree= 3, node=2520402, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=2520403, feature= 6, thr=  0.45, gain=0.042293
+tree= 3, node=5040802, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=5040803, feature= 0, thr=  0.39, gain=0.052572
+tree= 3, node=5040806, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=5040807, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=10081606, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=10081607, feature= 5, thr=  0.00, gain=0.000000
+tree= 3, node=20163214, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=20163215, feature= 4, thr=  0.50, gain=0.000000
+tree= 3, node=40326430, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=40326431, feature= 6, thr=  0.34, gain=0.047423
+tree= 3, node=80652862, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=80652863, feature= 6, thr=  0.47, gain=0.049946
+tree= 3, node=161305726, feature=-1, thr= -1.00, gain=0.000000
+tree= 3, node=161305727, feature=-1, thr= -1.00, gain=0.000000
+ID=    1, predicted=class7, true=three , accuracy=0.00
+ID=    2, predicted=class7, true=class7, accuracy=1.00
+ID=    3, predicted=class7, true=class7, accuracy=1.00
+ID=    4, predicted=class7, true=class2, accuracy=0.00
+ID=    5, predicted=class2, true=class2, accuracy=1.00
+ID=    6, predicted=class2, true=class2, accuracy=1.00
+ID=    7, predicted=class7, true=class7, accuracy=1.00
+ID=    8, predicted=one   , true=one   , accuracy=1.00
+ID=    9, predicted=class7, true=class7, accuracy=1.00
+ID=   10, predicted=class7, true=class7, accuracy=1.00
+ID=   11, predicted=three , true=three , accuracy=1.00
+ID=   12, predicted=class2, true=six   , accuracy=0.00
+ID=   13, predicted=class7, true=class2, accuracy=0.00
+ID=   14, predicted=class2, true=five  , accuracy=0.00
+ID=   15, predicted=three , true=five  , accuracy=0.00
+ID=   16, predicted=class7, true=class7, accuracy=1.00
+ID=   17, predicted=class7, true=three , accuracy=0.00
+ID=   18, predicted=class2, true=class2, accuracy=1.00
+ID=   19, predicted=class2, true=three , accuracy=0.00
+ID=   20, predicted=class2, true=class2, accuracy=1.00
+ID=   21, predicted=class2, true=class2, accuracy=1.00
+ID=   22, predicted=class7, true=three , accuracy=0.00
+ID=   23, predicted=class2, true=class2, accuracy=1.00
+ID=   24, predicted=class7, true=five  , accuracy=0.00
+ID=   25, predicted=class2, true=three , accuracy=0.00
+ID=   26, predicted=class2, true=class2, accuracy=1.00
+ID=   27, predicted=class2, true=class2, accuracy=1.00
+ID=   28, predicted=class7, true=class7, accuracy=1.00
+ID=   29, predicted=class7, true=three , accuracy=0.00
+ID=   30, predicted=class7, true=nine  , accuracy=0.00
+ID=   31, predicted=class7, true=class7, accuracy=1.00
+ID=   32, predicted=one   , true=class7, accuracy=0.00
+ID=   33, predicted=class7, true=class7, accuracy=1.00
+ID=   34, predicted=one   , true=one   , accuracy=1.00
+ID=   35, predicted=class7, true=class7, accuracy=1.00
+ID=   36, predicted=class2, true=three , accuracy=0.00
+ID=   37, predicted=three , true=three , accuracy=1.00
+ID=   38, predicted=class7, true=class2, accuracy=0.00
+ID=   39, predicted=class2, true=class7, accuracy=0.00
+ID=   40, predicted=class7, true=class7, accuracy=1.00
+ID=   41, predicted=class2, true=three , accuracy=0.00
+ID=   42, predicted=class7, true=nine  , accuracy=0.00
+ID=   43, predicted=class7, true=one   , accuracy=0.00
+ID=   44, predicted=class2, true=class2, accuracy=1.00
+ID=   45, predicted=class2, true=class2, accuracy=1.00
+ID=   46, predicted=class7, true=class2, accuracy=0.00
+ID=   47, predicted=class7, true=class7, accuracy=1.00
+ID=   48, predicted=one   , true=one   , accuracy=1.00
+ID=   49, predicted=one   , true=one   , accuracy=1.00
+ID=   50, predicted=class7, true=one   , accuracy=0.00
+ID=   51, predicted=class2, true=class7, accuracy=0.00
+ID=   52, predicted=class2, true=class7, accuracy=0.00
+ID=   53, predicted=class7, true=class2, accuracy=0.00
+ID=   54, predicted=class2, true=class2, accuracy=1.00
+ID=   55, predicted=class7, true=class7, accuracy=1.00
+ID=   56, predicted=class7, true=class2, accuracy=0.00
+ID=   57, predicted=one   , true=class2, accuracy=0.00
+ID=   58, predicted=class7, true=class2, accuracy=0.00
+ID=   59, predicted=class2, true=three , accuracy=0.00
+ID=   60, predicted=class7, true=three , accuracy=0.00
+ID=   61, predicted=class2, true=class2, accuracy=1.00
+ID=   62, predicted=class2, true=class2, accuracy=1.00
+ID=   63, predicted=class2, true=one   , accuracy=0.00
+ID=   64, predicted=class7, true=eight , accuracy=0.00
+ID=   65, predicted=three , true=three , accuracy=1.00
+ID=   66, predicted=class7, true=nine  , accuracy=0.00
+ID=   67, predicted=class7, true=class2, accuracy=0.00
+ID=   68, predicted=class7, true=eight , accuracy=0.00
+ID=   69, predicted=class7, true=class7, accuracy=1.00
+ID=   70, predicted=class7, true=class2, accuracy=0.00
+ID=   71, predicted=three , true=nine  , accuracy=0.00
+ID=   72, predicted=class2, true=class2, accuracy=1.00
+ID=   73, predicted=class2, true=three , accuracy=0.00
+ID=   74, predicted=class7, true=class7, accuracy=1.00
+ID=   75, predicted=class7, true=class7, accuracy=1.00
+ID=   76, predicted=class7, true=nine  , accuracy=0.00
+ID=   77, predicted=three , true=three , accuracy=1.00
+ID=   78, predicted=class7, true=class7, accuracy=1.00
+ID=   79, predicted=three , true=eight , accuracy=0.00
+ID=   80, predicted=class7, true=class7, accuracy=1.00
+ID=   81, predicted=class7, true=class7, accuracy=1.00
+ID=   82, predicted=three , true=five  , accuracy=0.00
+ID=   83, predicted=class7, true=five  , accuracy=0.00
+ID=   84, predicted=class2, true=class7, accuracy=0.00
+ID=   85, predicted=class2, true=one   , accuracy=0.00
+ID=   86, predicted=three , true=class4, accuracy=0.00
+ID=   87, predicted=class7, true=class7, accuracy=1.00
+ID=   88, predicted=three , true=three , accuracy=1.00
+ID=   89, predicted=class2, true=class2, accuracy=1.00
+ID=   90, predicted=one   , true=class7, accuracy=0.00
+ID=   91, predicted=class2, true=class7, accuracy=0.00
+ID=   92, predicted=class7, true=class7, accuracy=1.00
+ID=   93, predicted=class2, true=class7, accuracy=0.00
+ID=   94, predicted=one   , true=one   , accuracy=1.00
+ID=   95, predicted=class2, true=class2, accuracy=1.00
+ID=   96, predicted=class2, true=class2, accuracy=1.00
+ID=   97, predicted=one   , true=one   , accuracy=1.00
+ID=   98, predicted=class7, true=class2, accuracy=0.00
+ID=   99, predicted=class7, true=class7, accuracy=1.00
+ID=  100, predicted=class2, true=class2, accuracy=1.00
+ID=  101, predicted=three , true=three , accuracy=1.00
+ID=  102, predicted=class7, true=three , accuracy=0.00
+ID=  103, predicted=class7, true=class2, accuracy=0.00
+ID=  104, predicted=one   , true=class7, accuracy=0.00
+ID=  105, predicted=class2, true=three , accuracy=0.00
+ID=  106, predicted=class2, true=nine  , accuracy=0.00
+ID=  107, predicted=class7, true=six   , accuracy=0.00
+ID=  108, predicted=class7, true=class7, accuracy=1.00
+ID=  109, predicted=class7, true=class7, accuracy=1.00
+ID=  110, predicted=class7, true=one   , accuracy=0.00
+ID=  111, predicted=one   , true=class2, accuracy=0.00
+ID=  112, predicted=class7, true=class2, accuracy=0.00
+ID=  113, predicted=class7, true=class7, accuracy=1.00
+ID=  114, predicted=one   , true=one   , accuracy=1.00
+ID=  115, predicted=class7, true=class7, accuracy=1.00
+ID=  116, predicted=three , true=class2, accuracy=0.00
+ID=  117, predicted=three , true=class2, accuracy=0.00
+ID=  118, predicted=class7, true=eight , accuracy=0.00
+ID=  119, predicted=class2, true=five  , accuracy=0.00
+ID=  120, predicted=class2, true=class2, accuracy=1.00
+ID=  121, predicted=class7, true=class7, accuracy=1.00
+ID=  122, predicted=class7, true=class2, accuracy=0.00
+ID=  123, predicted=three , true=class4, accuracy=0.00
+ID=  124, predicted=class7, true=class7, accuracy=1.00
+ID=  125, predicted=one   , true=one   , accuracy=1.00
+ID=  126, predicted=class7, true=class7, accuracy=1.00
+ID=  127, predicted=class7, true=class7, accuracy=1.00
+ID=  128, predicted=class7, true=class7, accuracy=1.00
+ID=  129, predicted=one   , true=class7, accuracy=0.00
+ID=  130, predicted=class2, true=class2, accuracy=1.00
+ID=  131, predicted=class2, true=class7, accuracy=0.00
+ID=  132, predicted=class7, true=class2, accuracy=0.00
+ID=  133, predicted=three , true=class2, accuracy=0.00
+ID=  134, predicted=class7, true=class2, accuracy=0.00
+ID=  135, predicted=one   , true=one   , accuracy=1.00
+ID=  136, predicted=class7, true=class7, accuracy=1.00
+ID=  137, predicted=class7, true=eight , accuracy=0.00
+ID=  138, predicted=class7, true=three , accuracy=0.00
+ID=  139, predicted=class2, true=class2, accuracy=1.00
+ID=  140, predicted=three , true=class2, accuracy=0.00
+ID=  141, predicted=class2, true=class7, accuracy=0.00
+ID=  142, predicted=class7, true=class2, accuracy=0.00
+ID=  143, predicted=class7, true=three , accuracy=0.00
+ID=  144, predicted=one   , true=one   , accuracy=1.00
+ID=  145, predicted=class7, true=class7, accuracy=1.00
+ID=  146, predicted=three , true=class2, accuracy=0.00
+ID=  147, predicted=class2, true=class2, accuracy=1.00
+ID=  148, predicted=class7, true=one   , accuracy=0.00
+ID=  149, predicted=one   , true=class2, accuracy=0.00
+ID=  150, predicted=class2, true=class2, accuracy=1.00
+ID=  151, predicted=class2, true=class7, accuracy=0.00
+ID=  152, predicted=class2, true=class2, accuracy=1.00
+ID=  153, predicted=class2, true=class2, accuracy=1.00
+ID=  154, predicted=class7, true=one   , accuracy=0.00
+ID=  155, predicted=three , true=five  , accuracy=0.00
+ID=  156, predicted=class2, true=class2, accuracy=1.00
+ID=  157, predicted=class2, true=class7, accuracy=0.00
+ID=  158, predicted=class7, true=class7, accuracy=1.00
+ID=  159, predicted=class2, true=class7, accuracy=0.00
+ID=  160, predicted=class7, true=class2, accuracy=0.00
+ID=  161, predicted=class7, true=class7, accuracy=1.00
+ID=  162, predicted=class7, true=one   , accuracy=0.00
+ID=  163, predicted=class7, true=class2, accuracy=0.00
+ID=  164, predicted=one   , true=one   , accuracy=1.00
+ID=  165, predicted=three , true=class4, accuracy=0.00
+ID=  166, predicted=class2, true=class7, accuracy=0.00
+ID=  167, predicted=class7, true=class7, accuracy=1.00
+ID=  168, predicted=class2, true=class2, accuracy=1.00
+ID=  169, predicted=class7, true=class2, accuracy=0.00
+ID=  170, predicted=class7, true=one   , accuracy=0.00
+ID=  171, predicted=one   , true=one   , accuracy=1.00
+ID=  172, predicted=class7, true=class4, accuracy=0.00
+ID=  173, predicted=three , true=one   , accuracy=0.00
+ID=  174, predicted=class7, true=class7, accuracy=1.00
+ID=  175, predicted=class2, true=class2, accuracy=1.00
+ID=  176, predicted=class7, true=class7, accuracy=1.00
+ID=  177, predicted=class2, true=class2, accuracy=1.00
+ID=  178, predicted=one   , true=one   , accuracy=1.00
+ID=  179, predicted=class7, true=class7, accuracy=1.00
+ID=  180, predicted=class2, true=class7, accuracy=0.00
+ID=  181, predicted=three , true=class4, accuracy=0.00
+ID=  182, predicted=class7, true=three , accuracy=0.00
+ID=  183, predicted=class2, true=three , accuracy=0.00
+ID=  184, predicted=class7, true=class2, accuracy=0.00
+ID=  185, predicted=class2, true=class2, accuracy=1.00
+ID=  186, predicted=class7, true=class7, accuracy=1.00
+ID=  187, predicted=class2, true=three , accuracy=0.00
+ID=  188, predicted=class7, true=class7, accuracy=1.00
+ID=  189, predicted=class2, true=class2, accuracy=1.00
+ID=  190, predicted=one   , true=one   , accuracy=1.00
+ID=  191, predicted=class7, true=class7, accuracy=1.00
+ID=  192, predicted=class7, true=class7, accuracy=1.00
+ID=  193, predicted=class7, true=class7, accuracy=1.00
+ID=  194, predicted=one   , true=nine  , accuracy=0.00
+ID=  195, predicted=class7, true=one   , accuracy=0.00
+ID=  196, predicted=class2, true=class2, accuracy=1.00
+ID=  197, predicted=class2, true=class2, accuracy=1.00
+ID=  198, predicted=three , true=three , accuracy=1.00
+ID=  199, predicted=one   , true=class7, accuracy=0.00
+ID=  200, predicted=class7, true=class7, accuracy=1.00
+ID=  201, predicted=three , true=one   , accuracy=0.00
+ID=  202, predicted=class7, true=three , accuracy=0.00
+ID=  203, predicted=class2, true=class2, accuracy=1.00
+ID=  204, predicted=class7, true=class7, accuracy=1.00
+ID=  205, predicted=class2, true=three , accuracy=0.00
+ID=  206, predicted=class2, true=three , accuracy=0.00
+ID=  207, predicted=one   , true=class7, accuracy=0.00
+ID=  208, predicted=class7, true=one   , accuracy=0.00
+ID=  209, predicted=class7, true=three , accuracy=0.00
+ID=  210, predicted=class7, true=class2, accuracy=0.00
+ID=  211, predicted=class7, true=three , accuracy=0.00
+ID=  212, predicted=class7, true=class2, accuracy=0.00
+ID=  213, predicted=class7, true=one   , accuracy=0.00
+ID=  214, predicted=one   , true=one   , accuracy=1.00
+ID=  215, predicted=class2, true=class7, accuracy=0.00
+ID=  216, predicted=class2, true=class2, accuracy=1.00
+ID=  217, predicted=one   , true=one   , accuracy=1.00
+ID=  218, predicted=class7, true=three , accuracy=0.00
+ID=  219, predicted=one   , true=one   , accuracy=1.00
+ID=  220, predicted=one   , true=one   , accuracy=1.00
+ID=  221, predicted=class7, true=class2, accuracy=0.00
+ID=  222, predicted=class7, true=class7, accuracy=1.00
+ID=  223, predicted=three , true=three , accuracy=1.00
+ID=  224, predicted=one   , true=one   , accuracy=1.00
+ID=  225, predicted=one   , true=eight , accuracy=0.00
+ID=  226, predicted=class2, true=class7, accuracy=0.00
+ID=  227, predicted=one   , true=one   , accuracy=1.00
+ID=  228, predicted=one   , true=class7, accuracy=0.00
+ID=  229, predicted=class7, true=nine  , accuracy=0.00
+ID=  230, predicted=class2, true=one   , accuracy=0.00
+ID=  231, predicted=class2, true=one   , accuracy=0.00
+ID=  232, predicted=one   , true=class7, accuracy=0.00
+ID=  233, predicted=three , true=three , accuracy=1.00
+ID=  234, predicted=class7, true=class7, accuracy=1.00
+ID=  235, predicted=three , true=one   , accuracy=0.00
+ID=  236, predicted=one   , true=class2, accuracy=0.00
+ID=  237, predicted=class2, true=class7, accuracy=0.00
+ID=  238, predicted=class7, true=one   , accuracy=0.00
+ID=  239, predicted=three , true=class4, accuracy=0.00
+ID=  240, predicted=three , true=three , accuracy=1.00
+ID=  241, predicted=class7, true=class7, accuracy=1.00
+ID=  242, predicted=class2, true=class7, accuracy=0.00
+ID=  243, predicted=one   , true=three , accuracy=0.00
+ID=  244, predicted=class7, true=eight , accuracy=0.00
+ID=  245, predicted=class7, true=class2, accuracy=0.00
+ID=  246, predicted=class2, true=class7, accuracy=0.00
+ID=  247, predicted=class2, true=class2, accuracy=1.00
+ID=  248, predicted=one   , true=one   , accuracy=1.00
+ID=  249, predicted=class2, true=class7, accuracy=0.00
+ID=  250, predicted=one   , true=one   , accuracy=1.00
+ID=  251, predicted=class7, true=nine  , accuracy=0.00
+ID=  252, predicted=three , true=three , accuracy=1.00
+ID=  253, predicted=class2, true=one   , accuracy=0.00
+ID=  254, predicted=class2, true=class7, accuracy=0.00
+ID=  255, predicted=one   , true=one   , accuracy=1.00
+ID=  256, predicted=class7, true=class4, accuracy=0.00
+ID=  257, predicted=three , true=three , accuracy=1.00
+ID=  258, predicted=one   , true=class2, accuracy=0.00
+ID=  259, predicted=class7, true=one   , accuracy=0.00
+ID=  260, predicted=class2, true=three , accuracy=0.00
+ID=  261, predicted=class7, true=class2, accuracy=0.00
+ID=  262, predicted=class2, true=class2, accuracy=1.00
+ID=  263, predicted=class7, true=class4, accuracy=0.00
+ID=  264, predicted=class7, true=nine  , accuracy=0.00
+ID=  265, predicted=class7, true=class2, accuracy=0.00
+ID=  266, predicted=class7, true=class2, accuracy=0.00
+ID=  267, predicted=class2, true=class4, accuracy=0.00
+ID=  268, predicted=class7, true=class7, accuracy=1.00
+ID=  269, predicted=one   , true=class7, accuracy=0.00
+ID=  270, predicted=class7, true=class7, accuracy=1.00
+ID=  271, predicted=class7, true=class7, accuracy=1.00
+ID=  272, predicted=class2, true=class7, accuracy=0.00
+ID=  273, predicted=class7, true=eight , accuracy=0.00
+ID=  274, predicted=class2, true=class2, accuracy=1.00
+ID=  275, predicted=class7, true=class2, accuracy=0.00
+ID=  276, predicted=class7, true=class7, accuracy=1.00
+ID=  277, predicted=three , true=three , accuracy=1.00
+ID=  278, predicted=class2, true=class2, accuracy=1.00
+ID=  279, predicted=class7, true=one   , accuracy=0.00
+ID=  280, predicted=class7, true=class2, accuracy=0.00
+ID=  281, predicted=class2, true=class7, accuracy=0.00
+ID=  282, predicted=three , true=class7, accuracy=0.00
+ID=  283, predicted=class2, true=class2, accuracy=1.00
+ID=  284, predicted=one   , true=class7, accuracy=0.00
+ID=  285, predicted=class2, true=class2, accuracy=1.00
+ID=  286, predicted=class7, true=class7, accuracy=1.00
+ID=  287, predicted=class7, true=class2, accuracy=0.00
+ID=  288, predicted=class7, true=class7, accuracy=1.00
+ID=  289, predicted=class7, true=three , accuracy=0.00
+ID=  290, predicted=class2, true=class2, accuracy=1.00
+ID=  291, predicted=class2, true=three , accuracy=0.00
+ID=  292, predicted=three , true=five  , accuracy=0.00
+ID=  293, predicted=class7, true=class2, accuracy=0.00
+ID=  294, predicted=class7, true=class7, accuracy=1.00
+ID=  295, predicted=class7, true=eight , accuracy=0.00
+ID=  296, predicted=class2, true=one   , accuracy=0.00
+ID=  297, predicted=three , true=three , accuracy=1.00
+ID=  298, predicted=class2, true=class2, accuracy=1.00
+ID=  299, predicted=class7, true=class7, accuracy=1.00
+ID=  300, predicted=class7, true=one   , accuracy=0.00
+ID=  301, predicted=class7, true=class7, accuracy=1.00
+ID=  302, predicted=class7, true=one   , accuracy=0.00
+ID=  303, predicted=class7, true=one   , accuracy=0.00
+ID=  304, predicted=class2, true=three , accuracy=0.00
+ID=  305, predicted=class7, true=class2, accuracy=0.00
+ID=  306, predicted=class7, true=class2, accuracy=0.00
+ID=  307, predicted=class7, true=class7, accuracy=1.00
+ID=  308, predicted=class7, true=eight , accuracy=0.00
+ID=  309, predicted=class7, true=class7, accuracy=1.00
+ID=  310, predicted=one   , true=one   , accuracy=1.00
+ID=  311, predicted=three , true=three , accuracy=1.00
+ID=  312, predicted=class2, true=class7, accuracy=0.00
+ID=  313, predicted=class7, true=one   , accuracy=0.00
+ID=  314, predicted=class7, true=class7, accuracy=1.00
+ID=  315, predicted=class7, true=class7, accuracy=1.00
+ID=  316, predicted=class7, true=class7, accuracy=1.00
+ID=  317, predicted=class7, true=class7, accuracy=1.00
+ID=  318, predicted=class7, true=class7, accuracy=1.00
+ID=  319, predicted=class7, true=three , accuracy=0.00
+ID=  320, predicted=one   , true=one   , accuracy=1.00
+ID=  321, predicted=class2, true=nine  , accuracy=0.00
+ID=  322, predicted=class7, true=class7, accuracy=1.00
+ID=  323, predicted=class7, true=class7, accuracy=1.00
+ID=  324, predicted=three , true=three , accuracy=1.00
+ID=  325, predicted=three , true=five  , accuracy=0.00
+ID=  326, predicted=class7, true=class2, accuracy=0.00
+ID=  327, predicted=class7, true=class2, accuracy=0.00
+ID=  328, predicted=class7, true=class7, accuracy=1.00
+ID=  329, predicted=class2, true=three , accuracy=0.00
+ID=  330, predicted=one   , true=one   , accuracy=1.00
+ID=  331, predicted=class2, true=class7, accuracy=0.00
+ID=  332, predicted=class7, true=five  , accuracy=0.00
+ID=  333, predicted=class2, true=class2, accuracy=1.00
+ID=  334, predicted=one   , true=class7, accuracy=0.00
+ID=  335, predicted=class7, true=class2, accuracy=0.00
+ID=  336, predicted=class7, true=six   , accuracy=0.00
+ID=  337, predicted=class2, true=class2, accuracy=1.00
+ID=  338, predicted=one   , true=class2, accuracy=0.00
+ID=  339, predicted=one   , true=nine  , accuracy=0.00
+ID=  340, predicted=one   , true=class7, accuracy=0.00
+ID=  341, predicted=class7, true=nine  , accuracy=0.00
+ID=  342, predicted=three , true=three , accuracy=1.00
+ID=  343, predicted=one   , true=five  , accuracy=0.00
+ID=  344, predicted=class7, true=five  , accuracy=0.00
+ID=  345, predicted=class2, true=class2, accuracy=1.00
+ID=  346, predicted=class2, true=class2, accuracy=1.00
+ID=  347, predicted=one   , true=class2, accuracy=0.00
+ID=  348, predicted=class7, true=one   , accuracy=0.00
+ID=  349, predicted=class2, true=class2, accuracy=1.00
+ID=  350, predicted=class7, true=class2, accuracy=0.00
+ID=  351, predicted=class7, true=class7, accuracy=1.00
+ID=  352, predicted=class7, true=class7, accuracy=1.00
+ID=  353, predicted=class7, true=class7, accuracy=1.00
+ID=  354, predicted=one   , true=six   , accuracy=0.00
+ID=  355, predicted=class7, true=one   , accuracy=0.00
+ID=  356, predicted=one   , true=one   , accuracy=1.00
+ID=  357, predicted=class2, true=class2, accuracy=1.00
+ID=  358, predicted=class7, true=class7, accuracy=1.00
+ID=  359, predicted=class7, true=class7, accuracy=1.00
+ID=  360, predicted=class2, true=class7, accuracy=0.00
+ID=  361, predicted=three , true=three , accuracy=1.00
+ID=  362, predicted=class7, true=class7, accuracy=1.00
+ID=  363, predicted=one   , true=class2, accuracy=0.00
+ID=  364, predicted=class7, true=class2, accuracy=0.00
+ID=  365, predicted=class2, true=class7, accuracy=0.00
+ID=  366, predicted=class7, true=class7, accuracy=1.00
+ID=  367, predicted=class7, true=class2, accuracy=0.00
+ID=  368, predicted=class2, true=six   , accuracy=0.00
+ID=  369, predicted=class2, true=class2, accuracy=1.00
+ID=  370, predicted=one   , true=one   , accuracy=1.00
+ID=  371, predicted=three , true=three , accuracy=1.00
+ID=  372, predicted=class2, true=class2, accuracy=1.00
+ID=  373, predicted=class7, true=class2, accuracy=0.00
+ID=  374, predicted=class7, true=class7, accuracy=1.00
+ID=  375, predicted=class2, true=class2, accuracy=1.00
+ID=  376, predicted=class2, true=class2, accuracy=1.00
+ID=  377, predicted=class7, true=three , accuracy=0.00
+ID=  378, predicted=class7, true=class7, accuracy=1.00
+ID=  379, predicted=one   , true=class7, accuracy=0.00
+ID=  380, predicted=class2, true=class2, accuracy=1.00
+ID=  381, predicted=class2, true=one   , accuracy=0.00
+ID=  382, predicted=class2, true=class7, accuracy=0.00
+ID=  383, predicted=class7, true=one   , accuracy=0.00
+ID=  384, predicted=three , true=class4, accuracy=0.00
+ID=  385, predicted=one   , true=one   , accuracy=1.00
+ID=  386, predicted=class2, true=class7, accuracy=0.00
+ID=  387, predicted=class2, true=five  , accuracy=0.00
+ID=  388, predicted=class2, true=class2, accuracy=1.00
+ID=  389, predicted=one   , true=class7, accuracy=0.00
+ID=  390, predicted=class7, true=one   , accuracy=0.00
+ID=  391, predicted=class2, true=class7, accuracy=0.00
+ID=  392, predicted=class7, true=class7, accuracy=1.00
+ID=  393, predicted=one   , true=class2, accuracy=0.00
+ID=  394, predicted=class7, true=class7, accuracy=1.00
+ID=  395, predicted=class7, true=class7, accuracy=1.00
+ID=  396, predicted=class2, true=class2, accuracy=1.00
+ID=  397, predicted=three , true=three , accuracy=1.00
+ID=  398, predicted=class7, true=class7, accuracy=1.00
+ID=  399, predicted=class7, true=class2, accuracy=0.00
+ID=  400, predicted=class7, true=class2, accuracy=0.00
+ID=  401, predicted=one   , true=class7, accuracy=0.00
+ID=  402, predicted=three , true=one   , accuracy=0.00
+ID=  403, predicted=class2, true=class2, accuracy=1.00
+ID=  404, predicted=class7, true=class7, accuracy=1.00
+ID=  405, predicted=class7, true=class2, accuracy=0.00
+ID=  406, predicted=three , true=three , accuracy=1.00
+ID=  407, predicted=class2, true=ten   , accuracy=0.00
+ID=  408, predicted=one   , true=class2, accuracy=0.00
+ID=  409, predicted=three , true=three , accuracy=1.00
+ID=  410, predicted=class2, true=class2, accuracy=1.00
+ID=  411, predicted=class2, true=three , accuracy=0.00
+ID=  412, predicted=three , true=three , accuracy=1.00
+ID=  413, predicted=class7, true=class7, accuracy=1.00
+ID=  414, predicted=class2, true=class7, accuracy=0.00
+ID=  415, predicted=three , true=five  , accuracy=0.00
+ID=  416, predicted=class7, true=three , accuracy=0.00
+ID=  417, predicted=three , true=five  , accuracy=0.00
+ID=  418, predicted=one   , true=one   , accuracy=1.00
+ID=  419, predicted=class2, true=class2, accuracy=1.00
+ID=  420, predicted=one   , true=one   , accuracy=1.00
+ID=  421, predicted=class7, true=class7, accuracy=1.00
+ID=  422, predicted=three , true=class2, accuracy=0.00
+ID=  423, predicted=three , true=three , accuracy=1.00
+ID=  424, predicted=class2, true=class2, accuracy=1.00
+ID=  425, predicted=class2, true=class7, accuracy=0.00
+ID=  426, predicted=three , true=three , accuracy=1.00
+ID=  427, predicted=class7, true=class7, accuracy=1.00
+ID=  428, predicted=class7, true=class7, accuracy=1.00
+ID=  429, predicted=class7, true=class7, accuracy=1.00
+ID=  430, predicted=class7, true=one   , accuracy=0.00
+ID=  431, predicted=one   , true=one   , accuracy=1.00
+ID=  432, predicted=class2, true=class7, accuracy=0.00
+ID=  433, predicted=class7, true=class2, accuracy=0.00
+ID=  434, predicted=class2, true=class7, accuracy=0.00
+ID=  435, predicted=one   , true=one   , accuracy=1.00
+ID=  436, predicted=class2, true=six   , accuracy=0.00
+ID=  437, predicted=three , true=nine  , accuracy=0.00
+ID=  438, predicted=class2, true=class2, accuracy=1.00
+ID=  439, predicted=class7, true=class7, accuracy=1.00
+ID=  440, predicted=class7, true=three , accuracy=0.00
+ID=  441, predicted=one   , true=three , accuracy=0.00
+ID=  442, predicted=class2, true=class2, accuracy=1.00
+ID=  443, predicted=class7, true=three , accuracy=0.00
+ID=  444, predicted=class7, true=class2, accuracy=0.00
+ID=  445, predicted=class7, true=class7, accuracy=1.00
+ID=  446, predicted=class7, true=class7, accuracy=1.00
+ID=  447, predicted=three , true=three , accuracy=1.00
+ID=  448, predicted=class7, true=eight , accuracy=0.00
+ID=  449, predicted=class7, true=class7, accuracy=1.00
+ID=  450, predicted=class7, true=class7, accuracy=1.00
+ID=  451, predicted=class7, true=class7, accuracy=1.00
+ID=  452, predicted=three , true=three , accuracy=1.00
+ID=  453, predicted=class7, true=class2, accuracy=0.00
+ID=  454, predicted=class7, true=class2, accuracy=0.00
+ID=  455, predicted=class2, true=class2, accuracy=1.00
+ID=  456, predicted=class7, true=three , accuracy=0.00
+ID=  457, predicted=one   , true=one   , accuracy=1.00
+ID=  458, predicted=class7, true=class2, accuracy=0.00
+ID=  459, predicted=class7, true=class2, accuracy=0.00
+ID=  460, predicted=class2, true=class7, accuracy=0.00
+ID=  461, predicted=one   , true=class4, accuracy=0.00
+ID=  462, predicted=class7, true=class7, accuracy=1.00
+ID=  463, predicted=class2, true=class2, accuracy=1.00
+ID=  464, predicted=class2, true=class2, accuracy=1.00
+ID=  465, predicted=one   , true=one   , accuracy=1.00
+ID=  466, predicted=class7, true=three , accuracy=0.00
+ID=  467, predicted=class2, true=class2, accuracy=1.00
+ID=  468, predicted=class7, true=class7, accuracy=1.00
+ID=  469, predicted=class2, true=class2, accuracy=1.00
+ID=  470, predicted=class7, true=class7, accuracy=1.00
+ID=  471, predicted=class7, true=one   , accuracy=0.00
+ID=  472, predicted=one   , true=one   , accuracy=1.00
+ID=  473, predicted=class7, true=class4, accuracy=0.00
+ID=  474, predicted=class7, true=eight , accuracy=0.00
+ID=  475, predicted=one   , true=one   , accuracy=1.00
+ID=  476, predicted=class7, true=one   , accuracy=0.00
+ID=  477, predicted=one   , true=one   , accuracy=1.00
+ID=  478, predicted=one   , true=one   , accuracy=1.00
+ID=  479, predicted=class7, true=five  , accuracy=0.00
+ID=  480, predicted=three , true=three , accuracy=1.00
+ID=  481, predicted=class2, true=class2, accuracy=1.00
+ID=  482, predicted=one   , true=eight , accuracy=0.00
+ID=  483, predicted=class7, true=class2, accuracy=0.00
+ID=  484, predicted=class2, true=one   , accuracy=0.00
+classification accuracy=0.4773
