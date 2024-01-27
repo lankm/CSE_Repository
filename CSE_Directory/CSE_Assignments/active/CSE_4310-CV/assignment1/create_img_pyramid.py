@@ -37,7 +37,7 @@ def split_img(rgb_img, depth):
     if depth <= 1:
         return [rgb_img]
     
-    h, w = np.floor_divide(img_size(rgb_img), 2)
+    h, w = img_size(rgb_img) // 2
     split_rgb_img = np.reshape(rgb_img[:h*2,:w*2,:], (h,2,w,2,3))
     split_rgb_img = np.mean(split_rgb_img, axis=(1,3))
 

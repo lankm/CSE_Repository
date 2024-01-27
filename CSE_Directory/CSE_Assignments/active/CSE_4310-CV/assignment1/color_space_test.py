@@ -38,13 +38,13 @@ def get_args():
     if num_args >= 3:
         sat_mod = float(raw_args[2])
     if sat_mod < -1 or sat_mod > 1:
-        sys.exit('Expected <saturation modification> in range [0,1]')
+        sys.exit('Expected <saturation modification> in range [-1,1]')
 
     val_mod = 0.0
     if num_args >= 4:
         val_mod = float(raw_args[3])
     if val_mod < -1 or val_mod > 1:
-        sys.exit('Expected <value modification> in range [0,1]')
+        sys.exit('Expected <value modification> in range [-1,1]')
 
     return filename, hue_mod, sat_mod, val_mod
 

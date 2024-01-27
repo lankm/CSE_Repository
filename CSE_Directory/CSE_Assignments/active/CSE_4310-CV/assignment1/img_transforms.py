@@ -15,9 +15,9 @@ def main():
 
     rgb_img = img_to_arr(filename)
 
-    # rgb_img = random_crop(rgb_img, (25,100), log=True)
-    rgb_img = resize_img(rgb_img, (2.0,0.5))
-    # rgb_img = color_jitter(rgb_img, hue=90, sat=0.1, val=0.1, log=True)
+    # rgb_img = random_crop(rgb_img, (1920,1080), log=True)
+    # rgb_img = resize_img(rgb_img, (2.0,0.5))
+    rgb_img = color_jitter(rgb_img, hue=360, sat=(-1,1), val=(-1,1), log=True)
 
     save_as_img(rgb_img, modify_filename(filename, '_modified'))
 
@@ -43,7 +43,7 @@ def random_crop(rgb_img, size, log=False):
         size_w, size_h = size, size
 
     h, w = img_size(rgb_img)
-    avail_h, avail_w = h-size_h, w-size_w
+    avail_h, avail_w = h-size_h+1, w-size_w+1
     
     if avail_h <= 0 or avail_w <= 0:
         sys.exit(f'Crop size ({size}) is too large.')
@@ -98,7 +98,7 @@ def resize_img(rgb_img, factor):
     for y in range(resized_h):
         for x in range(resized_w):
             mapped_y, mapped_x = np.rint([y/fac_h,x/fac_w]).astype(np.uint32)
-            resized_rgb_img[y,x,:] = rgb_img[mapped_y, mapped_x,:]
+            resized_rgb_img[y,x,:] = rgb_img[min(mapped_y,h-1), min(mapped_x,w-1),:]
 
     return resized_rgb_img
 
@@ -121,9 +121,9 @@ def color_jitter(rgb_img, hue, sat, val, log=False):
         val_min, val_max = 0, val
     val_range = val_max-val_min
 
-    hue_mod = np.random.rand() * hue_range - hue_min
-    sat_mod = np.random.rand() * sat_range - sat_min
-    val_mod = np.random.rand() * val_range - val_min
+    hue_mod = np.random.rand() * hue_range + hue_min
+    sat_mod = np.random.rand() * sat_range + sat_min
+    val_mod = np.random.rand() * val_range + val_min
 
     if log:
         print('hue modification:        %.3f' % hue_mod)
