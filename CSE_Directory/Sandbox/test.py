@@ -1,3 +1,5 @@
+# only works in a linux environment
+
 import curses
 
 def main(stdscr):
