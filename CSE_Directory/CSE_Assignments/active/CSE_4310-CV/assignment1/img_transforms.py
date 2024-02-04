@@ -3,7 +3,7 @@
 #
 # random_crop supports (w,h) tuples as well as integers
 # color_jitter supports (min, max) tuples as well as scalars. Does not do input validation.
-# extract_patch supports (num_w, num_h). supports non-square images and non-perfectly divisable images.
+# extract_patch supports (num_w, num_h) as well as working on non square images.
 # resize_img supports (fac_w, fac_h).
 
 import numpy as np
@@ -16,16 +16,17 @@ def main():
     rgb_img = img_to_arr(filename)
 
     # rgb_img = random_crop(rgb_img, (1920,1080), log=True)
-    # rgb_img = resize_img(rgb_img, (2.0,0.5))
-    rgb_img = color_jitter(rgb_img, hue=360, sat=(-1,1), val=(-1,1), log=True)
+    # rgb_img = resize_img(rgb_img, 2)
+    # rgb_img = color_jitter(rgb_img, hue=360, sat=(-1,1), val=(-1,1), log=True)
 
-    save_as_img(rgb_img, modify_filename(filename, '_modified'))
+    # save_as_img(rgb_img, modify_filename(filename, '_modified'))
 
 
-    # images = extract_patch(rgb_img, (1,5), log=True)
-    # for y, row in enumerate(images):
-    #     for x, rgb_img in enumerate(row):
-    #         save_as_img(rgb_img, modify_filename(filename, f'_{x}_{y}'))
+    images = extract_patch(rgb_img, (2,3))
+    for y, row in enumerate(images):
+        for x, rgb_img in enumerate(row):
+            save_as_img(rgb_img, modify_filename(filename, f'_{x}_{y}'))
+            
 def get_args():
     raw_args = sys.argv[1:]
     num_args = len(raw_args)
@@ -57,30 +58,29 @@ def random_crop(rgb_img, size, log=False):
     
     return rgb_img[y:y+size_h, x:x+size_w, :]
 
-def extract_patch(rgb_img, num_patches, log=False):
+def extract_patch(rgb_img: np.ndarray, num_patches, log=False):
     if type(num_patches) == tuple:
         num_w, num_h = num_patches
     else:
         num_w, num_h = num_patches, num_patches
+
+    H, W, channels = rgb_img.shape
+    size_h = H // num_h
+    size_w = W // num_w
     
-    h, w = img_size(rgb_img)
+    shape = [H // size_h, W // size_w] + [size_h, size_w]
+    shape.append(channels)
 
-    avg_h, avg_w = h/num_h, w/num_w
-    if avg_h < 1 or avg_w < 1:
-        sys.exit('num_patches is too large. Unable to split pixels.')
+    strides = rgb_img.strides
+    strides = [size_h*rgb_img.strides[0]] + [size_w*rgb_img.strides[1]] + list(rgb_img.strides)
 
-    images = []
-    for patch_y in range(num_h):
-        images.append([])
-        for patch_x in range(num_w):
-            y1, x1 = np.array([avg_h* patch_y,    avg_w* patch_x   ], dtype=np.uint32)
-            y2, x2 = np.array([avg_h*(patch_y+1), avg_w*(patch_x+1)], dtype=np.uint32)
-            if log:
-                print('Patch made from (%d,%d) to (%d,%d)' % (x1,y1,x2,y2))
-            image = rgb_img[y1:y2,x1:x2,:]
-            images[patch_y].append(image)
+    patches = np.lib.stride_tricks.as_strided(rgb_img, shape=shape, strides=strides)
 
-    return images
+    if log:
+        print('shape: ',shape)
+        print('strides: ', strides)
+
+    return patches
 
 def resize_img(rgb_img, factor):
     if type(factor) == tuple:
