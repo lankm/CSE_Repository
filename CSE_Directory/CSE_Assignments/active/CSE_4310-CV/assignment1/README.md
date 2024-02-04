@@ -23,3 +23,8 @@ I used pillow to read and save images. If there are any problems with installing
  - **create_img_pyramid**
    - The create_img_pyramid.py function implements a recursive averaging technique instead of '[my] own version of a resize function from the first section'. Its faster and because its calculating means instead of implementing nearest neighbor, so the resulting image is more accurate.
    
+
+
+
+
+Also I'm including a kirby.jpg image in the zip for the fun of it. I used it for testing.
