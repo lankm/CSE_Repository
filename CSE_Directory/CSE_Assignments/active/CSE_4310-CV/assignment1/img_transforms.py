@@ -16,16 +16,16 @@ def main():
     rgb_img = img_to_arr(filename)
 
     # rgb_img = random_crop(rgb_img, (1920,1080), log=True)
-    # rgb_img = resize_img(rgb_img, 2)
+    rgb_img = resize_img(rgb_img, 2)
     # rgb_img = color_jitter(rgb_img, hue=360, sat=(-1,1), val=(-1,1), log=True)
 
-    # save_as_img(rgb_img, modify_filename(filename, '_modified'))
+    save_as_img(rgb_img, modify_filename(filename, '_modified'))
 
 
-    images = extract_patch(rgb_img, (2,3))
-    for y, row in enumerate(images):
-        for x, rgb_img in enumerate(row):
-            save_as_img(rgb_img, modify_filename(filename, f'_{x}_{y}'))
+    # images = extract_patch(rgb_img, (2,3))
+    # for y, row in enumerate(images):
+    #     for x, rgb_img in enumerate(row):
+    #         save_as_img(rgb_img, modify_filename(filename, f'_{x}_{y}'))
             
 def get_args():
     raw_args = sys.argv[1:]
