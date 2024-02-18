@@ -1,30 +1,27 @@
+# README
+# This part of the assignment is about implementing the match_descriptors() function. Other parts such as extract_features() and plot() have code from the professor's github.
+# match_descriptors() has the same name as the skimage function and does almost the same thing. There is a small difference in the number of returned matches probably due to ties.
+# otherwise works fairly well. When tested on the yosemite images, moutain peaks generally match to the same moutain peak in the other image. there is still the noise as expected.
+
 import numpy as np
 from skimage import io, color, feature
 import sys
 import matplotlib.pyplot as plt
-
-
-
+from matplotlib.patches import ConnectionPatch
 
 def main():
-    filename_1, filename_2 = get_args()
+    filename1, filename2 = get_args()
 
-    # Load the images
-    img1 = load_img(filename_1)
-    img2 = load_img(filename_2)
+    img1 = load_img(filename1)
+    img2 = load_img(filename2)
 
-    detector1 = feature.SIFT()
-    detector2 = feature.SIFT()
-    detector1.detect_and_extract(img1)
-    detector2.detect_and_extract(img2)
-    keypoints1 = detector1.keypoints
-    descriptors1 = detector1.descriptors
-    keypoints2 = detector2.keypoints
-    descriptors2 = detector2.descriptors
+    keypoints1, descriptors1 = extract_features(img1)
+    keypoints2, descriptors2 = extract_features(img2)
 
-    matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True)
+    matches = match_descriptors(descriptors1, descriptors2)[:] # same name as skimage, but this is my own implementation. Change the bounds if you want to see subsets of the matches
+    # matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True)
 
-    plot(img1, img2, kf1, kf2, matches)
+    plot(img1, img2, keypoints1, keypoints2, matches)
 def get_args():
     raw_args = sys.argv[1:]
     num_args = len(raw_args)
@@ -41,20 +38,55 @@ def load_img(filename):
         img = color.rgba2rgb(img)
     img = color.rgb2gray(img)
     return img
+def extract_features(img):
+    detector = feature.SIFT()
+    detector.detect_and_extract(img)
+    keypoints = detector.keypoints
+    descriptors = detector.descriptors
+    return keypoints, descriptors
 
-def match_descriptors(kf1: list, kf2: list) -> list:
-    # kf1 & kf2: keypoint features. list of (x,y) tuples.
-    # return list of indicies, matching between them
-    pass
+def match_descriptors(descriptors1: np.ndarray, descriptors2: np.ndarray) -> np.ndarray:
+    # This algorithm is my best guess at the implementation of skimage.feature.match_descriptors()
 
-def plot(img1, img2, kf1, kf2, matches):
+    matches = []
+
+    for i, descriptor1 in enumerate(descriptors1):
+        # closest descriptor2 to descriptor1
+        diffs = descriptors2 - descriptor1
+        dists = np.sum(diffs * diffs, axis=1)   # L2 dist
+        closest = np.argmin(dists)
+
+        # closest descriptor1 to descriptor2
+        diffs = descriptors1 - descriptors2[closest]
+        dists = np.sum(diffs * diffs, axis=1)
+        cross_closest = np.argmin(dists)
+
+        # if both are closest to eachother
+        if i == cross_closest:
+            matches.append((i,closest))
+
+
+    return np.array(matches)
+
+def plot(img1, img2, keypoints1, keypoints2, matches):
+    # code taken from professor's github
+    keypoints1 = keypoints1[matches[:, 0]]
+    keypoints2 = keypoints2[matches[:, 1]]
+
     fig = plt.figure(figsize=(8, 4))
     ax1 = fig.add_subplot(121)
     ax2 = fig.add_subplot(122)
     ax1.imshow(img1, cmap='gray')
     ax2.imshow(img2, cmap='gray')
 
-    # for loop of matches
+    for i in range(keypoints2.shape[0]):
+        coordB = [keypoints1[i, 1], keypoints1[i, 0]]
+        coordA = [keypoints2[i, 1], keypoints2[i, 0]]
+        con = ConnectionPatch(xyA=coordA, xyB=coordB, coordsA="data", coordsB="data",
+                          axesA=ax2, axesB=ax1, color="red")
+        ax2.add_artist(con)
+        ax1.plot(keypoints1[i, 1], keypoints1[i, 0], 'ro')
+        ax2.plot(keypoints2[i, 1], keypoints2[i, 0], 'ro')
 
     plt.show()
 

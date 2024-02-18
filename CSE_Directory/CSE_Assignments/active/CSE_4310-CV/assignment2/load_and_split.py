@@ -23,3 +23,4 @@ if __name__ == "__main__":
 
     # Save the dictionary to a file
     np.savez("cifar10.npz", **data)
+    
