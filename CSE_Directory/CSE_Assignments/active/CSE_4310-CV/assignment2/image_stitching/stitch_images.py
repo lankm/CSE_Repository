@@ -7,19 +7,73 @@
 
 import numpy as np
 from skimage import io, color, feature, measure
-from skimage.transform import ProjectiveTransform, SimilarityTransform, warp
+from skimage.transform import ProjectiveTransform, SimilarityTransform, warp, AffineTransform
 import sys
 import matplotlib.pyplot as plt
 from matplotlib.patches import ConnectionPatch
+import cv2
 
-def compute_affine_transform(keypoint_pairs): # return 3x3 matrix
+def compute_affine_transform(x_points, y_points): # return 3x3 matrix
+    num_points = len(x_points)
+    
+    # Construct the design matrix A
+    A = np.zeros((2*num_points, 6))
+    for i in range(num_points):
+        x, y = x_points[i]
+        A[2*i] = [x, y, 1, 0, 0, 0]
+        A[2*i + 1] = [0, 0, 0, x, y, 1]
+    
+    # Construct the target vector b
+    b = np.array(y_points).flatten()
+    
+    # Solve for parameters using the normal equations (pseudo-inverse)
+    params = np.linalg.lstsq(A, b, rcond=None)[0]
+    
+    # Reshape the parameters into the affine transformation matrix
+    affine_matrix = np.array([[params[0], params[1], params[2]],
+                              [params[3], params[4], params[5]],
+                              [0, 0, 1]])
+    
+    return affine_matrix
+
+def compute_projective_transform(x_points, y_points): # return 3x3 matrix
+    print(x_points)
+    print(y_points)
     pass
 
-def compute_projective_transform(keypoint_pairs): # return 3x3 matrix
-    pass
+def ransac(data, compute_transform=compute_projective_transform, min_samples=4, residual_threshold=1, max_trials=300):
+    x, y = data
 
-def ransac():
-    pass
+    best_transform = None
+    best_inliers = [] # indexes
+
+    for _ in range(max_trials):
+        # randomly select (min_samples) samples
+        indices = np.random.choice(x.shape[0], min_samples, replace=False)
+        x_points = x[indices]
+        y_points = y[indices]
+
+        src_points_array = np.array(x_points).reshape((-1, 1, 2)).astype(np.float32)
+        dst_points_array = np.array(y_points).reshape((-1, 1, 2)).astype(np.float32)
+
+        # fit a model to the data such that transforming the input by the model parameters yields a close approximation to the targets
+        transform, _ = cv2.estimateAffinePartial2D(src_points_array, dst_points_array) # TODO: change to your own function
+
+        # measure the error of how well ALL data fits and select the number of inliers with error less than t
+        inliers = []
+        for i in range(x.shape[0]):
+            predicted = transform @ np.append(x[i], 1) # TODO understand how this works with prospective transforms
+            if np.linalg.norm(predicted-y[i]) < residual_threshold:
+                inliers.append(i)
+
+        # if the error is lower than the previous best error, fit a new model to these inliers
+        if len(inliers) > len(best_inliers):
+            best_inliers = inliers
+            best_transform = transform
+
+    print(best_transform)
+    best_transform = np.append(best_transform, [[0,0,1]], axis=0)
+    return AffineTransform(best_transform), best_inliers
 
 
 def main():
@@ -31,20 +85,20 @@ def main():
     keypoints1, descriptors1 = extract_features(img_gray1)
     keypoints2, descriptors2 = extract_features(img_gray2)
 
-    matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True)
+    matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True) # indexes of (keypoint1, keypoint2)
 
-    plot_all(img_gray1, img_gray2, keypoints1, keypoints2, matches)
+    # plot_all(img_gray1, img_gray2, keypoints1, keypoints2, matches)
 
-    # TODO
     dst = keypoints1[matches[:, 0]]
     src = keypoints2[matches[:, 1]]
-    sk_M, sk_best = measure.ransac((src[:, ::-1], dst[:, ::-1]), ProjectiveTransform, min_samples=4, residual_threshold=1, max_trials=300)
+    # sk_M, sk_best = measure.ransac((src[:, ::-1], dst[:, ::-1]), AffineTransform, min_samples=4, residual_threshold=1, max_trials=300)
+    # print(sk_M)
+    sk_M, sk_best = ransac((src, dst), compute_transform=compute_affine_transform, min_samples=4, residual_threshold=1, max_trials=300)
     print(sk_M)
 
     plot_best(img1, img2, keypoints1, keypoints2, sk_best, matches)
 
-    warp_img(img_gray1, img1, img2, sk_M)
-
+    # warp_img(img_gray1, img1, img2, sk_M)
 
 def get_args():
     raw_args = sys.argv[1:]
@@ -114,9 +168,9 @@ def warp_img(img_gray1, img1, img2, sk_M):
     # Transform the corners of img1 by the inverse of the best fit model
     rows, cols = img_gray1.shape
     corners = np.array([
-        [0, 0],
+        [0,    0],
         [cols, 0],
-        [0, rows],
+        [0,    rows],
         [cols, rows]
     ])
 
