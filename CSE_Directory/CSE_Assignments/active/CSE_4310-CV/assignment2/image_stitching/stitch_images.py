@@ -1,7 +1,5 @@
 # README
-# This part of the assignment is about implementing the match_descriptors() function. Other parts such as extract_features() and plot() have code from the professor's github.
-# match_descriptors() has the same name as the skimage function and does almost the same thing. There is a small difference in the number of returned matches probably due to ties.
-# otherwise works fairly well. When tested on the yosemite images, moutain peaks generally match to the same moutain peak in the other image. there is still the noise as expected.
+# At the time of writing, I am a bit uncertain about this code but it works from the best I can tell. I will polish up it later
 
 # https://en.wikipedia.org/wiki/Random_sample_consensus
 
@@ -11,35 +9,55 @@ from skimage.transform import ProjectiveTransform, SimilarityTransform, warp, Af
 import sys
 import matplotlib.pyplot as plt
 from matplotlib.patches import ConnectionPatch
-import cv2
 
 def compute_affine_transform(x_points, y_points): # return 3x3 matrix
     num_points = len(x_points)
     
-    # Construct the design matrix A
-    A = np.zeros((2*num_points, 6))
-    for i in range(num_points):
-        x, y = x_points[i]
-        A[2*i] = [x, y, 1, 0, 0, 0]
-        A[2*i + 1] = [0, 0, 0, x, y, 1]
+    # Construct the matrices A and B
+    A = np.zeros((2 * num_points, 6))
+    B = np.zeros((2 * num_points, 1))
     
-    # Construct the target vector b
-    b = np.array(y_points).flatten()
+    for n in range(num_points):
+        x, y = x_points[n]
+        u, v = y_points[n]
+        
+        A[2*n] = [x, y, 1, 0, 0, 0]
+        A[2*n+1] = [0, 0, 0, x, y, 1]
+        B[2*n] = u
+        B[2*n+1] = v
     
-    # Solve for parameters using the normal equations (pseudo-inverse)
-    params = np.linalg.lstsq(A, b, rcond=None)[0]
+    # Solve the least squares problem to find parameters
+    matrix, _, _, _ = np.linalg.lstsq(A, B, rcond=None)
     
-    # Reshape the parameters into the affine transformation matrix
-    affine_matrix = np.array([[params[0], params[1], params[2]],
-                              [params[3], params[4], params[5]],
-                              [0, 0, 1]])
-    
-    return affine_matrix
+    # Reshape parameters into a transformation matrix
+    aff_trans = np.vstack([matrix.reshape((2, 3)), [0, 0, 1]])
+
+    return AffineTransform(aff_trans) # wrapped in a transform object so the rest of the professors code still works with it
 
 def compute_projective_transform(x_points, y_points): # return 3x3 matrix
-    print(x_points)
-    print(y_points)
-    pass
+    num_points = len(x_points)
+    
+    # Construct the matrices A and B
+    A = np.zeros((2 * num_points, 8))
+    B = np.zeros((2 * num_points, 1))
+    
+    for n in range(num_points):
+        x, y = x_points[n]
+        u, v = y_points[n]
+        
+        A[2*n] = [x, y, 1, 0, 0, 0, -x*u, -y*u]
+        A[2*n+1] = [0, 0, 0, x, y, 1, -x*v, y*v]
+        B[2*n] = u
+        B[2*n+1] = v
+    
+    # Solve the least squares problem to find parameters
+    matrix, _, _, _ = np.linalg.lstsq(A, B, rcond=None)
+    matrix = np.append(matrix,1)
+
+    # Reshape parameters into a transformation matrix
+    proj_trans = matrix.reshape((3, 3))
+
+    return ProjectiveTransform(proj_trans) # wrapped in a transform object so the rest of the professors code still works with it
 
 def ransac(data, compute_transform=compute_projective_transform, min_samples=4, residual_threshold=1, max_trials=300):
     x, y = data
@@ -53,27 +71,22 @@ def ransac(data, compute_transform=compute_projective_transform, min_samples=4, 
         x_points = x[indices]
         y_points = y[indices]
 
-        src_points_array = np.array(x_points).reshape((-1, 1, 2)).astype(np.float32)
-        dst_points_array = np.array(y_points).reshape((-1, 1, 2)).astype(np.float32)
-
         # fit a model to the data such that transforming the input by the model parameters yields a close approximation to the targets
-        transform, _ = cv2.estimateAffinePartial2D(src_points_array, dst_points_array) # TODO: change to your own function
+        transform = compute_transform(x_points, y_points)
 
         # measure the error of how well ALL data fits and select the number of inliers with error less than t
         inliers = []
         for i in range(x.shape[0]):
-            predicted = transform @ np.append(x[i], 1) # TODO understand how this works with prospective transforms
+            predicted = transform(x[i])
             if np.linalg.norm(predicted-y[i]) < residual_threshold:
                 inliers.append(i)
 
         # if the error is lower than the previous best error, fit a new model to these inliers
         if len(inliers) > len(best_inliers):
             best_inliers = inliers
-            best_transform = transform
+            best_transform = compute_transform(x[inliers], y[inliers])
 
-    print(best_transform)
-    best_transform = np.append(best_transform, [[0,0,1]], axis=0)
-    return AffineTransform(best_transform), best_inliers
+    return best_transform, best_inliers
 
 
 def main():
@@ -91,14 +104,14 @@ def main():
 
     dst = keypoints1[matches[:, 0]]
     src = keypoints2[matches[:, 1]]
-    # sk_M, sk_best = measure.ransac((src[:, ::-1], dst[:, ::-1]), AffineTransform, min_samples=4, residual_threshold=1, max_trials=300)
+    # sk_M, sk_best = measure.ransac((src[:, ::-1], dst[:, ::-1]), ProjectiveTransform, min_samples=4, residual_threshold=1, max_trials=300)
     # print(sk_M)
-    sk_M, sk_best = ransac((src, dst), compute_transform=compute_affine_transform, min_samples=4, residual_threshold=1, max_trials=300)
+    sk_M, sk_best = ransac((src[:, ::-1], dst[:, ::-1]), compute_transform=compute_projective_transform, min_samples=4, residual_threshold=1, max_trials=300)
     print(sk_M)
 
     plot_best(img1, img2, keypoints1, keypoints2, sk_best, matches)
 
-    # warp_img(img_gray1, img1, img2, sk_M)
+    warp_img(img_gray1, img1, img2, sk_M)
 
 def get_args():
     raw_args = sys.argv[1:]
@@ -120,7 +133,7 @@ def extract_features(img):
     detector = feature.SIFT()
     detector.detect_and_extract(img)
     keypoints = detector.keypoints
-    descriptors = detector.descriptors
+    descriptors = detector.descriptors.astype(np.float32)
     return keypoints, descriptors
 
 def plot_all(img_gray1, img_gray2, keypoints1, keypoints2, matches):

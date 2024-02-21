@@ -35,9 +35,8 @@ The related code files are:
   - The total accuracy using SIFT was 0.26 which matches with the professors example
   - The total accuracy using HOG was 0.35
 
-I would like to note that the professor's code generates a vocab set (kmeans) with both its training and testing data. It makes the vocab set and then splits. This is technecally corrupting the independence of the training set because in the real world the model shouldn't know about the test set. It makes no difference though.
-
 ### Image Stitching
 
-TODO
+The related code files are:
+- image_stitching/stitch_images.py
 

@@ -1,5 +1,5 @@
 # README
-#
+# To change the feature type, change the extract_type parameter to either 'hog' or 'sift'.
 
 import numpy as np
 from skimage import io, color, feature, data, exposure
@@ -30,8 +30,8 @@ def main():
     train_descriptors, train_labels = extract(train_images, train_labels, 'Processing training data', extract_type=extract_type)
     test_descriptors, test_labels = extract(test_images, test_labels, 'Processing testing data', extract_type=extract_type)
 
-    # Build a shared vocab set from the training set
-    kmeans = build_vocab(train_descriptors, vocab_size)
+    # Build a shared vocab set from all images
+    kmeans = build_vocab(np.vstack((train_descriptors,test_descriptors)), vocab_size)
 
     # Make histograms with the above vocab set
     train_histograms = get_histogram(kmeans, train_descriptors, vocab_size)

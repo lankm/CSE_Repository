@@ -42,13 +42,13 @@ def extract_features(img):
     detector = feature.SIFT()
     detector.detect_and_extract(img)
     keypoints = detector.keypoints
-    descriptors = detector.descriptors
+    descriptors = detector.descriptors.astype(np.float32)
     return keypoints, descriptors
 
 def match_descriptors(descriptors1: np.ndarray, descriptors2: np.ndarray) -> np.ndarray:
     # This algorithm is my best guess at the implementation of skimage.feature.match_descriptors()
-
     matches = []
+    print(descriptors1.dtype)
 
     for i, descriptor1 in enumerate(descriptors1):
         # closest descriptor2 to descriptor1
