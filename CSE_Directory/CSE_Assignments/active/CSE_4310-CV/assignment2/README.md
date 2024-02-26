@@ -7,6 +7,15 @@ There are three parts of this assignment: Keypoint Matching, Evaluating Keypoint
 
 As a note to the professor, I dont like to play CodeDebugSimulator. Having each part of the assignment essentially be to read through your code, copy-paste, clean up & debug, then implement the actual assignment is very annoying and tedious. 90% of my time on this assignment was spend molding your code into a form fit for this assignment. It would be much better if you gave explicit codefiles that have TODO statments where the students need to work.
 
+## Required libraries
+
+Because the boilerplate code is from the professors code, much of the dependencies transfer over. some include:
+- sklearn
+- skimage
+- matplotlib
+- tqdm
+- numpy
+
 ### Keypoint Matching
 
 The related code files are:
@@ -22,6 +31,7 @@ The related code files are:
 - keypoint_detectors/feature_extraction.py
 - keypoint_detectors/evaluate_hog.py
 - keypoint_detectors/evaluate_sift.py
+- keypoint_detectors/load_and_split.py
 
 #### Keypoint Detectors Report
 
@@ -39,4 +49,30 @@ The related code files are:
 
 The related code files are:
 - image_stitching/stitch_images.py
+
+Works the same as the professors sample code but with the three implemented functions. The file has a readme with more details.
+
+#### Brief report
+
+Affine Transform Picures
+
+![alt text](yosemite_affine0.png)
+
+![alt text](yosemite_affine1.png)
+
+![alt text](rainier_affine0.png)
+
+![alt text](rainier_affine1.png)
+
+Projective Transform Example
+
+![alt text](yosemite_projective0.png)
+
+![alt text](yosemite_projective1.png)
+
+![alt text](rainier_projective0.png)
+
+![alt text](rainier_projective1.png)
+
+Overall It looks like the projective transform is able to match with more points. This is primarily due to the the projective transform being able to warp the points in more ways. There are a couple cases where the affine transform looks a bit more off than it should be while the projective transform handles those cases better. Specifically the rainier affine vs projective case. The affine transform doesn't line up as well. (it might be able to if I crank up the number of iterations)
 

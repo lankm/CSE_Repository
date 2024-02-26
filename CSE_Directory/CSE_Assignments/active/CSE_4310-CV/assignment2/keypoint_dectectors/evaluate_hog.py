@@ -3,7 +3,7 @@ from sklearn.svm import LinearSVC
 
 def main():
     # Load the data from feature_extraction.py
-    data = np.load("hog.npz", allow_pickle=True) # dictionary of arrays
+    data = np.load("hog.npz") # dictionary of arrays
     train_histogram = data['X_train'] 
     test_histogram = data['X_test']
     train_labels = data['y_train']

@@ -1,10 +1,15 @@
 # README
-# At the time of writing, I am a bit uncertain about this code but it works from the best I can tell. I will polish up it later
+# My code follows some of the naming conventions from the professors provided code. For example my ransac function has a lot of the same variable names as the skimage ransac function.
+# My ransac function recieves either 'compute_affine_transform' or 'compute_projective_transform' and uses that. Change between the two as desired.
+#
+# Other thing of note, in order to not have to implement my own point transform functions and change the professors privided code, my transfor functions wrap their result with a transform object.
+# For example 'AffineTransform(aff_trans)' in my compute_affine_transform() function is only wrapping my result of aff_trans so that 'corners_proj = sk_M(corners)' still works in the warp function.
+#
 
 # https://en.wikipedia.org/wiki/Random_sample_consensus
 
 import numpy as np
-from skimage import io, color, feature, measure
+from skimage import io, color, feature
 from skimage.transform import ProjectiveTransform, SimilarityTransform, warp, AffineTransform
 import sys
 import matplotlib.pyplot as plt
@@ -104,8 +109,6 @@ def main():
 
     dst = keypoints1[matches[:, 0]]
     src = keypoints2[matches[:, 1]]
-    # sk_M, sk_best = measure.ransac((src[:, ::-1], dst[:, ::-1]), ProjectiveTransform, min_samples=4, residual_threshold=1, max_trials=300)
-    # print(sk_M)
     sk_M, sk_best = ransac((src[:, ::-1], dst[:, ::-1]), compute_transform=compute_projective_transform, min_samples=4, residual_threshold=1, max_trials=300)
     print(sk_M)
 

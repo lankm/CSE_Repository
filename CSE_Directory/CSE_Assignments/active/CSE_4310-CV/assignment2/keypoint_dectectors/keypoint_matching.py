@@ -1,7 +1,6 @@
 # README
 # This part of the assignment is about implementing the match_descriptors() function. Other parts such as extract_features() and plot() have code from the professor's github.
-# match_descriptors() has the same name as the skimage function and does almost the same thing. There is a small difference in the number of returned matches probably due to ties.
-# otherwise works fairly well. When tested on the yosemite images, moutain peaks generally match to the same moutain peak in the other image. there is still the noise as expected.
+# match_descriptors() has the same name as the skimage function and produces the same number of points on the images I tested.
 
 import numpy as np
 from skimage import io, color, feature
@@ -19,7 +18,7 @@ def main():
     keypoints2, descriptors2 = extract_features(img2)
 
     matches = match_descriptors(descriptors1, descriptors2)[:] # same name as skimage, but this is my own implementation. Change the bounds if you want to see subsets of the matches
-    # matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True)
+    # matches = feature.match_descriptors(descriptors1, descriptors2, cross_check=True) # library equivelent
 
     plot(img1, img2, keypoints1, keypoints2, matches)
 def get_args():
@@ -48,12 +47,11 @@ def extract_features(img):
 def match_descriptors(descriptors1: np.ndarray, descriptors2: np.ndarray) -> np.ndarray:
     # This algorithm is my best guess at the implementation of skimage.feature.match_descriptors()
     matches = []
-    print(descriptors1.dtype)
 
     for i, descriptor1 in enumerate(descriptors1):
         # closest descriptor2 to descriptor1
         diffs = descriptors2 - descriptor1
-        dists = np.sum(diffs * diffs, axis=1)   # L2 dist
+        dists = np.sum(diffs * diffs, axis=1)   # ~L2 dist. no square root
         closest = np.argmin(dists)
 
         # closest descriptor1 to descriptor2

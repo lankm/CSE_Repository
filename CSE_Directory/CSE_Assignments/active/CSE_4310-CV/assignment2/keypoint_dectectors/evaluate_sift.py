@@ -1,9 +1,13 @@
+# README
+# this is very basic code. The primary purpose of having this separated from feature_extraction is to reduce processing times
+# The code does show a couple warning but this also occurs in the professors code. The code also works normally still.
+
 import numpy as np
 from sklearn.svm import LinearSVC
 
 def main():
     # Load the data from feature_extraction.py
-    data = np.load("sift.npz", allow_pickle=True) # dictionary of arrays
+    data = np.load("sift.npz") # dictionary of arrays
     train_histogram = data['X_train'] 
     test_histogram = data['X_test']
     train_labels = data['y_train']

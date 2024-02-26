@@ -1,14 +1,13 @@
 # README
-# To change the feature type, change the extract_type parameter to either 'hog' or 'sift'.
+# To change the feature type, change the extract_type parameter to either 'hog' or 'sift'. I'll include my sift.npz and hog.npz just in case there are any problems.
+# I won't include cifar10.npz in the zip because of its size so make sure to run load_and_split.py beforehand
+# lastly, I'm not doing the tfidf part because the professor said it's optional and it makes no differenct to the final result.
 
 import numpy as np
-from skimage import io, color, feature, data, exposure
+from skimage import color, feature
 from sklearn import cluster
-import sys
 import matplotlib.pyplot as plt
-from matplotlib.patches import ConnectionPatch
 from tqdm import tqdm
-from sklearn.feature_extraction.text import TfidfTransformer
 
 def main():
     # Load the pre-split data
@@ -23,7 +22,7 @@ def main():
     # show(X_train)
 
     # hyperparams
-    extract_type='hog'
+    extract_type='sift' # CHANGE THIS BETWEEN 'hog' and 'sift'. if its anything different you might have to change some code elsewhere
     vocab_size=50
 
     # Extract features from the each dataset
@@ -31,7 +30,7 @@ def main():
     test_descriptors, test_labels = extract(test_images, test_labels, 'Processing testing data', extract_type=extract_type)
 
     # Build a shared vocab set from all images
-    kmeans = build_vocab(np.vstack((train_descriptors,test_descriptors)), vocab_size)
+    kmeans = build_vocab(train_descriptors, test_descriptors, vocab_size)
 
     # Make histograms with the above vocab set
     train_histograms = get_histogram(kmeans, train_descriptors, vocab_size)
@@ -68,9 +67,9 @@ def extract(images, labels, desc='Processing images', extract_type='sift'):
     print(f'Extracted {total_features} features')
     
     return out_descriptors, out_labels
-def build_vocab(all_descriptors, vocab_size=50):
+def build_vocab(train_descriptors, test_descriptors, vocab_size=50):
     # Convert the list of SIFT features to a numpy array
-    descriptors_np = np.concatenate(all_descriptors)
+    descriptors_np = np.vstack((np.concatenate(train_descriptors),np.concatenate(test_descriptors)))
 
     # Create a KMeans model to cluster the SIFT features
     kmeans = cluster.KMeans(n_clusters=vocab_size, random_state=42)
