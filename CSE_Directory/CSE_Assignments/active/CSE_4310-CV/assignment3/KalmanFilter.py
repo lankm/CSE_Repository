@@ -1,5 +1,6 @@
 import numpy
 
+# keeps track of one object
 class KalmanFilter:
     def __init__():
         pass
