@@ -40,12 +40,15 @@ Due to acceleration being instantanious and continuous acceleration being simula
 Struct
 - Public
 - Private
+    - ori: [i32:4]  // current orientation
+    - rot: [i32:4]  // rotation vector
+    - vel: u32      // counterclockwise rotation rate
     - time: u32     // time of last update. holdover from Translation
-
-
 Methods
 - Public
+    - get_ori()     // 
 - Private
+    - update()      // updates ori by rotating around rot with velocity vel
 ```
 
 The overall approach should use quaterions. Once I learn more on the topic, a definition can be constructed.
