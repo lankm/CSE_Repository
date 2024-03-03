@@ -59,13 +59,19 @@ class Quaternion:
         return f'{r} {sign(i)} {abs(i)}i {sign(j)} {abs(j)}j {sign(k)} {abs(k)}k'
 
 def main():
-    theta = radians(180)/2
+    theta = radians(45)/2
     pos = [cos(theta)] + [sin(theta),0,0]
-
     q1 = Quaternion(*pos)
-    q2 = Quaternion(1,1,1,1).unit()
-
+    print(q1)
+    pos = [cos(theta)] + [0,sin(theta),0]
+    q1 = Quaternion(*pos)*q1
+    print(q1)
+    q2 = Quaternion(0,0,1,0).unit()
     print(q1*q2*q1.inv())
+
+    x = Quaternion(0,1,0,0)
+
+
 
 if __name__ == "__main__":
     main()

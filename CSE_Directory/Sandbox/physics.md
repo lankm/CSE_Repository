@@ -22,7 +22,6 @@ Methods
 - Public
     - get_dist()    // relative L2 distance; calls update()
     - get_vel()     // relative velocity
-    - get_acc()     // gets raw acceleration
     - acc()         // changes vel; calls update()
 - Private
     - update()      // updates position with linear interpolation
@@ -32,7 +31,7 @@ Note on the time variable. This should be implemented with some form of global t
 
 Multithreading and concurrency details still need to be figured out.
 
-Due to acceleration being instantanious and continuous acceleration being simulated from a calling class, the details of getting the current acceleration needs to be defined. A solution would be to measure the difference in velocity but that is not the best solution due to the delay.
+Acceleration and higher derivitive terms must be calculated over time from a calling class.
 
 ## Rotation
 
@@ -41,17 +40,21 @@ Struct
 - Public
 - Private
     - ori: [i32:4]  // current orientation
-    - rot: [i32:4]  // rotation vector
-    - vel: u32      // counterclockwise rotation rate
+    - rot: [i32:3]  // rotation vector. i j k
+    - vel: u32      // counterclockwise rotation rate. theta/sec
     - time: u32     // time of last update. holdover from Translation
 Methods
 - Public
-    - get_ori()     // 
+    - get_ori()     // gets current rotation quaternion. calls update()
+    - get_rot()     // gets rotation vector
+    - get_vel()     // gets rotation velocity
 - Private
     - update()      // updates ori by rotating around rot with velocity vel
 ```
 
-The overall approach should use quaterions. Once I learn more on the topic, a definition can be constructed.
+Rotation follows similar principles of translation. ori is a transformation quaternion in the form **ori = cos(t) + sin(t)(bi + cj + dk)** where t is fixed. This rotates any given point around an axis through the center of mass to an initial position. rot is of the form (bi + cj+ dk) and is the current vector which there is velocity around. To calculate the rotation quaternion, calculate **q = cos(vel\*time) + sin(vel\*time)\*rot**. To update ori simple left multiply: **ori = q\*ori**
+
+The intermediate axis theorem is not considered at this moment.
 
 ## Object
 ```
@@ -60,7 +63,7 @@ Struct
     - translation: Translation      //
     - mass: u32                     // total mass
     - rotation: Rotation            //
-    - moi: u32                      // moment of inertia
+    - moi: [u32:3]                  // moment of inertia
 - Private
 
 
