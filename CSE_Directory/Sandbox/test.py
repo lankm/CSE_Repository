@@ -71,7 +71,22 @@ def main():
 
     x = Quaternion(0,1,0,0)
 
+def bin(num, bits=16):
+    bin = ''
+    for i in range(bits):
+        if i%4==0:
+            bin += ' '
+        bin += str(num >> i & 1)
+    return bin[::-1]
 
+def bit_test():
+    num = 2**(8-2)
+    print(bin(num))
+    print(num)
+
+    res = num*num>>6
+    print(bin(res))
+    print(res)
 
 if __name__ == "__main__":
-    main()
+    bit_test()

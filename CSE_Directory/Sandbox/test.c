@@ -1,23 +1,17 @@
 #include <stdio.h>
 #include <limits.h>
-
-typedef struct Pose {
-    long pos[4]; // x y z time
-    long pos_vel[3]; // x y z
-
-    long rot[4]; // yaw pitch roll time
-    long rot_vel[3]; // yaw pitch roll
-} Pose;
+#include <time.h>
+#include <stdint.h>
 
 // Function to print a number in binary format
-void printBinary(unsigned long long num) {
+void printBinary(unsigned long long num, int bits) {
     if (num == 0) {
         printf("0\n");
         return;
     }
 
     // Calculate the number of bits needed to represent the number
-    int numBits = sizeof(num) * 8; // Assuming an unsigned int is 32 bits
+    int numBits = bits;
 
     // Loop through each bit and print it
     for (int i = numBits - 1; i >= 0; i--) {
@@ -29,10 +23,18 @@ void printBinary(unsigned long long num) {
 }
 
 int main(int argc, char **argv) {
-    unsigned long long a = ULONG_MAX;
-    unsigned long long b = a >> (sizeof(a)*8/2);
-    printBinary(a*a);
-    printBinary(b*b);
+    uint64_t num = 1<<30;
+    uint64_t res = 1<<30;
+    float f = 1.0;
+
+    clock_t start = clock();
+
+    for(int i=0; i<100000000; i++) {
+        res = (num*res + (uint64_t)(1<<29)) >> 30;
+    }
+
+    clock_t end = clock();
+    printf("%d\n",end-start);
 
     return 0;
 }
