@@ -41,11 +41,11 @@ Struct
 - Private
     - ori: [i32:4]  // current orientation. integers represent range of -1 to 1
     - rot: [i32:3]  // rotation vector. i j k
-    - vel: i32      // counterclockwise rotation rate. theta/sec
+    - vel: i32      // counterclockwise rotation rate. rotations/sec
     - time: u32     // time of last update. holdover from Translation
 Methods
 - Public
-    - get_ori()     // gets current rotation quaternion. calls update()
+    - get_ori()     // gets current rotation quaternion. Does not call update()
     - get_rot()     // gets rotation vector
     - get_vel()     // gets rotation velocity
 - Private
@@ -61,6 +61,7 @@ uint64_t num = 1<<30;
 uint64_t res = (num*num + (uint64_t)(1<<29)) >> 30;
 ```
 
+Angles are especially applicable to fixed point numbers. Overflows and underflows can be equivelent to a full rotation around a circle. The most significant bit of this type of number would be equivelent to pi radians or 180 degrees. Additionally fixed point numbers are expecially well suited for a lookup table. For speed purposes, the lookup table should avoid any calculations other than pointer arithmatic. Due to the above section, the lookup table will be i32 values with the appropriate representation.
 
 The intermediate axis theorem is not considered at this time.
 

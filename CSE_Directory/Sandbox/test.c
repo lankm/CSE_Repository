@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <time.h>
 #include <stdint.h>
+#include <math.h>
 
 // Function to print a number in binary format
 void printBinary(unsigned long long num, int bits) {
@@ -23,14 +24,13 @@ void printBinary(unsigned long long num, int bits) {
 }
 
 int main(int argc, char **argv) {
-    uint64_t num = 1<<30;
-    uint64_t res = 1<<30;
-    float f = 1.0;
+    double arr[1<<16];
+    double res;
 
     clock_t start = clock();
 
-    for(int i=0; i<100000000; i++) {
-        res = (num*res + (uint64_t)(1<<29)) >> 30;
+    for(int i=0; i<10000000; i++) {
+        res = arr[1<<16];
     }
 
     clock_t end = clock();
