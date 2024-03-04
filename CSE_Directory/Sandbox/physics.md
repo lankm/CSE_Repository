@@ -31,7 +31,7 @@ Note on the time variable. This should be implemented with some form of global t
 
 Multithreading and concurrency details still need to be figured out.
 
-Acceleration and higher derivitive terms must be calculated over time from a calling class.
+retrieving current acceleration and higher derivitive terms must be calculated over time from a calling class because acceleration does not persist. Keeping track of acceleration and higher derivitive terms would compramize the performance of the system by adding variables to keep track of. These calculations are simple and can be limited to scenarios that require them.
 
 ## Rotation
 
@@ -41,7 +41,7 @@ Struct
 - Private
     - ori: [i32:4]  // current orientation
     - rot: [i32:3]  // rotation vector. i j k
-    - vel: u32      // counterclockwise rotation rate. theta/sec
+    - vel: i32      // counterclockwise rotation rate. theta/sec
     - time: u32     // time of last update. holdover from Translation
 Methods
 - Public
@@ -54,7 +54,9 @@ Methods
 
 Rotation follows similar principles of translation. ori is a transformation quaternion in the form **ori = cos(t) + sin(t)(bi + cj + dk)** where t is fixed. This rotates any given point around an axis through the center of mass to an initial position. rot is of the form (bi + cj+ dk) and is the current vector which there is velocity around. To calculate the rotation quaternion, calculate **q = cos(vel\*time) + sin(vel\*time)\*rot**. To update ori simple left multiply: **ori = q\*ori**
 
-The intermediate axis theorem is not considered at this moment.
+The intermediate axis theorem is not considered at this time.
+
+gyroscopic precession is not considered at this time.
 
 ## Object
 ```
