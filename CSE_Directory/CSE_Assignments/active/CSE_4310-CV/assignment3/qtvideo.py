@@ -9,62 +9,82 @@ from PySide2 import QtCore, QtWidgets, QtGui
 from skvideo.io import vread
 
 
-class QtDemo(QtWidgets.QWidget):
+class QtVideo(QtWidgets.QWidget):
     def __init__(self, frames):
         super().__init__()
 
         self.frames = frames
+        self.starting_frame = 0
 
-        self.current_frame = 0
+        # TODO create MotionDetector Instance
 
-        self.button = QtWidgets.QPushButton("Next Frame")
+        self.current_frame = self.starting_frame
+
+        # Creating Buttons
+        self.backward_60 = QtWidgets.QPushButton("-60 Frames")
+        self.backward_1 = QtWidgets.QPushButton("-1 Frame")
+        self.forward_1 = QtWidgets.QPushButton("+1 Frame")
+        self.forward_60 = QtWidgets.QPushButton("+60 Frames")
 
         # Configure image label
         self.img_label = QtWidgets.QLabel(alignment=QtCore.Qt.AlignCenter)
-        h, w, c = self.frames[0].shape
-        if c == 1:
-            img = QtGui.QImage(self.frames[0], w, h, QtGui.QImage.Format_Grayscale8)
-        else:
-            img = QtGui.QImage(self.frames[0], w, h, QtGui.QImage.Format_RGB888)
-        self.img_label.setPixmap(QtGui.QPixmap.fromImage(img))
+        self.draw_image()
 
         # Configure slider
         self.frame_slider = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.frame_slider.setTickInterval(1)
-        self.frame_slider.setMinimum(0)
+        self.frame_slider.setMinimum(self.starting_frame)
         self.frame_slider.setMaximum(self.frames.shape[0]-1)
 
+        # Placing components
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.img_label)
-        self.layout.addWidget(self.button)
+        self.button_layout = QtWidgets.QHBoxLayout(self)
+        self.button_layout.addWidget(self.backward_60)
+        self.button_layout.addWidget(self.backward_1)
+        self.button_layout.addWidget(self.forward_1)
+        self.button_layout.addWidget(self.forward_60)
+        self.layout.addLayout(self.button_layout)
         self.layout.addWidget(self.frame_slider)
 
         # Connect functions
-        self.button.clicked.connect(self.on_click)
+        self.backward_60.clicked.connect(lambda: self.on_click(-60))
+        self.backward_1.clicked.connect(lambda: self.on_click(-1))
+        self.forward_1.clicked.connect(lambda: self.on_click(1))
+        self.forward_60.clicked.connect(lambda: self.on_click(60))
         self.frame_slider.sliderMoved.connect(self.on_move)
 
     @QtCore.Slot()
-    def on_click(self):
-        if self.current_frame == self.frames.shape[0]-1:
-            return
-        h, w, c = self.frames[self.current_frame].shape
-        if c == 1:
-            img = QtGui.QImage(self.frames[self.current_frame], w, h, QtGui.QImage.Format_Grayscale8)
-        else:
-            img = QtGui.QImage(self.frames[self.current_frame], w, h, QtGui.QImage.Format_RGB888)
-        self.img_label.setPixmap(QtGui.QPixmap.fromImage(img))
-        self.current_frame += 1
+    def on_click(self, inc):
+        # Calculating resulting frame
+        desired = self.current_frame + inc
+        self.current_frame = max(min(self.frames.shape[0]-1, desired),self.starting_frame)
+
+        self.draw_image()
 
     @QtCore.Slot()
     def on_move(self, pos):
         self.current_frame = pos
+        self.draw_image()
+
+    def draw_image(self):
         h, w, c = self.frames[self.current_frame].shape
         if c == 1:
             img = QtGui.QImage(self.frames[self.current_frame], w, h, QtGui.QImage.Format_Grayscale8)
         else:
             img = QtGui.QImage(self.frames[self.current_frame], w, h, QtGui.QImage.Format_RGB888)
-        self.img_label.setPixmap(QtGui.QPixmap.fromImage(img))
+        pixmap = QtGui.QPixmap.fromImage(img)
 
+        # drawing bounding boxes
+        painter = QtGui.QPainter(pixmap)
+        pen = QtGui.QPen(QtGui.QColor(255,0,0))
+        pen.setWidth(2)
+        painter.setPen(pen)
+        for rect in [(20,20,200,200)]: # TODO link this to MotionDetector.py
+            painter.drawRect(*rect)
+        painter.end()
+
+        self.img_label.setPixmap(pixmap)
 
 if __name__ == "__main__":
 
@@ -83,7 +103,7 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication([])
 
-    widget = QtDemo(frames)
+    widget = QtVideo(frames)
     widget.resize(800, 600)
     widget.show()
 
