@@ -1,12 +1,15 @@
 import sys
 import random
 import argparse
-import numpy
-numpy.float = numpy.float64
-numpy.int = numpy.int_
+import numpy as np
+np.float = np.float64
+np.int = np.int_
 
 from PySide2 import QtCore, QtWidgets, QtGui
 from skvideo.io import vread
+
+from KalmanFilter import *
+from MotionDetector import *
 
 
 class QtVideo(QtWidgets.QWidget):
@@ -14,9 +17,9 @@ class QtVideo(QtWidgets.QWidget):
         super().__init__()
 
         self.frames = frames
-        self.starting_frame = 0
+        self.starting_frame = 2 # due to initialization of motion detector
 
-        # TODO create MotionDetector Instance
+        self.motion_detector = MotionDetector(1,10,10,1,100,frames)
 
         self.current_frame = self.starting_frame
 
@@ -59,6 +62,7 @@ class QtVideo(QtWidgets.QWidget):
         # Calculating resulting frame
         desired = self.current_frame + inc
         self.current_frame = max(min(self.frames.shape[0]-1, desired),self.starting_frame)
+        self.frame_slider.setValue(desired)
 
         self.draw_image()
 
@@ -80,7 +84,7 @@ class QtVideo(QtWidgets.QWidget):
         pen = QtGui.QPen(QtGui.QColor(255,0,0))
         pen.setWidth(2)
         painter.setPen(pen)
-        for rect in [(20,20,200,200)]: # TODO link this to MotionDetector.py
+        for rect in self.motion_detector.detect(self.current_frame): # TODO link this to MotionDetector.py
             painter.drawRect(*rect)
         painter.end()
 
@@ -94,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument("--grey", metavar='True/False', type=str, default=False)
     args = parser.parse_args()
 
-    num_frames = args.num_frames
+    num_frames = 60 # args.num_frames
 
     if num_frames > 0:
         frames = vread(args.video_path, num_frames=num_frames, as_grey=args.grey)
