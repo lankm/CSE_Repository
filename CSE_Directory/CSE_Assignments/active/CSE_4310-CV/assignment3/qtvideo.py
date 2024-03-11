@@ -19,7 +19,7 @@ class QtVideo(QtWidgets.QWidget):
         self.frames = frames
         self.starting_frame = 2 # due to initialization of motion detector
 
-        self.motion_detector = MotionDetector(1,10,10,1,100,frames)
+        self.motion_detector = MotionDetector(2,10,10,1,100,frames)
 
         self.current_frame = self.starting_frame
 
@@ -84,7 +84,7 @@ class QtVideo(QtWidgets.QWidget):
         pen = QtGui.QPen(QtGui.QColor(255,0,0))
         pen.setWidth(2)
         painter.setPen(pen)
-        for rect in self.motion_detector.detect(self.current_frame): # TODO link this to MotionDetector.py
+        for rect, _ in zip(*self.motion_detector.update(self.current_frame)): # TODO link this to MotionDetector.py
             painter.drawRect(*rect)
         painter.end()
 
