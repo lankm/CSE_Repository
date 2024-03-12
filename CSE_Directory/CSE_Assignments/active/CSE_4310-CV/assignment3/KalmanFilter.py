@@ -4,8 +4,8 @@ import numpy as np
 class KalmanFilter:
     def __init__(self, pos, start, active):
         self.pos = np.array(pos)
-        self.vel = np.array([0,0])
-        self.active = active
+        self.vel = np.array([0,0]) # initially no velocity information is known
+        self.active = active       # generally initiallizes to false
 
         self.start = start # constant
         self.end = start   # changes with update
@@ -17,10 +17,20 @@ class KalmanFilter:
         dt = frame - self.end
         return self.pos + dt*self.vel
 
-    def update(self, pos, frame):
-        dt = frame - self.end
-        self.vel = (pos-self.pos)/dt
+    # update given a new position. alpha is the similar to the 'control matrix'
+    def update(self, new_pos, frame, alpha=0.5):
+        if frame in self.history: # should already be handled by calling class
+            return
 
+        # update velocity
+        dt = frame - self.end
+        new_vel = (new_pos-self.pos)/dt
+        self.vel = (1-alpha)*self.vel + (alpha)*new_vel
+        # update position
+        self.pos = (1-alpha)*self.pos + (alpha)*new_pos
+
+        # update history and end
+        self.history[frame] = new_pos
         self.end = frame
 
     def age(self):

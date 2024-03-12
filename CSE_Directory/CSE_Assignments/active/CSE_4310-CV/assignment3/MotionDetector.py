@@ -8,24 +8,28 @@ from skimage.measure import label, regionprops
 
 # track each object as a kalman filter
 class MotionDetector:
-    def __init__(self, frame_hysteresis, motion_threshold, distance_threshold, frames_to_skip, max_objects, frames):
-        self.frame_hysteresis = frame_hysteresis # delay between activation/deactivation
+    def __init__(self, frames, frame_hysteresis=16, motion_threshold=10, distance_threshold=20, frames_to_skip=4, max_objects=100,  blob_size=4):
+        self.frame_hysteresis = frame_hysteresis # delay between activation/deactivation (frame distance)
         self.motion_threshold = motion_threshold # filter raw noise. (0-255)
-        self.distance_threshold = distance_threshold # threshold for matching candidates and tracked objects
-        self.frames_to_skip = frames_to_skip # doesn't have to be every frame
-        self.max_objects = max_objects # 
+        self.distance_threshold = distance_threshold # threshold for matching objects and tracked objects (pixel distance)
+        self.frames_to_skip = frames_to_skip # doesn't have to be every frame (frame distance)
+        self.max_objects = max_objects # self explainatory
+        if max_objects < 0:
+            self.max_objects = float('inf')
+        self.blob_size = blob_size # dialation size when detecting
 
-        self.gray_frames = np.array([rgb2gray(frame)*255 for frame in frames])
+        self.frames = frames # just a reference to video data so frame data doesn't have to be passed. instead frame number can be passed
 
-        self.candidates = [] # contains active and inactive KalmanFilters
-        # initialization not required due to qtvideo calling first update
+        self.end = 0
+        self.objects = [] # contains active and inactive KalmanFilters
+        # initialization not required due to qtvideo calling first update. update is the same as initialization
     
-    # returns bounding boxes and centroids of candidates
+    # returns bounding boxes and centroids of objects
     def detect(self, frame):
         # load required frames
-        t0 = self.gray_frames[frame]
-        t1 = self.gray_frames[frame-1]
-        t2 = self.gray_frames[frame-2]
+        t0 = rgb2gray(self.frames[frame])*255
+        t1 = rgb2gray(self.frames[frame-1])*255
+        t2 = rgb2gray(self.frames[frame-2])*255
 
         # calculate differences between frames and get min
         d1 = abs(t0-t1).astype(np.uint8)
@@ -38,10 +42,10 @@ class MotionDetector:
         d[~mask] = 0
 
         # dilate each pixel with a circular window
-        selem = morphology.disk(9)
+        selem = morphology.disk(self.blob_size)
         d = morphology.dilation(d, selem)
 
-        # detect candidates and extract relevent information
+        # detect objects and extract relevent information
         labels = label(d)
         regions = regionprops(labels)
         boxes = []
@@ -54,14 +58,29 @@ class MotionDetector:
 
         return np.array(boxes), np.array(centroids)
 
-    def update(self, frame):
-        print()
+    # updates up to a given frame by iterating
+    def update_to(self, frame):
+        if frame < self.end:
+            self.objects = []
+            self.end = frame
+        
+        for i in range(self.end,frame,self.frames_to_skip):
+            self.update_single(i)
+            self.end = i
+
+    # a simple update that only considers the last known frame
+    def update_single(self, frame):
+        # reinitialize if previous frame
+        if frame < self.end:
+            self.objects = []
+        self.end = frame
+
         # removing tracked objects that have not been detected recently
-        candidates = []
-        for candidate in self.candidates:
-            if frame-candidate.end < self.frame_hysteresis:
-                candidates.append(candidate)
-        self.candidates = candidates
+        objects = []
+        for object in self.objects:
+            if frame-object.end < self.frame_hysteresis:
+                objects.append(object)
+        self.objects = objects
 
         # updating based on detection
         boxes, centroids = self.detect(frame)
@@ -69,28 +88,20 @@ class MotionDetector:
 
             matched = False
             # if match is found
-            for candidate in self.candidates:
-                prediction = candidate.predict(frame)
+            for object in self.objects:
+                prediction = object.predict(frame)
                 if np.linalg.norm(prediction-centroid) < self.distance_threshold:
                     matched = True
-                    candidate.update(centroid, frame)
-                    print(f'updated {prediction}')
+                    object.update(centroid, frame)
                     break
             
             # if a match is not found
             if not matched:
-                # make a new inactive kalman filter
-                self.candidates.append(KalmanFilter(centroid, frame, False))
+                # make a new inactive kalman filter if enough space
+                if len(self.objects) < self.max_objects:
+                    self.objects.append(KalmanFilter(centroid, frame, False))
         
-        # activating candidates which have been dectected for a while
-        for candidate in self.candidates:
-            if candidate.age() >= self.frame_hysteresis:
-                candidate.active = True
-        
-        for candidate in self.candidates:
-            print(candidate)
-
-        return boxes, centroids
-
-        
-
+        # activating objects which have been dectected for a while
+        for object in self.objects:
+            if object.age() >= self.frame_hysteresis:
+                object.active = True

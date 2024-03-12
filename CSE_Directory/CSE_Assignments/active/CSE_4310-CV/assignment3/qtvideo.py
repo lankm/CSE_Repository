@@ -18,8 +18,13 @@ class QtVideo(QtWidgets.QWidget):
 
         self.frames = frames
         self.starting_frame = 2 # due to initialization of motion detector
-
-        self.motion_detector = MotionDetector(2,10,10,1,100,frames)
+        self.motion_detector = MotionDetector(frames=frames,
+                                              frame_hysteresis=16, 
+                                              motion_threshold=10, 
+                                              distance_threshold=20, 
+                                              frames_to_skip=4, 
+                                              max_objects=100,
+        )
 
         self.current_frame = self.starting_frame
 
@@ -79,13 +84,34 @@ class QtVideo(QtWidgets.QWidget):
             img = QtGui.QImage(self.frames[self.current_frame], w, h, QtGui.QImage.Format_RGB888)
         pixmap = QtGui.QPixmap.fromImage(img)
 
-        # drawing bounding boxes
+        # update the detector with the current frame
+        self.motion_detector.update_to(self.current_frame)
+
+        # drawing objects
         painter = QtGui.QPainter(pixmap)
+
+        # drawing objects
         pen = QtGui.QPen(QtGui.QColor(255,0,0))
         pen.setWidth(2)
         painter.setPen(pen)
-        for rect, _ in zip(*self.motion_detector.update(self.current_frame)): # TODO link this to MotionDetector.py
+        for rect, _ in zip(*self.motion_detector.detect(self.current_frame)):
             painter.drawRect(*rect)
+
+        # drawing objects objects
+        pen = QtGui.QPen(QtGui.QColor(0,0,0))
+        pen.setWidth(5)
+        painter.setPen(pen)
+        for object in self.motion_detector.objects:
+            painter.drawPoint(*object.pos)
+
+        # drawing active objects
+        pen = QtGui.QPen(QtGui.QColor(0,0,255))
+        pen.setWidth(5)
+        painter.setPen(pen)
+        for object in self.motion_detector.objects:
+            if object.active:
+                for pos in object.history.values():
+                    painter.drawPoint(*pos)
         painter.end()
 
         self.img_label.setPixmap(pixmap)
@@ -98,7 +124,7 @@ if __name__ == "__main__":
     parser.add_argument("--grey", metavar='True/False', type=str, default=False)
     args = parser.parse_args()
 
-    num_frames = 60 # args.num_frames
+    num_frames = args.num_frames
 
     if num_frames > 0:
         frames = vread(args.video_path, num_frames=num_frames, as_grey=args.grey)
