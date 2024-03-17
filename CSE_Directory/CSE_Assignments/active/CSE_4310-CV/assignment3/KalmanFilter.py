@@ -5,6 +5,7 @@ class KalmanFilter:
     def __init__(self, pos, start, active):
         self.pos = np.array(pos)
         self.vel = np.array([0,0]) # initially no velocity information is known
+        self.acc = np.array([0,0])
         self.active = active       # generally initiallizes to false
 
         self.start = start # constant
@@ -15,19 +16,25 @@ class KalmanFilter:
     
     def predict(self, frame):
         dt = frame - self.end
-        return self.pos + dt*self.vel
+        v = self.vel + dt*self.acc
+        p = self.pos + dt*self.vel + .5*dt**2*self.acc
+        return p, v
 
     # update given a new position. alpha is the similar to the 'control matrix'
     def update(self, new_pos, frame, alpha=0.5):
         if frame in self.history: # should already be handled by calling class
             return
-
-        # update velocity
+        
+        # calculate new values given new position. assume constant acceleration between a to b
         dt = frame - self.end
-        new_vel = (new_pos-self.pos)/dt
-        self.vel = (1-alpha)*self.vel + (alpha)*new_vel
-        # update position
-        self.pos = (1-alpha)*self.pos + (alpha)*new_pos
+        p, v = self.predict(frame) # previously expected state
+        new_vel = (new_pos - self.pos)/dt # assuming new_pos is correct, actual velocity
+        new_acc = 0 # 2*(new_vel - self.vel)/dt # assuming new_vel is correct, actual acceleration
+
+        # update state. alpha factor implemented due to merging objects causing fast acceleration
+        self.pos = (1-alpha)*p        + (alpha)*new_pos
+        self.vel = (1-alpha)*v        + (alpha)*new_vel
+        self.acc = (1-alpha)*self.acc + (alpha)*new_acc
 
         # update history and end
         self.history[frame] = new_pos

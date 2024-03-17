@@ -8,7 +8,7 @@ from skimage.measure import label, regionprops
 
 # track each object as a kalman filter
 class MotionDetector:
-    def __init__(self, frames, frame_hysteresis=16, motion_threshold=10, distance_threshold=20, frames_to_skip=4, max_objects=100,  blob_size=4):
+    def __init__(self, frames, frame_hysteresis, motion_threshold, distance_threshold, frames_to_skip, max_objects,  blob_size=4):
         self.frame_hysteresis = frame_hysteresis # delay between activation/deactivation (frame distance)
         self.motion_threshold = motion_threshold # filter raw noise. (0-255)
         self.distance_threshold = distance_threshold # threshold for matching objects and tracked objects (pixel distance)
@@ -20,7 +20,7 @@ class MotionDetector:
 
         self.frames = frames # just a reference to video data so frame data doesn't have to be passed. instead frame number can be passed
 
-        self.end = 0
+        self.end = 2 - self.frames_to_skip # done so first update initializes
         self.objects = [] # contains active and inactive KalmanFilters
         # initialization not required due to qtvideo calling first update. update is the same as initialization
     
@@ -64,9 +64,9 @@ class MotionDetector:
             self.objects = []
             self.end = frame
         
-        for i in range(self.end,frame,self.frames_to_skip):
-            self.update_single(i)
-            self.end = i
+        while(self.end + self.frames_to_skip <= frame):
+            self.update_single(self.end)
+            self.end += self.frames_to_skip
 
     # a simple update that only considers the last known frame
     def update_single(self, frame):
@@ -89,7 +89,7 @@ class MotionDetector:
             matched = False
             # if match is found
             for object in self.objects:
-                prediction = object.predict(frame)
+                prediction, _ = object.predict(frame)
                 if np.linalg.norm(prediction-centroid) < self.distance_threshold:
                     matched = True
                     object.update(centroid, frame)
