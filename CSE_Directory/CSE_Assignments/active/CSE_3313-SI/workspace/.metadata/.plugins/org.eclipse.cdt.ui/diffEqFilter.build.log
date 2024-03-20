@@ -1,4 +1,4 @@
-21:29:44 **** Incremental Build of configuration Debug for project diffEqFilter ****
+04:17:01 **** Incremental Build of configuration Debug for project diffEqFilter ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "diffEqFilter.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\lankm\Documents\Github_Repositories\UTA_Repository\CSE_Directory\CSE_Assignments\active\CSE_3313-SI\workspace\diffEqFilter\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="diffEqFilter.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
@@ -7,11 +7,11 @@ Finished building target: diffEqFilter.elf
 arm-none-eabi-size   diffEqFilter.elf 
 arm-none-eabi-objdump -h -S  diffEqFilter.elf  > "diffEqFilter.list"
    text	   data	    bss	    dec	    hex	filename
-  32764	    556	   1924	  35244	   89ac	diffEqFilter.elf
+  32900	    556	   1924	  35380	   8a34	diffEqFilter.elf
 Finished building: default.size.stdout
  
 Finished building: diffEqFilter.list
  
 
-21:29:45 Build Finished. 0 errors, 0 warnings. (took 633ms)
+04:17:02 Build Finished. 0 errors, 0 warnings. (took 703ms)
 

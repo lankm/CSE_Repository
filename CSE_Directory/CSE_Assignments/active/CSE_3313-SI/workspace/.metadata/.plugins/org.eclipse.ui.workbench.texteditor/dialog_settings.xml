@@ -6,8 +6,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="IIRFi"/>
+		<item key="selection" value="N2"/>
 		<list key="findhistory">
+			<item value="N2"/>
+			<item value="hist"/>
+			<item value="x_hist"/>
 			<item value="iirfi"/>
 			<item value="hal_tim"/>
 			<item value="hal"/>
