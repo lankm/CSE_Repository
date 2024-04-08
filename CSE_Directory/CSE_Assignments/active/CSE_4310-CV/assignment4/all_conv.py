@@ -91,8 +91,8 @@ def main():
     val_dataset.dataset.transform = test_transforms
 
     # Use DataLoader to load the dataset
-    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=128, num_workers=8, shuffle=True)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=128, num_workers=8, shuffle=False)
+    train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=128, num_workers=8, shuffle=True, persistent_workers=True)
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=128, num_workers=8, shuffle=False, persistent_workers=True)
 
     # Configure the test dataset
     test_dataset = Imagenette("data/imagenette/test/", split="val", size="160px", download=False, transform=test_transforms)
@@ -111,11 +111,11 @@ def main():
     )
 
     # Fit the model
-    trainer = L.Trainer(callbacks=[early_stop_callback, checkpoint_callback])
+    trainer = L.Trainer(callbacks=[early_stop_callback, checkpoint_callback], max_epochs=-1)
     trainer.fit(model=model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 
     # Evaluate the model on the test set
-    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=256, num_workers=8, shuffle=False)
+    test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=256, num_workers=8, shuffle=False, persistent_workers=True)
     trainer.test(model=model, dataloaders=test_loader)
 
 if __name__ == "__main__":
