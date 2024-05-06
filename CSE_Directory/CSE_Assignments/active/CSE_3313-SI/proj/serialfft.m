@@ -5,7 +5,8 @@ clear all;
 TimeInterval = 1/fs;
 N = 256;
 fscale = linspace(-fs/2,fs/2,N);
-[B,A]=butter(3,0.2555);
+A = [1.0000   -2.4918    2.1046   -0.5999];
+B = [0    0.0024    0.0086    0.0019];
 [H,W]=freqz(B,A,N/2);
 H2 = [fliplr(H.') H.'];
 W = [-fliplr(W.') W.'];
@@ -26,10 +27,10 @@ while(1)
     X = fft(x);
     X = X./max(abs(X));
     Xs = fftshift(abs(X));
-    figure(1),plot(fscale(129:256),Xs(129:256)),axis([0,fs/2,0,1]),xlabel('Hz'),title('Normalized DFT of Samples'),ylabel('Magnitude');
+    figure(1),plot(W(129:256),abs(H2(129:256)),fscale(129:256),Xs(129:256)),axis([0,fs/2,0,1]),xlabel('Hz'),title('Normalized DFT of Samples'),ylabel('Magnitude');
     figure(2),plot(x),axis([0,N,-1.5,1.5]),title('Time-Domain Plot of Samples');
+
     clear x;
-    
     clear s;
 end
 
