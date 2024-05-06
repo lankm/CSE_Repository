@@ -1,7 +1,7 @@
 clear all;
 %%Variables (Edit yourself)
 
- fs = 625;
+fs = 625;
 TimeInterval = 1/fs;
 N = 256;
 fscale = linspace(-fs/2,fs/2,N);

@@ -685,3 +685,10 @@ Finished building: default.size.stdout
  
 Finished building: diffEqFilter.list
  
+20:31:04 **** Incremental Build of configuration Debug for project diffEqFilter ****
+make -j12 all 
+arm-none-eabi-size   diffEqFilter.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32900	    540	   1924	  35364	   8a24	diffEqFilter.elf
+Finished building: default.size.stdout
+ 
